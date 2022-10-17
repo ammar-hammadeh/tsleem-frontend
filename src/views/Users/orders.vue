@@ -1,0 +1,135 @@
+<template>
+  <div>
+    <Card></Card>
+    <Modal :data="modal_data"> </Modal>
+  </div>
+</template>
+<script>
+import Card from "../Components/Card.vue";
+import Modal from "../Components/Modal.vue";
+export default {
+  name: "userRequest",
+  components: {
+    Card,
+    Modal,
+  },
+  data() {
+    return {
+      modal_data: {
+        size: "600px",
+        title: null,
+      },
+      style_form: [
+        {
+          col: "12",
+          visible: false,
+          label: this.$i18n.t("Reason reject"),
+          error: null,
+          type: "textarea",
+          value_text: "reject_reason",
+          value: "",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+
+        {
+          col: "12",
+          visible: false,
+          label: this.$i18n.t("Role"),
+          error: null,
+          type: "select",
+          value_text: "roles",
+          items: [],
+          value: "",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+      ],
+      btns: [
+        // {
+        //   type: "icon",
+        //   text: "edit_user",
+        //   color: "bg-gradient-success",
+        //   icon: "mdi-pencil",
+        //   permission: "user-update",
+        // },
+        {
+          type: "icon",
+          text: "active_user",
+          color: "bg-gradient-success",
+          icon: "mdi-check",
+          permission: "user-active",
+        },
+        {
+          type: "icon",
+          text: "rejected_user",
+          color: "bg-gradient-success",
+          icon: "mdi-close",
+          permission: "user-rejected",
+        },
+      ],
+      header: [
+        { text: this.$i18n.t("Name"), value: "name", align: "center" },
+
+        {
+          text: this.$i18n.t("auth.Email Address"),
+          value: "email",
+          align: "center",
+        },
+        {
+          text: this.$i18n.t("license"),
+          value: "company.license",
+          align: "center",
+        },
+        {
+          text: this.$i18n.t("Commercial Register"),
+          value: "company.commercial",
+          align: "center",
+        },
+        {
+          text: this.$i18n.t("Company Name"),
+          value: "company.name",
+          align: "center",
+        },
+        {
+          text: this.$i18n.t("user type"),
+          value: "type.name",
+          align: "center",
+        },
+        {
+          text: this.$i18n.t("status"),
+          value: "status_text",
+          align: "center",
+        },
+        { text: this.$i18n.t("Action"), value: "btns", align: "center" },
+      ],
+      card: {
+        title: this.$i18n.t("userRequest"),
+        add_url: null,
+        permission: null,
+      },
+    };
+  },
+  methods: {
+    set_data() {
+      this.$store.commit("SET_CARD", this.card);
+      this.$store.commit("SET_COLLECTION", "user");
+      this.$store.commit("table/SET_LOADING", true);
+      this.$store.commit("table/SET_HEADERS", this.header);
+      this.$store.commit("table/SET_BTNS", this.btns);
+      this.$store.commit("table/SET_PAGINATION", true);
+      this.$store.commit("SET_URL", "users/pending-users");
+    },
+  },
+  mounted() {
+    this.$http.get("/roles").then(
+      (response) => {
+        this.style_form[1].items = response.data.data;
+        this.$store.commit("form/SET_FORM_STYLE", this.style_form);
+      },
+      (error) => {}
+    );
+    this.set_data();
+    this.$store.dispatch("user/getData", { reset: true });
+    document.title = this.$i18n.t("userRequest");
+  },
+};
+</script>

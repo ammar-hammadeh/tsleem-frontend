@@ -1,0 +1,133 @@
+// =========================================================
+// * Vuetify Soft UI Dashboard PRO - v1.0.0
+// =========================================================
+
+// * Product Page:  https://store.vuetifyjs.com/products/vuetify-soft-ui-dashboard-pro
+// * Copyright 2021 Creative Tim (https://www.creative-tim.com)
+
+// Coded by www.creative-tim.com
+
+//  =========================================================
+
+// * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+
+// Variables
+@import "soft-ui-dashboard/variables";
+
+// Mixins
+@import "soft-ui-dashboard/mixins/placeholder";
+@import "soft-ui-dashboard/mixins/background";
+@import "soft-ui-dashboard/mixins/gradients";
+
+// Utilities
+@import "soft-ui-dashboard/utilities";
+
+// Nucleo Icons
+// @import "soft-ui-dashboard/nucleo-svg";
+@import "soft-ui-dashboard/nucleo";
+
+// Components
+@import "soft-ui-dashboard/drawer";
+@import "soft-ui-dashboard/misc";
+@import "soft-ui-dashboard/forms";
+@import "soft-ui-dashboard/buttons";
+@import "soft-ui-dashboard/app-bar";
+@import "soft-ui-dashboard/breadcrumbs";
+@import "soft-ui-dashboard/card";
+@import "soft-ui-dashboard/typography";
+@import "soft-ui-dashboard/checkbox";
+@import "soft-ui-dashboard/progress";
+@import "soft-ui-dashboard/avatar";
+@import "soft-ui-dashboard/media";
+@import "soft-ui-dashboard/table";
+@import "soft-ui-dashboard/header";
+@import "soft-ui-dashboard/separators";
+@import "soft-ui-dashboard/alerts";
+@import "soft-ui-dashboard/timeline";
+@import "soft-ui-dashboard/switch";
+@import "soft-ui-dashboard/pagination";
+@import "soft-ui-dashboard/select";
+
+// Vendors
+@import "soft-ui-dashboard/vendors/sweetalert2";
+@import "soft-ui-dashboard/vendors/fullcalendar";
+@import "soft-ui-dashboard/vendors/quill";
+@import "soft-ui-dashboard/vendors/dropzone";
+@import "soft-ui-dashboard/vendors/photoswipe";
+@import "soft-ui-dashboard/vendors/kanban";
+
+
+.v-text-field--outlined fieldset{
+  border-width: 1px;
+}
+
+.v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset{
+  border-width: 1px;
+  border-collapse: collapse;
+  border-color: #ccc;
+  border-style: solid;
+}
+.v-text-field--outlined.error--text fieldset{
+  border-color: #ea0606;
+}
+.w-45{
+  min-width: 45px !important;
+}
+.v-snack{
+  justify-content: end;
+}
+.v-treeview-node__label{
+  width: max-content;
+  flex: initial !important;
+  padding-right: 20px;
+}
+
+#col_attribute label,
+#col_reason label{
+  display: block;
+}
+#col_attribute .v-select,
+#col_reason .v-select{
+  display: inline-block;
+  width: 93%;
+}
+#col_attribute, #partial,
+#col_reason{
+  min-width: 36px !important;
+}
+.overlay-loading{
+  position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #ffffffbd;
+    z-index: 99999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+  cursor: pointer;
+}
+.mw-80{
+  min-width: 80px !important;
+}
+// pagination 
+.theme--light.v-pagination .v-pagination__item,
+.theme--light.v-pagination .v-pagination__navigation{
+  border-radius: 50%;
+  border: 1px solid #dee2e6;
+}
+.theme--light.v-pagination .v-pagination__item--active{
+  background: transparent !important;
+  background-image: linear-gradient(310deg,#7928ca,#ff0080) !important;
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 9%), 0 2px 3px -1px rgb(0 0 0 / 7%);
+    color: #fff;
+    border: none;
+    border-radius: 50%!important;
+}
+.v-pagination{
+  justify-content: end !important;
+}
