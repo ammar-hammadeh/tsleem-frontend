@@ -4,7 +4,6 @@
     fixed
     app
     floating
-    :expand-on-hover="mini"
     :value="drawer"
     :right="$vuetify.rtl"
     class="my-4 ms-4 border-radius-lg"
@@ -15,15 +14,24 @@
     <v-list-item class="pa-0">
       <v-list-item-content class="pa-0">
         <v-list-item-title class="title d-flex align-center mb-0">
-          <div class="v-navigation-drawer-brand pa-5 d-flex align-center">
-            <v-img
-              src="@/assets/img/logo2.png"
-              class="navbar-brand-img ms-3"
-              width="35"
-            >
-            </v-img>
-            <span class="ms-2 font-weight-bold text-sm">Tsleem</span>
-          </div>
+          <router-link to="/dashboard">
+            <div class="v-navigation-drawer-brand pa-5 d-flex align-center">
+              <img
+                src="@/assets/img/logo2.png"
+                class="navbar-brand-img ms-3 mb-3 mt-3"
+                width="27%"
+              />
+              <span
+                class="
+                  text-brand text-dark
+                  ms-2
+                  font-weight-bold font-poppins
+                  text-sm
+                "
+                >Tsleem</span
+              >
+            </div>
+          </router-link>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -46,113 +54,114 @@
       :header="header_settings"
     ></ListItemSide> -->
 
-    <!-- <h5
-      class="
-        text-uppercase text-caption
-        ls-0
-        font-weight-bolder
-        p-0
-        text-muted
-        mx-4
-        mt-4
-        mb-2
-        ps-2
-        d-none-mini
-        white-space-nowrap
-      "
-    >
-      Pages
-    </h5>
+    <!--    <h5-->
+    <!--      class="-->
+    <!--        text-uppercase text-caption-->
+    <!--        ls-0-->
+    <!--        font-weight-bolder-->
+    <!--        p-0-->
+    <!--        text-muted-->
+    <!--        mx-4-->
+    <!--        mt-4-->
+    <!--        mb-2-->
+    <!--        ps-2-->
+    <!--        d-none-mini-->
+    <!--        white-space-nowrap-->
+    <!--      "-->
+    <!--    >-->
+    <!--      Pages-->
+    <!--    </h5>-->
 
-    <v-list-group
-      :ripple="false"
-      v-for="item in itemsPages"
-      :key="item.title"
-      v-model="item.active"
-      append-icon="fas fa-angle-down"
-      class="pb-1 mx-2"
-      active-class="item-active"
-    >
-      <template v-slot:activator>
-        <v-list-item-icon class="shadow border-radius-md mx-2 align-center">
-          <div v-html="item.action">
-            {{ item.action }}
-          </div>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title
-            v-text="item.title"
-            class="ms-1"
-          ></v-list-item-title>
-        </v-list-item-content>
-      </template>
+    <!--    <v-list-group-->
+    <!--      :ripple="false"-->
+    <!--      v-for="item in itemsPages"-->
+    <!--      :key="item.title"-->
+    <!--      v-model="item.active"-->
+    <!--      append-icon="fas fa-angle-down"-->
+    <!--      class="pb-1 mx-2"-->
+    <!--      active-class="item-active"-->
+    <!--    >-->
+    <!--      <template v-slot:activator>-->
+    <!--        <v-list-item-icon class="shadow border-radius-md mx-2 align-center">-->
+    <!--          <div v-html="item.action">-->
+    <!--            {{ item.action }}-->
+    <!--          </div>-->
+    <!--        </v-list-item-icon>-->
+    <!--        <v-list-item-content>-->
+    <!--          <v-list-item-title-->
+    <!--            v-text="item.title"-->
+    <!--            class="ms-1"-->
+    <!--          ></v-list-item-title>-->
+    <!--        </v-list-item-content>-->
+    <!--      </template>-->
 
-      <v-list-item
-        :ripple="false"
-        link
-        class="mb-0 no-default-hover"
-        :class="child.active ? 'item-active' : ''"
-        v-for="child in item.items"
-        :key="child.title"
-        :to="child.link"
-      >
-        <span class="v-list-item-mini" v-text="child.prefix"></span>
+    <!--      <v-list-item-->
+    <!--        :ripple="false"-->
+    <!--        link-->
+    <!--        class="mb-0 no-default-hover"-->
+    <!--        :class="child.active ? 'item-active' : ''"-->
+    <!--        v-for="child in item.items"-->
+    <!--        :key="child.title"-->
+    <!--        :to="child.link"-->
+    <!--      >-->
+    <!--        <span class="v-list-item-mini" v-text="child.prefix"></span>-->
 
-        <v-list-item-content class="ms-6 ps-7" v-if="!child.items">
-          <v-list-item-title
-            v-text="child.title"
-            @click="listClose($event)"
-          ></v-list-item-title>
-        </v-list-item-content>
+    <!--        <v-list-item-content class="ms-6 ps-7" v-if="!child.items">-->
+    <!--          <v-list-item-title-->
+    <!--            v-text="child.title"-->
+    <!--            @click="listClose($event)"-->
+    <!--          ></v-list-item-title>-->
+    <!--        </v-list-item-content>-->
 
-        <v-list-item-content class="ms-6 ps-7 py-0" v-if="child.items">
-          <v-list-group
-            prepend-icon=""
-            :ripple="false"
-            sub-group
-            no-action
-            v-model="child.active"
-          >
-            <template v-slot:activator>
-              <span class="v-list-item-mini">{{ child.prefix }}</span>
-              <v-list nav dense class="pa-0">
-                <v-list-group
-                  :ripple="false"
-                  append-icon="fas fa-angle-down me-auto ms-1"
-                  active-class="item-active"
-                  class="mb-0"
-                >
-                  <template v-slot:activator class="mb-0">
-                    <v-list-item-content class="py-0">
-                      <v-list-item-title
-                        v-text="child.title"
-                      ></v-list-item-title>
-                    </v-list-item-content>
-                  </template>
-                </v-list-group>
-              </v-list>
-            </template>
+    <!--        <v-list-item-content class="ms-6 ps-7 py-0" v-if="child.items">-->
+    <!--          <v-list-group-->
+    <!--            prepend-icon=""-->
+    <!--            :ripple="false"-->
+    <!--            sub-group-->
+    <!--            no-action-->
+    <!--            v-model="child.active"-->
+    <!--          >-->
+    <!--            <template v-slot:activator>-->
+    <!--              <span class="v-list-item-mini">{{ child.prefix }}</span>-->
+    <!--              <v-list nav dense class="pa-0">-->
+    <!--                <v-list-group-->
+    <!--                  :ripple="false"-->
+    <!--                  append-icon="fas fa-angle-down me-auto ms-1"-->
+    <!--                  active-class="item-active"-->
+    <!--                  class="mb-0"-->
+    <!--                >-->
+    <!--                  <template v-slot:activator class="mb-0">-->
+    <!--                    <v-list-item-content class="py-0">-->
+    <!--                      <v-list-item-title-->
+    <!--                        v-text="child.title"-->
+    <!--                      ></v-list-item-title>-->
+    <!--                    </v-list-item-content>-->
+    <!--                  </template>-->
+    <!--                </v-list-group>-->
+    <!--              </v-list>-->
+    <!--            </template>-->
 
-            <v-list-item
-              v-for="child2 in child.items"
-              :ripple="false"
-              :key="child2.title"
-              :to="child2.link"
-              @click="listClose($event)"
-            >
-              <v-list-item-content>
-                <span class="v-list-item-mini" v-text="child2.prefix"></span>
-                <v-list-item-title v-text="child2.title"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list-group> -->
+    <!--            <v-list-item-->
+    <!--              v-for="child2 in child.items"-->
+    <!--              :ripple="false"-->
+    <!--              :key="child2.title"-->
+    <!--              :to="child2.link"-->
+    <!--              @click="listClose($event)"-->
+    <!--            >-->
+    <!--              <v-list-item-content>-->
+    <!--                <span class="v-list-item-mini" v-text="child2.prefix"></span>-->
+    <!--                <v-list-item-title v-text="child2.title"></v-list-item-title>-->
+    <!--              </v-list-item-content>-->
+    <!--            </v-list-item>-->
+    <!--          </v-list-group>-->
+    <!--        </v-list-item-content>-->
+    <!--      </v-list-item>-->
+    <!--    </v-list-group>-->
   </v-navigation-drawer>
 </template>
 <script>
 import ListItemSide from "../views/Components/ListItem.vue";
+
 export default {
   name: "drawer",
   components: {
@@ -186,12 +195,18 @@ export default {
     },
     system: [
       {
+        action: "fa fa-home",
+        title: "Home",
+        permission: "user",
+        link: "/dashboard",
+      },
+      {
         action: "fa fa-users",
         title: "Users",
         permission: "user",
         items: [
           {
-            title: "Users",
+            title: "Admins",
             prefix: "I",
             link: "/users",
             permission: "user-index",
@@ -257,11 +272,11 @@ export default {
       },
       {
         action: "mdi-graph",
-        title: "type share",
-        permission: "role",
+        title: "categories",
+        permission: "category",
         items: [
           {
-            title: "sharePage",
+            title: "CategoryPage",
             prefix: "K",
             link: "/categories",
             permission: "category-index",
@@ -274,6 +289,25 @@ export default {
           },
         ],
       },
+      // {
+      //   action: "mdi-graph",
+      //   title: "EnginnerOffice",
+      //   permission: "engineer-office",
+      //   items: [
+      //     {
+      //       title: "EnginnerOfficeCategoryPage",
+      //       prefix: "K",
+      //       link: "/engineer-office/category",
+      //       permission: "engineer-office-index",
+      //     },
+      //     {
+      //       title: "Add new",
+      //       prefix: "W",
+      //       link: "/engineer-office/category/create",
+      //       permission: "engineer-office-create",
+      //     },
+      //   ],
+      // },
       {
         action: "mdi-tent",
         title: "CampPage",
@@ -312,25 +346,25 @@ export default {
           },
         ],
       },
-      {
-        action: "mdi-city-variant",
-        title: "cities",
-        permission: "city",
-        items: [
-          {
-            title: "cities View",
-            prefix: "K",
-            link: "/city",
-            permission: "city-index",
-          },
-          {
-            title: "Add new",
-            prefix: "W",
-            link: "/city/create",
-            permission: "city-create",
-          },
-        ],
-      },
+      // {
+      //   action: "mdi-city-variant",
+      //   title: "cities",
+      //   permission: "city",
+      //   items: [
+      //     {
+      //       title: "cities View",
+      //       prefix: "K",
+      //       link: "/city",
+      //       permission: "city-index",
+      //     },
+      //     {
+      //       title: "Add new",
+      //       prefix: "W",
+      //       link: "/city/create",
+      //       permission: "city-create",
+      //     },
+      //   ],
+      // },
       {
         action: "mdi-clipboard-account-outline",
         title: "Questions",
@@ -347,6 +381,44 @@ export default {
             prefix: "W",
             link: "/questions/create",
             permission: "question-create",
+          },
+        ],
+      },
+      {
+        action: "mdi-clipboard-account-outline",
+        title: "QuestionCategory",
+        permission: "question_category",
+        items: [
+          {
+            title: "QuestionCategoryView",
+            prefix: "K",
+            link: "/question-category",
+            permission: "question_category-index",
+          },
+          {
+            title: "NewQuestionCategory",
+            prefix: "W",
+            link: "/question-category/create",
+            permission: "question_category-create",
+          },
+        ],
+      },
+      {
+        action: "mdi-clipboard-account-outline",
+        title: "Tamplate Form",
+        permission: "tamplate-form",
+        items: [
+          {
+            title: "Tamplate Form View",
+            prefix: "K",
+            link: "/forms",
+            permission: "tamplate-form-index",
+          },
+          {
+            title: "Add new",
+            prefix: "W",
+            link: "/forms/create",
+            permission: "tamplate-form-create",
           },
         ],
       },
@@ -384,106 +456,24 @@ export default {
             title: "NewAppointment",
             prefix: "I C",
             link: "/appointments/create",
-            permission: "appointment-create-index",
+            permission: "appointment-creat-index",
           },
         ],
       },
       {
         action: "mdi-clipboard-check",
         title: "SignaturePage",
-        link: "/signatures",
+        link: "/contructs",
         permission: "signature-index",
       },
+      // {
+      //   action: "mdi-clipboard-check",
+      //   title: "DeliveryPage",
+      //   link: "/deliveries",
+      //   permission: "delivery-index",
+      // },
     ],
-    header_settings: {
-      title: "settings",
-      permission:
-        "country,city,shipping,supplier,export,reason,appointments,inventory",
-    },
-    settings: [
-      {
-        action: "mdi-warehouse",
-        title: "inventory",
-        permission: "inventory",
-        items: [
-          {
-            title: "Inventory View",
-            prefix: "I",
-            link: "/inventory",
-            permission: "inventory-index",
-          },
-          {
-            title: "Add new",
-            prefix: "I C",
-            link: "/inventory/create",
-            permission: "inventory-create",
-          },
-          {
-            title: "Details Inventory",
-            prefix: "I D",
-            link: "/inventory/details",
-            permission: "inventory-details",
-          },
-        ],
-      },
-      {
-        action: "mdi-bank-transfer",
-        title: "appointments",
-        permission: "warehouse",
-        items: [
-          {
-            title: "warhouse",
-            prefix: "I C",
-            link: "/appointments",
-            permission: "warehouse-transfers-index",
-          },
-          {
-            title: "Add new",
-            prefix: "I C",
-            link: "/inventory/create",
-            permission: "warehouse-transfers-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-account-tie",
-        title: "Supplier",
-        permission: "supplier",
-        items: [
-          {
-            title: "Supplier View",
-            prefix: "S",
-            link: "/supplier",
-            permission: "supplier-index",
-          },
-          {
-            title: "Add new",
-            prefix: "S C",
-            link: "/supplier/create",
-            permission: "supplier-index",
-          },
-        ],
-      },
-      {
-        action: "mdi-home-export-outline",
-        title: "Export Reason",
-        permission: "export-reason",
-        items: [
-          {
-            title: "Export Reason View",
-            prefix: "S",
-            link: "/export_reasons",
-            permission: "export-reason-index",
-          },
-          {
-            title: "Add new",
-            prefix: "S C",
-            link: "/export_reasons/create",
-            permission: "export-reason-create",
-          },
-        ],
-      },
-    ],
+
     items: [
       {
         action:
@@ -811,3 +801,12 @@ export default {
   },
 };
 </script>
+<style>
+.v-navigation-drawer {
+  max-width: 17.25rem !important;
+}
+.v-navigation-drawer .v-list-item__title{
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+</style>

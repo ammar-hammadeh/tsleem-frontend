@@ -4,9 +4,10 @@ export default function authReject({ next, router, store }) {
       path: '/login',
     })
   }
-
-  if (store.state.auth.user.status != "rejected") {
+  // console.log(store.state.auth.user.status)
+  if (store.state.auth.user.status != "rejected" && store.state.auth.user.status != 'pending') {
     // router.go(-1)
+    // console.log('test auth rejected')
     return next({
       path: '/403',
     })

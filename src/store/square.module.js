@@ -154,6 +154,12 @@ export const square = {
                     "paginate",
                     data.pre_page
                 );
+            } else {
+                if (rootState.table.paginate.itemsPerPage != '')
+                    formData.append(
+                        "paginate",
+                        rootState.table.paginate.itemsPerPage
+                    );
             }
             return SquareService.get_squares(rootState.table.paginate.page, formData).then(
                 (response) => {

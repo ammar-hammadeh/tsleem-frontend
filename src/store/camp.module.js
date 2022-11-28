@@ -189,7 +189,7 @@ export const camp = {
         },
 
         getData({ rootState }, data) {
-            console.log(data)
+            // console.log(data)
             rootState.table.loading = true;
             const formData = new FormData();
             if (!data.hasOwnProperty('reset')) {
@@ -204,6 +204,12 @@ export const camp = {
                     "paginate",
                     data.pre_page
                 );
+            } else {
+                if (rootState.table.paginate.itemsPerPage != '')
+                    formData.append(
+                        "paginate",
+                        rootState.table.paginate.itemsPerPage
+                    );
             }
             return CampService.get_camps(rootState.table.paginate.page, formData).then(
                 (response) => {
@@ -216,7 +222,7 @@ export const camp = {
                         page: rootState.table.paginate.page,
                     }
                     if (data.hasOwnProperty('reset') && data.reset) {
-                        console.log('reset2')
+                        // console.log('reset2')
                         rootState.form.filters = response.data.filters;
                     }
                     rootState.table.loading = false;

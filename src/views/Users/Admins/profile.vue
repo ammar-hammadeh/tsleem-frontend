@@ -179,8 +179,8 @@
                 <v-avatar rounded width="74" height="74">
                   <img
                     v-if="saved_avatar_src"
-                    :src="$baseURL + 'storage/users/' + saved_avatar_src"
-                    :lazy-src="$baseURL + 'storage/users/' + saved_avatar_src"
+                    :src="saved_avatar_src"
+                    :lazy-src="saved_avatar_src"
                     alt="Avatar"
                     class="border-radius-lg"
                   />
@@ -252,10 +252,8 @@
                     <v-avatar rounded width="110" height="110">
                       <img
                         v-if="saved_avatar_src && avatar_src == ''"
-                        :src="$baseURL + 'storage/users/' + saved_avatar_src"
-                        :lazy-src="
-                          $baseURL + 'storage/users/' + saved_avatar_src
-                        "
+                        :src="saved_avatar_src"
+                        :lazy-src="saved_avatar_src"
                         alt="Avatar"
                         class="border-radius-lg"
                       />

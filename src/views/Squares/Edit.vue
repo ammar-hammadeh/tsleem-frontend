@@ -16,15 +16,15 @@ export default {
       card: {
         title: this.$i18n.t("edit square"),
         loading: true,
-        sub_title: this.$i18n.t("square info"),
+        sub_title: this.$i18n.t("Square info"),
       },
       id: this.$route.params.id,
       style_form: [
         {
           col: "12",
           type: "text",
-          label: this.$i18n.t("Name"),
-          placeholder: this.$i18n.t("Name"),
+          label: this.$i18n.t("Square"),
+          placeholder: this.$i18n.t("Square"),
           value_text: "name",
           value: "",
           error: null,

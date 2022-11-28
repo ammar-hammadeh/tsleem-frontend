@@ -152,6 +152,12 @@ export const category = {
                     "paginate",
                     data.pre_page
                 );
+            } else {
+                if (rootState.table.paginate.itemsPerPage != '')
+                    formData.append(
+                        "paginate",
+                        rootState.table.paginate.itemsPerPage
+                    );
             }
             return CategoryService.get_categories(rootState.table.paginate.page, formData).then(
                 (response) => {

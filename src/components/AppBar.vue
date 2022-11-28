@@ -1,141 +1,139 @@
 <template>
   <v-app-bar
     :color="background"
-    height="auto"
-    class="mt-5 px-0 mx-6 border-radius-xl toolbar-content-padding-y-none"
+    height="60"
+    class="mt-5 px-0 mx-6 toolbar-content-padding-y-none"
     :class="
       navbarFixed
         ? 'position-sticky blur shadow-blur top-1 z-index-sticky py-2'
         : ''
     "
-    flat
+    dense
+    rounded
   >
-    <v-row class="py-1">
-      <v-col cols="12" sm="6" class="d-flex">
-        <div>
-          <v-breadcrumbs class="pb-0 pt-1 px-0">
-            <v-breadcrumbs-item
-              to="/dashboard"
-              active-class="active-breadcrumb"
-              class="opacity-5 text-dark"
-            >
-              <svg
-                width="12px"
-                height="12px"
-                class="mb-1"
-                viewBox="0 0 45 40"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <title>shop</title>
-                <g
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <g
-                    transform="translate(-1716.000000, -439.000000)"
-                    fill="#252f40"
-                    fill-rule="nonzero"
-                  >
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(0.000000, 148.000000)">
-                        <path
-                          d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
-                        ></path>
-                        <path
-                          d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z"
-                        ></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </v-breadcrumbs-item>
-            <li class="v-breadcrumbs__divider opacity-5 px-2 text-muted">/</li>
-            <v-breadcrumbs-item class="opacity-5 text-dark">
-              {{ $t($route.meta.groupName) }}
-            </v-breadcrumbs-item>
-            <li class="v-breadcrumbs__divider opacity-5 px-2 text-muted">/</li>
-            <v-breadcrumbs-item
-              active-class="active-breadcrumb"
-              class="no-default-hover text-dark"
-            >
-              <template v-if="$route.name === 'Dashboard'">Default</template>
-              <template v-else>{{ $t($route.name) }}</template>
-            </v-breadcrumbs-item>
-          </v-breadcrumbs>
-
-          <h6 class="text-h6 font-weight-bolder text-typo mb-0">
-            {{ $t($route.name) }}
-          </h6>
-        </div>
-        <div
-          class="drawer-toggler pa-5 ms-6 cursor-pointer"
-          :class="{ active: togglerActive }"
-          @click="minifyDrawer"
-          v-if="!$vuetify.breakpoint.mobile"
-        >
-          <div class="drawer-toggler-inner">
-            <i class="drawer-toggler-line bg-body"></i>
-            <i class="drawer-toggler-line bg-body"></i>
-            <i class="drawer-toggler-line bg-body"></i>
-          </div>
-        </div>
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        class="d-flex align-center justify-end"
-        :class="$vuetify.rtl ? 'text-sm-left' : 'text-sm-right'"
+    <div
+      class="d-flex justify-space-between align-center"
+      style="width: 100%"
+    >
+      <!--   Drawer Toggler   -->
+      <div
+        class="drawer-toggler pa-5 ms-6 cursor-pointer"
+        style="padding-right: 0 !important;"
+        :class="{ active: togglerActive }"
+        @click="minifyDrawer"
       >
-        <!-- <v-btn
-          depressed
-          :ripple="false"
-          class="font-weight-600 text-body ls-0 text-capitalize pe-0 me-2"
-          color="transparent"
-          to="/pages/authentication/signup/basic"
+        <div class="drawer-toggler-inner">
+          <i class="drawer-toggler-line bg-body"></i>
+          <i class="drawer-toggler-line bg-body"></i>
+          <i class="drawer-toggler-line bg-body"></i>
+        </div>
+      </div>
+      <div>
+        <!-- Notifications -->
+        <v-menu
+          transition="slide-y-transition"
+          offset-y
+          offset-x
+          min-width="300"
+          max-width="300"
+          max-height="300"
         >
-          <v-icon size="16">fa fa-user me-sm-2 text-sm</v-icon>
-          <span
-            class="d-sm-inline font-weight-bold d-none"
-            :class="{ 'btn-dark-hover': !hasBg, 'btn-hover': hasBg }"
-            :style="!hasBg ? 'color: rgba(0,0,0, .6)' : ''"
-            >Sign in</span
-          >
-        </v-btn> -->
-
-        <v-btn
-          elevation="0"
-          :ripple="false"
-          height="43"
-          class="
-            font-weight-600
-            text-capitalize
-            drawer-toggler
-            py-3
-            px-0
-            rounded-sm
-          "
-          :class="{
-            'btn-dark-toggler-hover': !hasBg,
-            'btn-toggler-hover': hasBg,
-            active: togglerActive,
-          }"
-          v-if="$vuetify.breakpoint.mobile"
-          color="transparent"
-          @click="drawerClose"
-        >
-          <div class="drawer-toggler-inner">
-            <i class="drawer-toggler-line text-body"></i>
-            <i class="drawer-toggler-line text-body"></i>
-            <i class="drawer-toggler-line text-body"></i>
-          </div>
-        </v-btn>
-
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              v-if="types.includes(type.code)"
+              :ripple="false"
+              :class="{ 'btn-dark-hover': !hasBg, 'btn-hover': hasBg }"
+              class="text-body ml-6"
+              :color="linkColor"
+              v-bind="attrs"
+              v-on="on"
+              small
+            >
+              <v-badge
+                color="red"
+                overlap
+                :content="unread_notify"
+                v-if="unread_notify != 0"
+              >
+                <v-icon size="16">fa fa-bell text-lg</v-icon>
+              </v-badge>
+              <v-icon v-else size="16">fa fa-bell text-sm</v-icon>
+            </v-btn>
+          </template>
+  
+          <v-list class="py-0">
+            <v-list-item
+              v-for="(item, i) in notifications"
+              :key="i"
+              @click="see_notify(item)"
+              :class="item.is_seen == 0 ? 'not_seen' : ''"
+              class="pa-4 list-item-hover-active"
+            >
+  
+              <v-list-item-content class="pa-0">
+                <v-list-item-title
+                  class="
+                    text-body-2
+                    ls-0
+                    text-typo
+                    font-weight-600
+                    mb-0
+                    white-space-break
+                  "
+                >
+                  <v-row>
+                    <v-col>
+                      <h6 class="text-sm font-weight-normal mb-1 text-typo">
+                        {{ item.message }}
+                      </h6>
+                    </v-col>
+                  </v-row>
+                </v-list-item-title>
+  
+                <p class="text-xs text-secondary mb-0">
+                  <v-icon size="12" class="text-secondary"
+                    >fa fa-clock me-1</v-icon
+                  >
+                  {{ item.created_at }}
+                </p>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              v-if="read_more"
+              class="border-top list-item-hover-active text-center see_more"
+              style="background: #d1d5d5"
+            >
+              <v-list-item-content class="pa-0">
+                <v-list-item-title
+                  class="text-body-2 ls-0 list-notify text-typo font-weight-600 mb-0"
+                >
+                <div>
+                  <v-btn
+                    @click.capture.native.stop="read_more_method"
+                    style="background-color: transparent"
+                    class="
+                      w-100
+                      text-xs
+                      font-weight-normal
+                      text-typo
+                      box-shadow-none
+                    "
+                  >
+                    {{ $t("See more") }}
+                  </v-btn>
+                </div>
+                  <!-- <v-row>
+                    <v-col>
+                    </v-col>
+                  </v-row> -->
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            
+          </v-list>
+        </v-menu>
+        <!--   User Dropdown   -->
         <v-menu
           transition="slide-y-transition"
           offset-y
@@ -148,14 +146,18 @@
               class="text-body btn-hover box-shadow-none"
               :ripple="false"
               color="transparent"
-              style="box-shadow: none"
-              :class="classLang"
+              style="box-shadow: none; padding: 0;"
               v-bind="attrs"
               v-on="on"
-              v-if="$store.state.auth.user"
+              v-if="user"
             >
-              {{ fullName }}
-              <!-- <v-icon size="16">fa fa-user me-sm-2 text-sm</v-icon> -->
+              <div class="d-flex flex-column align-end">
+                <span>{{ fullName }}</span>
+                <span> {{ accountType }} </span>
+              </div>
+              <v-avatar>
+                <v-icon size="46">mdi-account-circle</v-icon>
+              </v-avatar>
             </v-btn>
           </template>
 
@@ -200,60 +202,16 @@
             </v-list-item>
           </v-list>
         </v-menu>
-
-        <!-- <v-menu
-          transition="slide-y-transition"
-          offset-y
-          min-width="150"
-          max-width="150"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              :ripple="false"
-              :class="{ 'btn-dark-hover': !hasBg, 'btn-hover': hasBg }"
-              class="text-body"
-              :color="linkColor"
-              v-bind="attrs"
-              v-on="on"
-              small
-            >
-              <v-icon size="16">fa fa-globe text-sm</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list class="py-0">
-            <v-list-item
-              v-for="(item, i) in language"
-              :key="i"
-              class="px-4 py-2 list-item-hover-active"
-            >
-              <v-list-item-content class="pa-0">
-                <v-list-item-title
-                  class="text-body-2 ls-0 text-typo font-weight-600 mb-0"
-                >
-                  <v-row>
-                    <v-col @click="change_lang(item.abbr)">
-                      <h6
-                        class="text-sm font-weight-normal mb-1 text-typo"
-                        v-html="item.title"
-                      >
-                        {{ item.title }}
-                      </h6>
-                    </v-col>
-                  </v-row>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu> -->
-      </v-col>
-    </v-row>
+      </div>
+    </div>
   </v-app-bar>
 </template>
 <script>
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
+import { mapActions, mapState } from 'vuex';
 export default {
   name: "app-bar",
+  components: { CustomBreadcrumb },
   props: {
     background: String,
     hasBg: Boolean,
@@ -268,6 +226,13 @@ export default {
     return {
       drawer: false,
       togglerActive: false,
+      types:[
+      'raft_office',
+      'raft_company',
+      'service_provider',
+      'kdana',
+      'admin'
+      ],
       count: 1,
       language: [
         { title: '<span class="font-weight-bold">EN</h6>', abbr: "en" },
@@ -276,6 +241,8 @@ export default {
     };
   },
   computed: {
+    ...mapState('auth',['user','type']),
+    ...mapState('notifications',['unread_notify','notifications','read_more']),
     classLang() {
       return {
         "ml-5": this.$vuetify.rtl,
@@ -290,12 +257,33 @@ export default {
     },
     fullName() {
       let user = "";
-      if (this.$store.state.auth.user.name != null)
-        user = this.$store.state.auth.user.name;
+      if (this.user.name != null)
+        user = this.user.name;
       return user;
+    },
+    accountType() {
+      return this.type.name
+        ? this.type.name
+        : "";
     },
   },
   methods: {
+    ...mapActions('notifications',['increaseUnreadMessage','seeMoreNotifications']),
+    see_notify(item) {
+      this.$http
+        .get("general/notification/make_notification_seen/" + item.id)
+        .then((response) => {
+          if (item.is_seen == 0) {
+            item.is_seen = 1;
+            this.increaseUnreadMessage();
+          }
+          if (this.$route.path != item.link) this.$router.push(item.link);
+        });
+    },
+    read_more_method() {
+      this.count++;
+      this.seeMoreNotifications(this.count);
+    },
     logout() {
       this.$store
         .dispatch("auth/logout")
@@ -314,6 +302,10 @@ export default {
       this.$emit("drawer-toggle", true);
     },
     minifyDrawer() {
+      if(this.$vuetify.breakpoint.mobile){
+        this.drawerClose()
+        return
+      }
       this.togglerActive = !this.togglerActive;
       this.mini = !this.mini;
       const body = document.getElementsByTagName("body")[0];
@@ -332,3 +324,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.see_more.v-list-item{
+  padding: 0 !important;
+}
+</style>

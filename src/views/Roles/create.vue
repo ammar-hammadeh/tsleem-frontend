@@ -1,341 +1,305 @@
 <template>
   <div>
-    <v-snackbar
-      top
-      v-model="snackbar.visible"
-      :color="snackbar.color"
-      class="snackbar-shadow"
+    <!-- <v-hijri-date-picker no-title locale="ar" v-model="date">
+      <v-spacer></v-spacer>
+      <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
+      <v-btn text color="primary" @click="$refs.menu.save(date)">
+        OK
+      </v-btn></v-hijri-date-picker
+    > -->
+    <!-- <v-menu
+      ref="menu"
+      v-model="menu"
+      :close-on-content-click="false"
+      :return-value.sync="date"
+      transition="scale-transition"
+      offset-y
+      min-width="auto"
     >
-      <div class="d-flex align-start alert-notify">
-        <v-icon size="24" class="text-white mr-5">ni ni-bell-55 </v-icon>
-        <p class="mb-0">
-          <span class="font-size-root font-weight-600">{{
-            snackbar.name
-          }}</span>
-          <br />
-          {{ error_msg }}
-        </p>
-      </div>
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          icon
-          elevation="0"
-          max-width="136"
-          :ripple="false"
-          height="43"
-          class="font-weight-600 text-capitalize py-3 px-6 rounded-sm"
-          color="rgba(255,255,255, .85)"
-          @click="snackbar.visible = false"
+      <template v-slot:activator="{ on, attrs }">
+        <v-text-field
+          dense
+          v-model="date"
+          label="Picker in menu"
+          prepend-icon="mdi-calendar"
+          readonly
           v-bind="attrs"
-        >
-          <v-icon size="13">fas fa-times</v-icon>
-        </v-btn>
+          v-on="on"
+        ></v-text-field>
       </template>
-    </v-snackbar>
-    <v-container fluid class="px-6 py-6">
-      <v-row>
-        <v-col cols="12" class="text-center">
-          <h3 class="text-h3 text-typo font-weight-bold mt-9">
-            {{ $t("role.Build Your System Roles") }}
-          </h3>
-          <!-- <h5 class="text-h5 text-secondary font-weight-normal">
-            {{ $t("role.Roles allow you to group system permissions") }}
-          </h5> -->
-        </v-col>
-        <v-stepper
-          alt-labels
-          elevation="0"
-          v-model="e1"
-          class="bg-transparent overflow-visible w-100 mx-auto"
-        >
-          <v-row>
-            <v-col lg="8" cols="12" class="mx-auto mt-9">
-              <v-stepper-header class="shadow-0">
-                <v-stepper-step step="1" color="#344767">
-                  <span
-                    class="
-                      text-secondary
-                      font-weight-normal
-                      d-block
-                      text-center
-                    "
-                    style="width: max-content"
-                    >{{ $t("role.Role info") }}</span
-                  >
-                </v-stepper-step>
-
-                <v-divider></v-divider>
-
-                <v-stepper-step step="2" color="#344767">
-                  <span
-                    class="
-                      text-secondary
-                      font-weight-normal
-                      d-block
-                      text-center
-                    "
-                    style="width: max-content"
-                    >{{ $t("permissions.Permissions") }}</span
-                  >
-                </v-stepper-step>
-              </v-stepper-header>
+      <v-hijri-date-picker
+        no-title
+        locale="ar"
+        v-model="date"
+      >
+      <v-spacer></v-spacer>
+      <v-btn
+        text
+        color="primary"
+        @click="menu = false"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        text
+        color="primary"
+        @click="$refs.menu.save(date)"
+      >
+        OK
+      </v-btn>
+    </v-hijri-date-picker>
+    </v-menu> -->
+    <!-- <custom-date-picker v-model="date2"></custom-date-picker> -->
+    <CardForm>
+      <template #card-form>
+        <v-form ref="newRoleForm">
+          <v-row class="mt-2">
+            <v-col sm="12" cols="12">
+              <label class="text-xs text-typo font-weight-bolder ms-1">{{
+                $t("Name")
+              }}</label>
+              <v-text-field
+                v-model="form.name"
+                :rules="[(v) => !!v || $t('auth.Full Name is required')]"
+                lazy-validation
+                color="rgba(0,0,0,.6)"
+                light
+                placeholder="Ex. Admin, Guest..."
+                class="font-size-input placeholder-lighter mt-2 mb-4"
+              >
+              </v-text-field>
             </v-col>
-          </v-row>
 
-          <v-row>
-            <v-col lg="8" cols="12" class="mx-auto">
-              <div v-if="errors" class="alert alert-danger">
-                <ul class="alert alert-danger">
-                  <li v-for="(value, key, index) in errors" :key="index">
-                    {{ value.toString() }}
-                  </li>
-                </ul>
-              </div>
-
-              <v-form ref="newRoleForm">
-                <v-stepper-items
-                  class="border-radius-xl overflow-hidden shadow-lg mt-5 mb-9"
+            <v-col sm="12" cols="12">
+              <label class="text-xs text-typo font-weight-bolder ms-1">{{
+                $t("permissions.Permissions")
+              }}</label>
+              <div class="row mt-4">
+                <div
+                  class="perClass col-md-4"
+                  v-for="(item, index) in group_per2"
+                  :key="`per-${index}`"
                 >
-                  <v-stepper-content
-                    step="1"
-                    class="bg-white border-radius-xl px-4 pt-4"
-                  >
-                    <v-card>
-                      <div>
-                        <v-row class="text-center">
-                          <v-col cols="10" class="mx-auto">
-                            <h5
-                              class="text-h5 text-typo font-weight-normal mb-2"
-                            >
-                              {{ $t("role.Role info") }}
-                            </h5>
-                            <!-- <p class="text-body">
-                              {{ $t("role.Enter Role name") }}
-                            </p> -->
-                          </v-col>
-                        </v-row>
-                        <v-row class="mt-2">
-                          <v-col sm="12" cols="12">
-                            <label
-                              class="text-xs text-typo font-weight-bolder ms-1"
-                              >{{ $t("Name") }}</label
-                            >
-                            <v-text-field
-                              v-model="form.name"
-                              :rules="rules.name"
-                              lazy-validation
-                              color="rgba(0,0,0,.6)"
-                              light
-                              placeholder="Ex. Admin, Guest..."
-                              class="
-                                font-size-input
-                                placeholder-lighter
-                                mt-2
-                                mb-4
-                              "
-                            >
-                            </v-text-field>
-                          </v-col>
-                        </v-row>
+                  <!-- <template
+                  v-if="
+                    group_per.includes(item.group_page) == false
+                      ? group_per.push(item.group_page)
+                      : ''
+                  "
+                > -->
+                  <div class="card-shadow border-radius-xl p-2">
+                    <div class="d-flex bg-gradient-default border-radius-top">
+                      <div class="col-10">
+                        <h4 class="h2Class">{{ item.group_lang }}</h4>
                       </div>
-                      <div class="text-end">
-                        <v-btn
-                          :ripple="false"
-                          :elevation="0"
-                          class="
-                            font-weight-bold
-                            text-xs
-                            btn-default
-                            bg-gradient-default
-                            py-5
-                            px-6
-                            mt-2
-                            mb-2
-                            me-2
-                          "
-                          color="primary"
-                          @click="e1 = 2"
-                        >
-                          {{ $t("general.Next") }}
-                        </v-btn>
+                      <div class="col-2 text-right">
+                        <div class="form-check">
+                          <input
+                            :class="`form-check-input checkClassAll ${item.group_page}`"
+                            type="checkbox"
+                            :value="item.id"
+                            @change="checkClassAll(item)"
+                            :id="`chech_${item.group_page}`"
+                          />
+                        </div>
                       </div>
-                    </v-card>
-                  </v-stepper-content>
-
-                  <v-stepper-content
-                    step="2"
-                    class="bg-white border-radius-xl px-4 pt-4"
-                  >
-                    <v-card>
-                      <div>
-                        <v-row class="text-center">
-                          <v-col cols="10" class="mx-auto">
-                            <h5
-                              class="text-h5 text-typo font-weight-normal mb-2"
-                            >
-                              {{ $t("permissions.Permissions") }}
-                            </h5>
-                            <p class="text-body">
-                              {{ $t("permissions.Choose role permissions") }}
-                            </p>
-                          </v-col>
-                        </v-row>
-
-                        <v-row class="mt-2">
-                          <v-col sm="12" cols="12">
-                            <label
-                              class="text-xs text-typo font-weight-bolder ms-1"
-                              >{{ $t("permissions.Permissions") }}</label
-                            >
-                            <v-autocomplete
-                              v-model="form.permissions"
-                              :items="permissions"
-                              :item-text="'permission_lang'"
-                              :item-value="'id'"
-                              :placeholder="
-                                $t('permissions.Choose one or more permission')
-                              "
-                              multiple
-                            ></v-autocomplete>
-                          </v-col>
-                        </v-row>
+                    </div>
+                    <hr />
+                    <div
+                      class="d-flex"
+                      v-for="(ele, ind) in permissions"
+                      :key="`per2-${ind}`"
+                      v-if="item.group_page == ele.group_page"
+                    >
+                      <!-- <template > -->
+                      <div class="col-10">
+                        <span class="h2Class">{{ ele.permission_lang }}</span>
                       </div>
-                      <div class="d-flex mt-10">
-                        <v-btn
-                          :ripple="false"
-                          :elevation="0"
-                          class="
-                            font-weight-bold
-                            text-xs text-dark
-                            btn-light
-                            bg-gradient-light
-                            py-5
-                            px-6
-                            mt-6
-                            mb-2
-                            ms-2
-                          "
-                          @click="e1 = 1"
-                        >
-                          {{ $t("general.Prev") }}
-                        </v-btn>
-                        <v-btn
-                          :ripple="false"
-                          :elevation="0"
-                          class="
-                            font-weight-bold
-                            text-xs
-                            btn-default
-                            bg-gradient-default
-                            py-5
-                            px-6
-                            mt-6
-                            mb-2
-                            me-2
-                            ms-auto
-                          "
-                          color="primary"
-                          @click="handleSubmit()"
-                        >
-                          {{ $t("general.Submit") }}
-                          <i v-if="loading" class="fa fa-circle-o-notch"></i>
-                        </v-btn>
+                      <div class="col-2 text-right">
+                        <div class="form-check">
+                          <input
+                            :class="`${ele.group_page} form-check-input checkClass `"
+                            type="checkbox"
+                            :value="ele.id"
+                            @change="set_permission(ele.id)"
+                          />
+                          <!-- v-model="form.permissions" -->
+                        </div>
                       </div>
-                    </v-card>
-                  </v-stepper-content>
-                </v-stepper-items>
-              </v-form>
+                      <!-- </template> -->
+                    </div>
+                  </div>
+                  <!-- {{ group_per.push(item.group_page) }} -->
+                  <!-- </template> -->
+                </div>
+              </div>
+            </v-col>
+            <v-col cols="6" class="text-right">
+              <Button
+                :title="$t('check all')"
+                :classes="'bg-gradient-blue'"
+                @click="checkAll"
+              ></Button>
+            </v-col>
+            <v-col cols="6" class="text-left">
+              <Button @click="handleSubmit" :loader="loader"></Button>
             </v-col>
           </v-row>
-        </v-stepper>
-      </v-row>
-    </v-container>
+        </v-form>
+      </template>
+    </CardForm>
   </div>
 </template>
 <script>
+import CardForm from "../Components/CardForm.vue";
+import Button from "../Components/Button.vue";
+import { mapMutations } from "vuex";
 export default {
-  name: "Wizard",
+  name: "Create-Role",
+  components: {
+    CardForm,
+    Button,
+  },
   data() {
     return {
-      permissions: [],
-      valid: false,
-      snackbar: {
-        color: "#f5365c",
-        class: "danger",
-        name: "Danger",
-        visible: false,
-      },
+      menu: false,
       form: {
         name: "",
-        permissions: null,
+        permissions: [],
       },
-      rules: {
-        name: [(v) => !!v || this.$i18n.t("auth.Full Name is required")],
+      date2: "",
+      group_per: [],
+      group_per2: [],
+      card: {
+        title: this.$i18n.t("role.Build Your System Roles"),
+        loading: true,
+        sub_title: this.$i18n.t("role.Role info"),
       },
+      permissions: [],
+      valid: false,
       errors: {},
       error_msg: "",
-      loading: false,
-      e1: 1,
+      loader: false,
+      date: "",
     };
   },
   methods: {
+    ...mapMutations(["SET_CARD", "SET_CARD_LOADING"]),
+    ...mapMutations("form", ["SET_NOTIFY"]),
+    checkAll() {
+      var elements = document.getElementsByClassName("checkClassAll");
+      for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        element.checked = true;
+      }
+      var sub_elements = document.getElementsByClassName("checkClass");
+      for (let i = 0; i < sub_elements.length; i++) {
+        const element = sub_elements[i];
+        element.checked = true;
+        this.form.permissions.push(parseInt(element.value));
+      }
+    },
+    checkClassAll(item) {
+      // alert(1);
+      var ele = document.getElementById("chech_" + item.group_page);
+      var elements = document.getElementsByClassName(item.group_page);
+      for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        if (ele.checked == 1) {
+          element.checked = true;
+          if (element.value != "")
+            this.form.permissions.push(parseInt(element.value));
+        } else {
+          element.checked = false;
+          this.form.permissions = this.form.permissions.filter(function (
+            value
+          ) {
+            return value != element.value;
+          });
+        }
+      }
+    },
+    set_permission(val) {
+      // console.log(val);
+      if (!this.form.permissions.includes(val)) this.form.permissions.push(val);
+      else {
+        this.form.permissions = this.form.permissions.filter(function (value) {
+          return value != val;
+        });
+        // }
+      }
+    },
     validate() {
       return this.$refs.newRoleForm.validate();
+    },
+    set_data() {
+      this.SET_CARD(this.card);
+      this.SET_CARD_LOADING(true);
     },
     getPermissions() {
       this.$http.get("/permissions").then(
         (response) => {
+          this.SET_CARD_LOADING(false);
           this.permissions = response.data.data;
+          this.permissions.forEach((v) => {
+            if (!this.group_per.includes(v.group_page)) {
+              this.group_per.push(v.group_page);
+              this.group_per2.push({
+                group_lang: v.group_lang,
+                group_page: v.group_page,
+              });
+            }
+          });
         },
         (error) => {
+          this.SET_CARD_LOADING(false);
           // console.log(error);
         }
       );
     },
     async handleSubmit() {
       this.error_msg = "";
-      this.loading = true;
+      this.loader = true;
       if (this.validate()) {
         await axios
           .post("roles/create", this.form)
           .then((response) => {
-            this.error_msg = response.data.message;
-            // this.snackbar.color = "#2dce89";
-            // this.snackbar.class = "success";
-            // this.snackbar.name = "Success";
-            // this.snackbar.visible = true;
+            this.error_msg = { msg: response.data.message, type: "Success" };
             this.$router.push({
               path: "/roles",
               params: { message: this.error_msg },
             });
           })
           .catch((error) => {
-            this.loading = false;
+            this.loader = false;
             if (error && error.response.status == 422) {
               this.errors = error.response.data.errors;
               this.error_msg = "Please Check errors before submit";
             }
+
             this.error_msg =
               (error.response && error.response.data.message) ||
               error.message ||
               error.toString();
-            this.snackbar.color = "#f5365c";
-            this.snackbar.class = "error";
-            this.snackbar.name = this.$i18n.t("Error");
-            this.snackbar.visible = true;
+            this.SET_NOTIFY({
+              msg: this.error_msg,
+              type: "Warning",
+            });
           });
       } else {
-        this.error_msg = "Please Check errors before submit";
-        this.snackbar.color = "#f5365c";
-        this.snackbar.class = "error";
-        this.snackbar.name = this.$i18n.t("Error");
-        this.snackbar.visible = true;
+        this.loader = false;
+        this.SET_NOTIFY({
+          msg: this.$i18n.t("Please Check errors before submit"),
+          type: "Warning",
+        });
+        return;
       }
     },
   },
   mounted() {
     this.getPermissions();
+    this.set_data();
+    document.title = this.$i18n.t("Create role");
   },
 };
 </script>

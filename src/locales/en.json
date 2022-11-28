@@ -11,6 +11,7 @@
     "My Orders": "My Orders",
     "Reset Password": "Reset Password"
   },
+  "Home": "Home",
   "Admins": "Admins",
   "User": "User",
   "Update admin": "Update Admin",
@@ -514,5 +515,8 @@
   "edit section": "Edit Section",
   "select sections for print": "Select Sections For Print",
   "OfferPage": "Offers",
-  "Offer": "Offer"
+  "Offer": "Offer",
+  "delivery-index": "Deleiver",
+  "delivery-sign": "Sign Deliver"
+
 }

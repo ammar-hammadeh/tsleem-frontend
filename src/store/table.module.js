@@ -1,3 +1,5 @@
+import { check } from "prettier";
+
 export const table = {
   namespaced: true,
   state: () => ({
@@ -19,7 +21,9 @@ export const table = {
       total: 0,
       row_pre_page: false
     },
-    select_view: false
+    select_view: false,
+    bulk_selected: [],
+    chack_permission: 'd-none'
   }),
   // getters: {
 
@@ -31,6 +35,12 @@ export const table = {
     }
   },
   mutations: {
+    SET_CHECK_PER(state, data) {
+      state.chack_permission = data
+    },
+    SET_BULK_SELECTED(state, data) {
+      state.bulk_selected = data
+    },
     SET_DATA_EXTEND(state, data) {
       state.data_extend = data
     },

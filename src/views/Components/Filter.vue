@@ -11,7 +11,13 @@
         <v-card-text>
           <v-form ref="filterForm">
             <v-row>
-              <v-col lg="4" md="4" v-for="(filter, i) in filters" :key="i">
+              <v-col
+                lg="4"
+                md="4"
+                v-for="(filter, i) in filters"
+                :key="i"
+                v-if="filter.type != 'date'"
+              >
                 <label class="text-xs text-typo font-weight-bolder">{{
                   filter.label
                 }}</label>
@@ -26,12 +32,12 @@
                   :label="$t('general.choose')"
                   hide-details
                   single-line
-                  dense
                 >
                 </v-select>
 
                 <v-autocomplete
-                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
                   v-else-if="filter.type == 'auto-complete'"
                   v-model="filter.value"
                   :name="filter.value"

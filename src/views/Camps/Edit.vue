@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       card: {
-        title: this.$i18n.t("edit camp"),
+        title: this.$i18n.t("Edit Camp"),
         loading: true,
         sub_title: this.$i18n.t("camp info"),
       },

@@ -1,6 +1,17 @@
 <template>
   <div>
-    <Card></Card>
+    <Card>
+      <template #table-column="{ item2 }">
+        <v-chip
+          
+          class="ma-2"
+          :text-color="item2.status != 'disabled' ? 'white' : 'black'"
+          :color="color_status(item2.status)"
+        >
+        {{ item2.status_text }}
+        </v-chip>
+      </template>
+    </Card>
     <Modal :data="modal_data"> </Modal>
   </div>
 </template>
@@ -24,6 +35,7 @@ export default {
           col: "12",
           visible: false,
           label: this.$i18n.t("Reason reject"),
+          outlined:true,
           error: null,
           type: "textarea",
           value_text: "reject_reason",
@@ -51,6 +63,15 @@ export default {
         //   icon: "mdi-pencil",
         //   permission: "user-update",
         // },
+        {
+          type: "icon",
+          text: "view_user",
+          color: "bg-gradient-success",
+          icon: "mdi-eye",
+          item: true,
+          url: "view/",
+          permission: "user-view",
+        },
         {
           type: "icon",
           text: "active_user",
@@ -95,8 +116,13 @@ export default {
           align: "center",
         },
         {
+          text: this.$i18n.t("files_counter"),
+          value: "company.files_counter",
+          align: "center",
+        },
+        {
           text: this.$i18n.t("status"),
-          value: "status_text",
+          value: "column",
           align: "center",
         },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
@@ -108,7 +134,19 @@ export default {
       },
     };
   },
+ 
   methods: {
+    color_status(val) {
+      if (val == "pending") {
+        return "#5cbbf6";
+      } else if (val == "active") {
+        return "green";
+      } else if (val == "rejected") {
+        return "red";
+      }else if (val == "review") {
+        return "orange";
+      }
+    },
     set_data() {
       this.$store.commit("SET_CARD", this.card);
       this.$store.commit("SET_COLLECTION", "user");

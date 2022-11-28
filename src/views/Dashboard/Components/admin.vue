@@ -1,213 +1,149 @@
-<template>
-  <v-row>
-    <v-col md="11" class="z-index-2">
-      <v-card class="bg-transparent mb-6 px-4 py-4">
-        <!-- <v-row>
-              <v-col lg="6">
-                <h2 class="text-h2 text-white  font-weight-bolder mb-0">
-                  General datas
-                </h2>
-              </v-col>
-            </v-row> -->
-      </v-card>
-      <v-row>
-        <v-col sm="6" cols="12">
-          <v-card
-            class="card-shadow bg-gradient-secondary border-radius-xl px-4 py-4"
-          >
-            <v-row no-gutters>
-              <v-col sm="8">
-                <p
-                  class="
-                    text-sm
-                    mb-0
-                    text-capitalize
-                    font-weight-bold
-                    text-white
-                    opacity-7
-                  "
-                >
-                  {{ $t("ready camps") }}
-                </p>
-                <h5 class="text-h5 text-white font-weight-bolder mb-0">
-                  {{ data.ready_camps }}
-                  <!-- <span class="text-success text-sm font-weight-bolder"
-                        >+3%</span
-                      > -->
-                </h5>
-              </v-col>
-              <v-col sm="4" class="text-end">
-                <v-avatar color="bg-white" class="shadow" rounded>
-                  <v-icon size="20" class="text-typo"> mdi-tent </v-icon>
-                </v-avatar>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+x<template>
+  <div>
+    <v-row>
+      <v-col md="12">
+        <h5 class="text-h5 text-typo font-weight-bold mb-0">
+          {{ $t("General Statistic") }}
+        </h5>
+      </v-col>
+    </v-row>
+    <v-row>
 
-        <v-col sm="6" cols="12">
-          <v-card
-            class="
-              mb-6
-              card-shadow
-              bg-gradient-secondary
-              border-radius-xl
-              px-4
-              py-4
-            "
-          >
-            <v-row no-gutters>
-              <v-col sm="8">
-                <p
-                  class="
-                    text-sm
-                    mb-0
-                    text-capitalize
-                    font-weight-bold
-                    text-white
-                    opacity-7
-                  "
-                >
-                  {{ $t("pending user") }}
-                </p>
-                <h5 class="text-h5 text-white font-weight-bolder mb-0">
-                  {{ data.pending_user }}
-                  <!-- <span class="text-success text-sm font-weight-bolder"
-                        >+55%</span
-                      > -->
-                </h5>
-              </v-col>
-              <v-col sm="4" class="text-end">
-                <v-avatar color="bg-white" class="shadow" rounded>
-                  <v-icon size="20" class="text-typo">
-                    mdi-account-clock-outline
-                  </v-icon>
-                </v-avatar>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+      <v-col lg="3" cols="6">
+        <custom-card
+            :title="$t('total camps')"
+            :count="data.total_camps"
+            icon="mdi-tent"
+        />
+      </v-col>
 
-        <v-col sm="4" cols="12">
-          <v-card
-            class="
-              mb-6
-              card-shadow
-              bg-gradient-secondary
-              border-radius-xl
-              px-4
-              py-4
-            "
-          >
-            <v-row no-gutters>
-              <v-col sm="8">
-                <p
-                  class="
-                    text-sm
-                    mb-0
-                    text-capitalize
-                    font-weight-bold
-                    text-white
-                    opacity-7
-                  "
-                >
-                  {{ $t("total camps") }}
-                </p>
-                <h5 class="text-h5 text-white font-weight-bolder mb-0">
-                  {{ data.total_camps }}
-                  <!-- <span class="text-danger text-sm font-weight-bolder"
-                        >-2%</span
-                      > -->
-                </h5>
-              </v-col>
-              <v-col sm="4" class="text-end">
-                <v-avatar color="bg-white" class="shadow" rounded>
-                  <v-icon size="20" class="text-typo"> mdi-tent </v-icon>
-                </v-avatar>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+      <v-col lg="3" cols="6">
+        <custom-card
+          :title="$t('ready camps')"
+          :count="data.ready_camps"
+          icon="mdi-tent"
+        />
+      </v-col>
 
-        <v-col sm="4" cols="12">
-          <v-card
-            class="card-shadow bg-gradient-secondary border-radius-xl px-4 py-4"
-          >
-            <v-row no-gutters>
-              <v-col sm="8">
-                <p
-                  class="
-                    text-sm
-                    mb-0
-                    text-capitalize
-                    font-weight-bold
-                    text-white
-                    opacity-7
-                  "
-                >
-                  {{ $t("total square") }}
-                </p>
-                <h5 class="text-h5 text-white font-weight-bolder mb-0">
-                  {{ data.total_square }}
-                  <!-- <span class="text-success text-sm font-weight-bolder"
-                        >+5%</span
-                      > -->
-                </h5>
-              </v-col>
-              <v-col sm="4" class="text-end">
-                <v-avatar color="bg-white" class="shadow" rounded>
-                  <v-icon size="20" class="text-typo">
-                    mdi-vector-square
-                  </v-icon>
-                </v-avatar>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+      <v-col lg="3" cols="6">
+        <custom-card
+          :title="$t('total square')"
+          :count="data.total_square"
+          icon="mdi-vector-square"
+        />
+      </v-col>
 
-        <v-col sm="4" cols="12">
-          <v-card
-            class="card-shadow bg-gradient-secondary border-radius-xl px-4 py-4"
-          >
-            <v-row no-gutters>
-              <v-col sm="8">
-                <p
-                  class="
-                    text-sm
-                    mb-0
-                    text-capitalize
-                    font-weight-bold
-                    text-white
-                    opacity-7
-                  "
-                >
-                  {{ $t("total user") }}
-                </p>
-                <h5 class="text-h5 text-white font-weight-bolder mb-0">
-                  {{ data.total_user }}
-                  <!-- <span class="text-success text-sm font-weight-bolder"
-                        >+5%</span
-                      > -->
-                </h5>
-              </v-col>
-              <v-col sm="4" class="text-end">
-                <v-avatar color="bg-white" class="shadow" rounded>
-                  <v-icon size="20" class="text-typo">
-                    mdi-account-group-outline</v-icon
-                  >
-                </v-avatar>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-col>
-  </v-row>
+      <v-col lg="3" cols="6">
+        <custom-card
+            :title="$t('assignations')"
+            :count="data.assignations"
+            icon="mdi-account-switch-outline"
+        />
+      </v-col>
+
+
+      <v-col lg="3" cols="6">
+        <custom-card
+            :title="$t('total user')"
+            :count="data.total_user"
+            icon="mdi-account-group-outline"
+        />
+      </v-col>
+
+      <v-col lg="3" cols="6">
+        <custom-card
+            :title="$t('pending user')"
+            :count="data.pending_user"
+            icon="mdi-account-clock-outline"
+        />
+      </v-col>
+
+      <v-col lg="3" cols="6">
+        <custom-card
+          :title="$t('total company')"
+          :count="data.total_company"
+          icon="mdi-domain"
+        />
+      </v-col>
+
+
+
+
+
+      <v-col lg="3" cols="6">
+        <custom-card
+          :title="$t('appointments')"
+          :count="data.appointments"
+          icon="mdi-calendar-clock"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col sm="12" cols="12" class="grid">
+        <h5 class="text-h5 text-typo font-weight-bold mb-0">
+          {{ $t("General Charts") }}
+        </h5>
+      </v-col>
+      <v-col sm="4" cols="12" class="grid">
+        <CustomDoughnutChart
+          :title="$t('appointmets status')"
+          :data-values="this.appointmentsChartData.dataValues"
+          :labels="this.appointmentsChartData.lables"
+        />
+      </v-col>
+      <v-col sm="4" cols="12" class="grid">
+        <CustomDoughnutChart
+            :title="$t('assignations status')"
+            :data-values="this.assignationsChartData.dataValues"
+            :labels="this.assignationsChartData.lables"
+        />
+      </v-col>
+      <v-col sm="4" cols="12" class="grid">
+        <CustomDoughnutChart
+            :title="$t('assignations status')"
+            :data-values="this.campsChartData.dataValues"
+            :labels="this.campsChartData.lables"
+        />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 <script>
+import CustomCard from "@/views/Dashboard/Components/PartialComponents/CustomCard";
+import CustomDoughnutChart from "@/views/Dashboard/Components/PartialComponents/CustomDoughnutChart";
 export default {
+  components: { CustomDoughnutChart, CustomCard },
   props: {
     data: {},
   },
+  computed:{
+    assignationsChartData(){
+      const assignations = this.data.assignations_chart; 
+      return{
+        lables: assignations.lables,
+        dataValues: assignations.count.map(cnt=>parseInt(cnt))
+      }
+    },
+
+    appointmentsChartData(){
+      const appointments = this.data.appointments_chart; 
+      return{
+        lables: appointments.lables,
+        dataValues: appointments.count.map(cnt=>parseInt(cnt))
+      }
+    },
+
+    campsChartData(){
+      const camps = this.data.camps_chart; 
+      return{
+        lables: camps.lables,
+        dataValues: camps.count.map(cnt=>parseInt(cnt))
+      }
+    }
+  }
 };
 </script>
+
+<style scoped>
+
+</style>

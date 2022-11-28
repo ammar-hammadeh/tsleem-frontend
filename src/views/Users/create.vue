@@ -24,6 +24,13 @@
                   :item="item"
                   v-if="item.value_text == 'type_id'"
                 ></Input>
+                <template v-else-if="item.value_text == 'phone'">
+                  <Input :item="item">
+                    <template #feild>
+                      <span class="number_phone">966+</span>
+                    </template>
+                  </Input>
+                </template>
                 <Input v-else :item="item"></Input>
               </v-col>
             </v-row>
@@ -104,11 +111,21 @@ export default {
           visible: true,
           error: null,
           value: "",
-          label: this.$i18n.t("Name"),
-          placeholder: this.$i18n.t("Name"),
-          value_text: "name",
+          label: this.$i18n.t("Role"),
+          value_text: "roles",
+          type: "select",
+          items: [],
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   value: "",
+        //   label: this.$i18n.t("Name"),
+        //   placeholder: this.$i18n.t("Name"),
+        //   value_text: "name",
+        //   rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        // },
         {
           value: "",
           visible: true,
@@ -116,8 +133,32 @@ export default {
           type: "email",
           value_text: "email",
           label: this.$i18n.t("auth.Email Address"),
-          placeholder: this.$i18n.t("auth.Email Address"),
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          placeholder: "Example@test.com",
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+            (v &&
+            /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
+                  v
+                )) ||
+              this.$i18n.t("auth.E-mail must be valid"),
+          ],
+        },
+        {
+          visible: true,
+          error: null,
+          value: "",
+          class: "d-inline-block w-80",
+          label: this.$i18n.t("auth.Phone Number"),
+          placeholder: '5xxxxxxxx',
+          value_text: "phone",
+          type: "number",
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              /^(5)\d*$/.test(v) || this.$i18n.t("have to start number 5"),
+            (v) => (v && v.length == 9) || this.$i18n.t("equal 9 characters"),
+          ],
         },
         {
           type: "password",
@@ -125,6 +166,7 @@ export default {
           label: this.$i18n.t("auth.Password"),
           placeholder: this.$i18n.t("auth.Password"),
           show: false,
+          error: null,
           rules: [
             (v) => !!v || this.$i18n.t("auth.Password is required"),
             (v) =>
@@ -138,6 +180,7 @@ export default {
           label: this.$i18n.t("auth.Repeat Password"),
           placeholder: this.$i18n.t("auth.Repeat Password"),
           show: false,
+          error: null,
           rules: [
             (v) =>
               !!v || this.$i18n.t("auth.Password Confirmation is required"),
@@ -152,6 +195,7 @@ export default {
             "consulting_office",
             "design_office",
             "contractor",
+            "raft_company",
           ],
           label: this.$i18n.t("Company Name"),
           placeholder: this.$i18n.t("Company Name"),
@@ -183,11 +227,16 @@ export default {
             "design_office",
             "contractor",
           ],
+          type: "number",
           label: this.$i18n.t("Commercial Register num"),
           placeholder: this.$i18n.t("Commercial Register num"),
           value_text: "commercial",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),
+          ],
         },
+       
         {
           visible: true,
           error: null,
@@ -198,40 +247,85 @@ export default {
             "design_office",
             "contractor",
           ],
+          type: "number",
           label: this.$i18n.t("ID No"),
           placeholder: this.$i18n.t("ID No"),
           value_text: "owner_hardcopyid",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) => /^(1)\d*$/.test(v) || this.$i18n.t("have to start number 1"),
+            (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),
+          ],
         },
+        
         {
           visible: true,
           error: null,
           value: "",
-          label: this.$i18n.t("auth.Phone Number"),
-          placeholder: this.$i18n.t("auth.Phone Number"),
-          value_text: "phone",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
-        },
-        {
-          visible: true,
-          error: null,
-          value: "",
-          req_val: ["sharer"],
-          label: this.$i18n.t("categories"),
+          req_val: ["contractor", "design_office"],
+          label: this.$i18n.t("Specialties"),
           value_text: "category_id",
           type: "select",
+          items: [],
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   value: "",
+        //   req_val: ["design_office"],
+        //   label: this.$i18n.t("categories"),
+        //   value_text: "engineer_office_id",
+        //   type: "select",
+        //   rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        // },
+        {
+          visible: true,
+          error: null,
+          value: "",
+          req_val: ["raft_office"],
+          label: this.$i18n.t("office name"),
+          value_text: "company_name",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
           visible: true,
           error: null,
           value: "",
-          req_val: ["service_provider", "raft_company"],
+          req_val: ["raft_office"],
+          label: this.$i18n.t("Unified number"),
+          value_text: "license",
+          type: "number",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+        {
+          // col:12,
+          visible: true,
+          error: null,
+          type: "number",
+          value: "",
+          req_val: ["service_provider"],
           label: this.$i18n.t("license"),
           placeholder: this.$i18n.t("license"),
           value_text: "license",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        {
+            req_val: ["service_provider"],
+            error:null,
+            type: "file",
+            value: null,
+            label: this.$i18n.t("assign_file") + " " + this.$i18n.t("(PDF)"),
+            rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+              (v) =>
+                !v ||
+                v.size <= 2000000 ||
+                this.$i18n.t("size should be less or equal than 2 MB"),
+            ],
+            accept: ".pdf",
+            value_text: "assign_file",
+          },
         // {
         //   visible: true,
         // error:false,
@@ -269,6 +363,12 @@ export default {
           label: this.$i18n.t("Commercial Register") + this.$i18n.t("(PDF)"),
           value_text: "commercial_file",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -283,6 +383,7 @@ export default {
           ],
           label: this.$i18n.t("Commercial Register Expire"),
           value_text: "commercial_expiration",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
 
         {
@@ -295,6 +396,12 @@ export default {
             this.$i18n.t("My rating certificate") + " " + this.$i18n.t("(PDF)"),
           value_text: "classification_file",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -318,6 +425,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "practice_file",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -337,6 +450,12 @@ export default {
           label: this.$i18n.t("business license") + " " + this.$i18n.t("(PDF)"),
           value_text: "business_file",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -356,6 +475,12 @@ export default {
           label: this.$i18n.t("National address") + " " + this.$i18n.t("(PDF)"),
           value_text: "national_file",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           type: "file",
@@ -371,6 +496,12 @@ export default {
           label: this.$i18n.t("Owner ID photo") + " " + this.$i18n.t("(PDF)"),
           value_text: "ownerid_file",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         // رخصة التأمينات الاجتماعية
         {
@@ -385,6 +516,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "social_security",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -408,6 +545,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "zakat_income",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -431,6 +574,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "saudization",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -454,6 +603,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "chamber_commerce",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         {
           value: "",
@@ -477,6 +632,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "tax_registration",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         // شهادة حماية الأجور
         {
@@ -491,6 +652,12 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "wage_protection",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
         // عقد التأسيس
         {
@@ -505,17 +672,117 @@ export default {
             this.$i18n.t("(PDF)"),
           value_text: "memorandum_association",
           accept: ".pdf",
+          rules: [
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
         },
+        
         {
-          visible: true,
+          // req_val: ["raft_office"],
+          visible: false,
           error: null,
           value: "",
-          label: this.$i18n.t("Role"),
-          value_text: "roles",
+          label: this.$i18n.t("company raft"),
+          value_text: "raft_company_id",
           type: "select",
           items: [],
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        {
+          visible: false,
+          error: null,
+          value: "",
+          label: this.$i18n.t("prefix"),
+          value_text: "prefix",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+        {
+          visible: false,
+          error: null,
+          value: "",
+          type: "number",
+          label: this.$i18n.t("kroky"),
+          value_text: "kroky",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+        {
+          req_val: ["service_provider"],
+          error:null,
+          type: "file",
+          value: null,
+          label: this.$i18n.t("seasonal_license") + " " + this.$i18n.t("(PDF)"),
+          rules: [
+            // (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
+          accept: ".pdf",
+          value_text: "seasonal_license",
+        },
+        {
+            req_val: ["service_provider"],
+            error:null,
+            type: "file",
+            value: null,
+            label: this.$i18n.t("delegateid") + " " + this.$i18n.t("(PDF)"),
+            rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+              (v) =>
+                !v ||
+                v.size <= 2000000 ||
+                this.$i18n.t("size should be less or equal than 2 MB"),
+            ],
+            accept: ".pdf",
+            value_text: "delegateid",
+          },
+          {
+            req_val: ["service_provider"],
+            error:null,
+            type: "file",
+            value: null,
+            label: this.$i18n.t("delegation") + " " + this.$i18n.t("(PDF)"),
+            rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+              (v) =>
+                !v ||
+                v.size <= 2000000 ||
+                this.$i18n.t("size should be less or equal than 2 MB"),
+            ],
+            accept: ".pdf",
+            value_text: "delegation",
+          },
+          {
+            req_val: ["service_provider"],
+            error:null,
+            type: "file",
+            value: null,
+            label: this.$i18n.t("hajj_license") + " " + this.$i18n.t("(PDF)"),
+            rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+              (v) =>
+                !v ||
+                v.size <= 2000000 ||
+                this.$i18n.t("size should be less or equal than 2 MB"),
+            ],
+            accept: ".pdf",
+            value_text: "hajj_license",
+          },
+          {
+            value: "",
+            type: "date",
+            visible: true,
+            error: null,
+            req_val: ["service_provider"],
+            label: this.$i18n.t("expire_date"),
+            rules: [(v) => !!v || this.$i18n.t("form.Item is required"),],
+            value_text: "hajj_license_expire",
+          },
+        
       ],
 
       currentType: "",
@@ -546,6 +813,9 @@ export default {
       "SET_CARD_LOADING",
     ]),
     ...mapMutations("form", ["SET_FORM_STYLE", "SET_DATA_STEPPER"]),
+    // CheckMatchPassword(){
+
+    // },
     set_data() {
       this.SET_COLLECTION("camp");
       this.SET_FUNCTION("add_camp");
@@ -563,7 +833,8 @@ export default {
     changeType(val, reload = false) {
       // this.resetValidation()
       this.reset();
-      console.log(reload);
+      // console.log(val);
+      // console.log(reload);
       this.currentType = val;
       if (!reload) {
         this.$router.push({
@@ -575,16 +846,43 @@ export default {
       this.form_stepper = this.form_stepper.map(function (item) {
         if (item.value_text == "type_id") {
           if (self.type_user == "admin") {
-            // alert(1)
             if (self.$route.query && self.$route.query.type) {
               item.value = self.$route.query.type;
             }
-          } else {
-            // alert(2)
-            item.value = self.type_user;
+          } else if (self.type_user == "raft_company") {
+            item.value = "raft_office";
             item.disabled = true;
           }
+        } else if (item.value_text == "category_id") {
+          if (val == "contractor" || val == "design_office") {
+            self.getCategoryByType(val).then((res) => {
+              console.log(res);
+              self.$store.commit("SET_CARD_LOADING", false);
+              item.items = res.data.data;
+            });
+            if (val == "design_office") {
+              item.type_select = "multiple";
+            } else {
+              item.type_select = "single";
+            }
+          }
+        } else if (item.value_text == "raft_company_id") {
+          if (self.type_user == "admin" && val == "raft_office") {
+            item.visible = true;
+            self.get_company_raft().then((res) => {
+              console.log(res);
+              self.$store.commit("SET_CARD_LOADING", false);
+              item.items = res.data.data;
+            });
+          } else {
+            item.visible = false;
+          }
+        } else if (item.value_text == "prefix" || item.value_text == "kroky") {
+          if (self.type_user == "admin" && self.currentType == "raft_company")
+            item.visible = true;
+          else item.visible = false;
         }
+
         if (item.req_val) {
           var req_val = item.req_val;
           if (Array.isArray(req_val) && req_val.includes(val)) {
@@ -596,11 +894,20 @@ export default {
         return item;
       });
     },
+    get_company_raft() {
+      this.$store.commit("SET_CARD_LOADING", true);
+      return axios.get("/general/companies/raft-companies");
+    },
+    getCategoryByType(type) {
+      this.$store.commit("SET_CARD_LOADING", true);
+      return axios.get("/general/categories/by-type/" + type);
+    },
     async getTypes() {
       var self = this;
       var currentType;
       await this.$http.get("/users/data-user").then(
         (response) => {
+          this.$store.commit("SET_CARD_LOADING", false);
           this.form_stepper.map(function (v) {
             if (v.value_text == "type_id") {
               v.items = response.data.types;
@@ -612,11 +919,17 @@ export default {
                   v.value = "admin";
                   currentType = "admin";
                 }
-              } else {
-                v.value = self.type_user;
-                v.disabled = true;
-                currentType = self.type_user;
+              } else if (self.type_user == "raft_company") {
+                // alert(2);
+                v.value = "raft_office";
+                v.visible = false;
+                currentType = "raft_office";
               }
+              // } else {
+              //   v.value = self.type_user;
+              //   v.disabled = true;
+              //   currentType = self.type_user;
+              // }
             }
             if (v.value_text == "city_id") v.items = response.data.cities;
             if (v.value_text == "roles") {
@@ -625,8 +938,22 @@ export default {
                 v.visible = false;
               }
             }
-            if (v.value_text == "category_id")
-              v.items = response.data.categories;
+            // if (v.value_text == "category_id") {
+            //   alert(self.type_user);
+            //   if (
+            //     self.type_user == "design_office" ||
+            //     self.type_user == "contractor"
+            //   )
+            //     v.label = this.$i18n.t("Specialties");
+            //   else if (self.type_user == "sharer") {
+            //     alert("ca");
+            //     v.label = 'this.$i18n.t("categories")';
+            //   }
+            // }
+            // v.items = response.data.categories;
+
+            // if (v.value_text == "engineer_office_id")
+            //   v.items = response.data.engineer_office;
 
             if (v.req_val) {
               var req_val = v.req_val;
@@ -640,6 +967,7 @@ export default {
           });
         },
         (error) => {
+          this.$store.commit("SET_CARD_LOADING", false);
           // console.log(error);
         }
       );
@@ -667,7 +995,18 @@ export default {
                 formData.append(`${item.value_text}[ ${i} ]`, val);
               }
             } else {
-              formData.append(item.value_text, item.value);
+              // if (item.value_text == "phone") {
+              //   var val = null;
+              //   if (item.value[0] == "0") {
+              //     val = item.value.replace(/0/i, "");
+              //     val = val;
+              //   } else {
+              //     val = item.value;
+              //   }
+              //   formData.append(item.value_text, val);
+              // } else {
+                formData.append(item.value_text, item.value);
+              // }
             }
           }
         });
@@ -675,8 +1014,8 @@ export default {
         axios
           .post("users/create-user", formData)
           .then((response) => {
-            this.error_msg = response.data.message;
-            // this.$router.push("/users");
+            this.error_msg = { msg: response.data.message, type: "Success" };
+            this.loading = false;
             this.$router.push({
               path: "/users",
               params: { message: this.error_msg },
@@ -688,9 +1027,15 @@ export default {
               var errors = error.response.data.errors;
               for (let i = 0; i < this.form_stepper.length; i++) {
                 const element = this.form_stepper[i];
-                if (errors[element.value_text] != undefined)
-                  element.error = errors[element.value_text];
-                // console.log(errors[element.value_text]);
+                if (errors[element.value_text] != undefined) {
+                  // alert(2);
+                  // if (element.value_text == "password") {
+                  //   alert(1);
+                  //   element.error = errors.password.toString();
+                  // } else
+                  element.error = errors[element.value_text].toString();
+                  console.log(errors[element.error]);
+                }
               }
               this.error_msg = this.$i18n.t(
                 "Please Check errors before submit"
@@ -719,12 +1064,19 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit("SET_CARD_LOADING", true);
     this.type_user = this.$store.state.auth.type.code;
+    if (this.type_user == "raft_company") {
+      this.card.sub_title = this.$i18n.t("user info raft office");
+    } else {
+      this.card.sub_title = this.$i18n.t("user info");
+    }
     this.getTypes();
     this.set_data();
     document.title = this.$i18n.t("new main user");
     if (this.$route.query.type) {
-      this.changeType({ code: this.$route.query.type }, true);
+      this.changeType(this.$route.query.type, true);
+      // this.type_user = this.$route.query.type;
     }
   },
 };

@@ -64,7 +64,7 @@ export default {
   mounted() {
     // this.getUsers();
     this.set_data();
-    this.$store.dispatch("user/getData", { reset: true });
+    this.$store.dispatch("user/getData", {});
     document.title = this.$i18n.t("EmployeePage");
   },
 };

@@ -1,6 +1,7 @@
 <template>
   <div class="register">
-    <Notify></Notify>
+    <Notify :details="error_msg"></Notify>
+    <Loading v-if="load_page"></Loading>
     <v-form
       ref="loginForm"
       lazy-validation
@@ -36,6 +37,13 @@
                 :item="item"
                 v-if="item.value_text == 'type_id'"
               ></Input>
+              <template v-else-if="item.value_text == 'phone'">
+                <Input :item="item">
+                  <template #feild>
+                    <span class="number_phone">966+</span>
+                  </template>
+                </Input>
+              </template>
               <Input v-else :item="item"></Input>
             </v-col>
           </v-row>
@@ -76,11 +84,13 @@
 </template>
 <script>
 import Input from "../Components/Input.vue";
-import Notify from "../Components/Notify.vue";
+import Notify from "../Components/NewNotify.vue";
+import Loading from "../Components/Loading.vue";
 export default {
   components: {
     Input,
     Notify,
+    Loading,
   },
   data() {
     return {
@@ -94,6 +104,8 @@ export default {
           object: false,
           value_text: "type_id",
           class: "form-control",
+error:null,
+          required: true,
           type: "select",
           val_select: "code",
           label: this.$i18n.t("user type"),
@@ -101,27 +113,54 @@ export default {
           items: [],
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+//         {
+//           value_text: "name",
+//           class: "form-control",
+// error:null,
+//           required: true,
+//           label: this.$i18n.t("Name"),
+//           placeholder: this.$i18n.t("Name"),
+//           class_div: "input-group auth-pass-inputgroup",
+//           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+//         },
+        
+        
         {
-          value_text: "name",
           class: "form-control",
-          label: this.$i18n.t("Name"),
-          placeholder: this.$i18n.t("Name"),
-          class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
-        },
-        {
-          class: "form-control",
+error:null,
+          required: true,
           type: "email",
           label: this.$i18n.t("auth.Email Address"),
-          placeholder: this.$i18n.t("auth.Email Address"),
+          placeholder: "Example@test.com",
           class_div: "input-group auth-pass-inputgroup",
           value_text: "email",
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              (v &&
+                // /^(([a-zA-Z\-0-9]+[^<>()\\.,;:@"]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
+                  /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
+                  v
+                )) ||
+              this.$i18n.t("auth.E-mail must be valid"),
+          ],
+        },
+        {
+          value_text: "company_name",
+          class: "form-control",
+error:null,
+          required: true,
+          label: this.$i18n.t("Company Name"),
+          placeholder: this.$i18n.t("Company Name"),
+          class_div: "input-group auth-pass-inputgroup",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
           type: "password",
           value_text: "password",
           class: "form-control",
+          error:null,
+          required: true,
           label: this.$i18n.t("auth.Password"),
           placeholder: this.$i18n.t("auth.Password"),
           show: false,
@@ -138,6 +177,8 @@ export default {
           value_text: "password_confirmation",
           type: "password",
           class: "form-control",
+          error:null,
+          required: true,
           label: this.$i18n.t("auth.Repeat Password"),
           placeholder: this.$i18n.t("auth.Repeat Password"),
           show: false,
@@ -147,51 +188,67 @@ export default {
           ],
         },
         {
-          value_text: "company_name",
-          class: "form-control",
-          label: this.$i18n.t("Company Name"),
-          placeholder: this.$i18n.t("Company Name"),
-          class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
-        },
-        {
           value_text: "owner_name",
           class: "form-control",
+error:null,
+          required: true,
           label: this.$i18n.t("PossName"),
           placeholder: this.$i18n.t("PossName"),
           class_div: "input-group auth-pass-inputgroup",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
+          type: "number",
           value_text: "commercial",
           class: "form-control",
+error:null,
+          required: true,
           label: this.$i18n.t("Commercial Register num"),
           placeholder: this.$i18n.t("Commercial Register num"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),
+          ],
         },
         {
+          type: "number",
           class: "form-control",
+error:null,
+          required: true,
           value_text: "owner_hardcopyid",
           label: this.$i18n.t("ID No"),
           placeholder: this.$i18n.t("ID No"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) => /^(1)\d*$/.test(v) || this.$i18n.t("have to start number 1"),
+            (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),
+          ],
         },
 
         {
-          class: "form-control",
+          class: "d-inline-block form-control w-80",
+          required: true,
           value_text: "phone",
+          type: "number",
           label: this.$i18n.t("auth.Phone Number"),
-          placeholder: this.$i18n.t("auth.Phone Number"),
+          placeholder: '5xxxxxxxx',
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              /^(5)\d*$/.test(v) || this.$i18n.t("have to start number 5"),
+            (v) => (v && v.length == 9) || this.$i18n.t("equal 9 characters"),
+          ],
         },
         {
           req_val: ["design_office", "contractor"],
           value_text: "city_id",
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "select",
           label: this.$i18n.t("city"),
           placeholder: this.$i18n.t("city"),
@@ -200,30 +257,61 @@ export default {
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "6",
+          col: "12",
+          type: "number",
           value_text: "license",
           req_val: ["service_provider"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           label: this.$i18n.t("license"),
           placeholder: this.$i18n.t("license"),
           class_div: "input-group auth-pass-inputgroup",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        {
+          visible: true,
+          error: null,
+          value: "",
+          col: "6",
+          class: "form-control",
+error:null,
+          required: true,
+          class_div: "input-group auth-pass-inputgroup",
+          req_val: ["design_office", "contractor"],
+          label: this.$i18n.t("Specialties"),
+          value_text: "category_id",
+          type: "select",
+          items: [],
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
         // السجل التجاري
         {
+          req_val: ["design_office", "contractor"],
           class: "form-control",
+error:null,
+          required: true,
           type: "file",
           value: null,
           label:
             this.$i18n.t("Commercial Register") + " " + this.$i18n.t("(PDF)"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
           accept: ".pdf",
           value_text: "commercial_file",
         },
         {
+          req_val: ["design_office", "contractor"],
           class: "form-control",
+error:null,
+          required: true,
           type: "date",
           label: this.$i18n.t("Commercial Register Expire"),
           class_div: "input-group auth-pass-inputgroup",
@@ -234,12 +322,20 @@ export default {
           req_val: ["design_office", "contractor"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "file",
           value: null,
           label:
             this.$i18n.t("My rating certificate") + " " + this.$i18n.t("(PDF)"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
           accept: ".pdf",
           value_text: "classification_file",
         },
@@ -247,6 +343,8 @@ export default {
           req_val: ["design_office", "contractor"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "date",
           label: this.$i18n.t("expire_date"),
           class_div: "input-group auth-pass-inputgroup",
@@ -256,18 +354,69 @@ export default {
         {
           req_val: ["design_office", "contractor"],
           visible: true,
-          col: "12",
+          // col: "12",
           class: "form-control",
+error:null,
+          required: true,
           type: "file",
           value: null,
           label: this.$i18n.t("National address") + " " + this.$i18n.t("(PDF)"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
           accept: ".pdf",
           value_text: "national_file",
         },
         // {
+        //   req_val: ["service_provider"],
+        //   col: "6",
         //   class: "form-control",
+        //   error:null,
+        //   required: true,
+        //   type: "file",
+        //   value: null,
+        //   label: this.$i18n.t("seasonal_license") + " " + this.$i18n.t("(PDF)"),
+        //   class_div: "input-group auth-pass-inputgroup",
+        //   rules: [
+        //     (v) => !!v || this.$i18n.t("form.Item is required"),
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        //   accept: ".pdf",
+        //   value_text: "seasonal_license",
+        // },
+
+        {
+          req_val: ["design_office", "contractor"],
+          col: "6",
+          class: "form-control",
+error:null,
+          required: true,
+          type: "file",
+          value: null,
+          label: this.$i18n.t("Owner ID photo") + " " + this.$i18n.t("(PDF)"),
+          class_div: "input-group auth-pass-inputgroup",
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
+          accept: ".pdf",
+          value_text: "ownerid_file",
+        },
+        // {
+        //   class: "form-control",
+// error:null,
+        // required:true,
         //   type: "date",
         //   label: this.$i18n.t("expire_date"),
         //   class_div: "input-group auth-pass-inputgroup",
@@ -278,6 +427,8 @@ export default {
           req_val: ["design_office"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "file",
           value: null,
           label:
@@ -285,7 +436,13 @@ export default {
             " " +
             this.$i18n.t("(PDF)"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
           accept: ".pdf",
           value_text: "practice_file",
         },
@@ -293,6 +450,8 @@ export default {
           req_val: ["design_office"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "date",
           label: this.$i18n.t("expire_date"),
           class_div: "input-group auth-pass-inputgroup",
@@ -303,11 +462,19 @@ export default {
           req_val: ["design_office", "contractor"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "file",
           value: null,
           label: this.$i18n.t("business license") + " " + this.$i18n.t("(PDF)"),
           class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              !v ||
+              v.size <= 2000000 ||
+              this.$i18n.t("size should be less or equal than 2 MB"),
+          ],
           accept: ".pdf",
           value_text: "business_file",
         },
@@ -315,25 +482,17 @@ export default {
           req_val: ["design_office", "contractor"],
           visible: true,
           class: "form-control",
+error:null,
+          required: true,
           type: "date",
           label: this.$i18n.t("expire_date"),
           class_div: "input-group auth-pass-inputgroup",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
           value_text: "business_expire",
         },
-        {
-          col: "12",
-          class: "form-control",
-          type: "file",
-          value: null,
-          label: this.$i18n.t("Owner ID photo") + " " + this.$i18n.t("(PDF)"),
-          class_div: "input-group auth-pass-inputgroup",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
-          accept: ".pdf",
-          value_text: "ownerid_file",
-        },
       ],
-      error_msg: "",
+      error_msg: { msg: "", type: "" },
+      load_page: true,
       type_msg: "",
       loading: false,
       currentType: "service_provider",
@@ -344,10 +503,41 @@ export default {
     reset() {
       this.$refs.loginForm.reset();
     },
+    resetValidation() {
+      this.$refs.loginForm.resetValidation();
+    },
     changeType(obj) {
-      console.log(obj);
+      var self = this;
+      // console.log(obj);
+      this.resetValidation();
       this.style_form.map(function (item) {
-        // if(item.value_text == "type_id")
+        if (obj == "service_provider") {
+          if (item.value_text == "ownerid_file") {
+            item.col = "12";
+          }
+        } else {
+          if (item.value_text == "ownerid_file") {
+            item.col = "6";
+          }
+        }
+
+        if (item.value_text == "category_id") {
+          if (obj == "contractor" || obj == "design_office") {
+            // alert(1);
+            self.load_page = true;
+            self.getCategoryByType(obj).then((res) => {
+              console.log(res);
+              self.load_page = false;
+              item.items = res.data.data;
+            });
+            if (obj == "design_office") {
+              item.type_select = "multiple";
+            } else {
+              item.type_select = "single";
+            }
+          }
+        }
+
         if (item.req_val) {
           var req_val = item.req_val;
           if (Array.isArray(req_val) && req_val.includes(obj)) {
@@ -363,49 +553,95 @@ export default {
       return this.$refs.loginForm.validate();
     },
     handleLogin() {
-      this.error_msg = "";
+      this.error_msg = { msg: "", type: "" };
+      console.log(this.error_msg);
       this.loading = true;
       const formData = new FormData();
-      this.style_form.map(function (v) {
-        console.log(v.value_text);
-        console.log(v.value);
-        if (v.value != undefined) {
-          formData.append(v.value_text, v.value);
-        }
-      });
-      // console.log(...formData);
       if (this.validate()) {
+        this.style_form.map(function (v) {
+          console.log(v.value_text);
+          console.log(v.value);
+          if (v.value != undefined && v.value != "" && v.value != null) {
+            if (
+              (v.type == "select" && v.type_select == "multiple") ||
+              (v.type == "autocomplete" && v.type_select == "multiple")
+            ) {
+              var value = v.value;
+              for (var i = 0; i < value.length; i++) {
+                const val = value[i];
+                formData.append(`${v.value_text}[ ${i} ]`, val);
+              }
+            } 
+            else {
+              // if (v.value_text == "phone") {
+              //   var val = null;
+              //   if (v.value[0] == "0") {
+              //     val = v.value.replace(/0/i, "");
+              //     val = val;
+              //   } else {
+              //     val = v.value;
+              //   }
+              //   formData.append(v.value_text, val);
+              // } else {
+                formData.append(v.value_text, v.value);
+              // }
+            }
+          }
+        });
+        console.log(...formData);
+        // return;
         this.$store.dispatch("auth/register", formData).then(
           (res) => {
             this.loading = false;
-            this.$store.commit("form/SET_NOTIFY", {
+            this.error_msg = {
               msg: res.message,
               type: "Success",
-            });
-            this.reset();
+            };
+            // this.reset();
+            var self = this
+            setTimeout(function () {
+              self.$router.push("/login");
+            }, 3000)
             // this.$router.push("/dashboard");
           },
           (error) => {
             this.loading = false;
             // console.log(error.response.data.message);
-            this.error_msg =
+            var msg =
               (error.response && error.response.data.message) || error.message;
             error.toString();
-            this.$store.commit("form/SET_NOTIFY", {
-              msg: this.error_msg,
+            this.error_msg = {
+              msg: msg,
               type: "Danger",
-            });
+            };
+            var errors = error.response.data.errors;
+            console.log(error.response.data.errors)
+              for (let i = 0; i < this.style_form.length; i++) {
+                const element = this.style_form[i];
+                if (errors[element.value_text] != undefined) {
+                  // alert(2);
+                  // if (element.value_text == "password") {
+                  //   alert(1);
+                  //   element.error = errors.password.toString();
+                  // } else
+                  element.error = errors[element.value_text].toString();
+                  console.log(errors[element.value_text]);
+                  console.log(element.error);
+                }
+              }
           }
         );
       } else {
         this.loading = false;
-        this.error_msg = this.$i18n.t("auth.Please Check errors and try again");
-        his.$store.commit("form/SET_NOTIFY", {
+        this.error_msg = {
           msg: this.$i18n.t("auth.Please Check errors and try again"),
           type: "Danger",
-        });
+        };
         return;
       }
+    },
+    getCategoryByType(type) {
+      return axios.get("/auth/categories/by-type/" + type);
     },
     get_types() {
       this.$http.get("/auth/register-data").then(
@@ -415,7 +651,12 @@ export default {
               v.value = "service_provider";
               v.items = response.data.types;
             }
+            if (v.value_text == "ownerid_file") {
+              v.col = "12";
+            }
             if (v.value_text == "city_id") v.items = response.data.cities;
+            // if (v.value_text == "category_id")
+            //   v.items = response.data.categories;
 
             if (v.req_val) {
               var req_val = v.req_val;
@@ -430,13 +671,15 @@ export default {
             }
             return v;
           });
+          this.load_page = false;
         },
         (error) => {
+          this.load_page = false;
           if (error.response.status != 401) {
-            this.$store.dispatch("form/setNotify", {
+            this.error_msg = {
               msg: this.$i18n.t("general.there is problem"),
               type: "Danger",
-            });
+            };
           }
         }
       );

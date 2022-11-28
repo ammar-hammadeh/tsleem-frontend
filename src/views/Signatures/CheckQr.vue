@@ -22,6 +22,19 @@
         </v-btn>
       </div>
       <h1 class="mt-5">{{ message }}</h1>
+      <p class="mt-4">المحضر رقم {{ data.id }}</p>
+      <p>
+        بتاريخ
+        <span class="font-poppins">{{ data.created_at | formatDateOnly }}</span>
+      </p>
+      <p>
+        للجهة
+        {{ data.company.type.name }} ( {{ data.company.name }} )
+      </p>
+      <p v-if="data.company.kroky">
+        حسب الكريوكي المرفق رقم
+        <span class="font-poppins">{{ data.company.kroky }}</span>
+      </p>
     </div>
   </div>
 </template>
@@ -33,6 +46,7 @@ export default {
     return {
       message: "",
       status: "",
+      data: {},
     };
   },
   mounted() {
@@ -42,6 +56,7 @@ export default {
         console.log(response.data);
         this.message = response.data.message;
         this.status = response.data.status;
+        this.data = response.data.data;
       },
       (error) => {
         console.log(error);

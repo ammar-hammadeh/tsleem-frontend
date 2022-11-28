@@ -43,7 +43,7 @@ export default {
         },
       ],
       header: [
-        { text: this.$i18n.t("Name"), align: "center", value: "name" },
+        { text: this.$i18n.t("Camp"), align: "center", value: "name" },
         { text: this.$i18n.t("square"), value: "square.name", align: "center" },
         { text: this.$i18n.t("status"), value: "status_text", align: "center" },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },

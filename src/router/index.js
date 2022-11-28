@@ -43,6 +43,19 @@ const CategoryPage = () => import("@/views/Categories/Show.vue");
 const NewCategory = () => import("@/views/Categories/New.vue");
 const EditCategory = () => import("@/views/Categories/Edit.vue");
 
+// Question Category
+const QuestionCategoryPage = () => import("@/views/QuestionCategory/Show.vue");
+const NewQuestionCategory = () => import("@/views/QuestionCategory/New.vue");
+const EditQuestionCategory = () => import("@/views/QuestionCategory/Edit.vue");
+
+
+
+
+// EnginnerOfficeCategory
+const EnginnerOfficeCategoryPage = () => import("@/views/EnginnerOffice/Show.vue");
+const NewEnginnerOfficeCategory = () => import("@/views/EnginnerOffice/New.vue");
+const EditEnginnerOfficeCategory = () => import("@/views/EnginnerOffice/Edit.vue");
+
 
 // square
 const SquarePage = () => import("@/views/Squares/Show.vue");
@@ -62,17 +75,29 @@ const EditType = () => import("@/views/Types/Edit.vue");
 // appointments
 const AppointmentPage = () => import("@/views/Appointments/Show.vue");
 const NewAppointment = () => import("@/views/Appointments/New.vue");
-const AppointmentContractPage = () => import("@/views/Appointments/Contract.vue");
+const AppointmentForm = () => import("@/views/Appointments/Form.vue");
+const AnswerForm = () => import("@/views/Appointments/FormAnswer.vue");
+const AnswerFormEdit = () => import("@/views/Appointments/FormAnswerEdit.vue");
+const SignatureForm = () => import("@/views/Appointments/Signature.vue");
+const FileForm = () => import("@/views/Appointments/FileForm.vue");
 
 // question
 const QuestionPage = () => import("@/views/Questions/Show.vue");
 const NewQuestion = () => import("@/views/Questions/New.vue");
 const EditQuestion = () => import("@/views/Questions/Edit.vue");
 
+// form
+const FormPage = () => import("@/views/TamplateForm/Show.vue");
+const NewForm = () => import("@/views/TamplateForm/New.vue");
+const EditForm = () => import("@/views/TamplateForm/Edit.vue");
+
+
 // signature
 const SignaturePage = () => import("@/views/Signatures/Show.vue");
+const DeliveryPage = () => import("@/views/Signatures/Delivery.vue");
 const FileSignature = () => import("@/views/Signatures/File.vue");
 const BlankCheckQr = () => import("@/views/Signatures/CheckQr.vue");
+const BlankRegisterDone = () => import("@/views/Auth/Done.vue");
 
 // assign
 const AssignPage = () => import("@/views/Assigns/Show.vue");
@@ -468,7 +493,7 @@ let questionsPage = {
         component: NewQuestion,
         meta: {
             groupName: "Question",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'question-create',
         },
     },
@@ -478,7 +503,7 @@ let questionsPage = {
         component: EditQuestion,
         meta: {
             groupName: "Question",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'question-update',
         },
     },
@@ -488,10 +513,135 @@ let questionsPage = {
         component: QuestionPage,
         meta: {
             groupName: "Question",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'question-index',
         },
     },
+    ],
+};
+
+let questionCategoryPage = {
+    path: "/",
+    component: DashboardLayout,
+    name: "QuestionCategory",
+    children: [
+        {
+            path: "/question-category/create",
+            name: "NewQuestionCategory",
+            component: NewQuestionCategory,
+            meta: {
+                groupName: "QuestionCategory",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'question_category-create',
+            },
+        },
+        {
+            path: "/question-category/update/:id",
+            name: "EditCategory",
+            component: EditQuestionCategory,
+            meta: {
+                groupName: "QuestionCategory",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'question_category-update',
+            },
+        },
+        {
+            path: "/question-category",
+            name: "QuestionCategoryPage",
+            component: QuestionCategoryPage,
+            meta: {
+                groupName: "QuestionCategory",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'question_category-index',
+            },
+        },
+    ],
+};
+
+let AnswerFromPage = {
+    path: "/",
+    component: DashboardLayout,
+    name: "Form",
+    children: [
+        {
+            path: "appointments/:id/form",
+            name: "AppointmentForm",
+            component: AppointmentForm,
+            meta: {
+                groupName: "AnswerForm",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'appointment-form-view',
+            },
+        },
+        {
+            path: "appointments/:id/form/:form",
+            name: "AppointmentAnswerForm",
+            component: AnswerForm,
+            meta: {
+                groupName: "AnswerForm",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'appointment-form-answer',
+            },
+        },
+
+        {
+            path: "appointments/:id/form/:form/edit",
+            name: "AppointmentAnswerFormEdit",
+            component: AnswerFormEdit,
+            meta: {
+                groupName: "AnswerForm",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'appointment-form-answer-edit',
+            },
+        },
+        {
+            path: "appointments/:id/form/:form/signature",
+            name: "AppointmentFormSignature",
+            component: SignatureForm,
+            meta: {
+                groupName: "AnswerForm",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'delivery-sign',
+            },
+        },
+    ],
+};
+
+let TamplateFormPage = {
+    path: "/",
+    component: DashboardLayout,
+    name: "Form",
+    children: [
+        {
+            path: "/forms/create",
+            name: "NewForm",
+            component: NewForm,
+            meta: {
+                groupName: "Form",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'tamplate-form-create',
+            },
+        },
+        {
+            path: "/forms/update/:id",
+            name: "EditForm",
+            component: EditForm,
+            meta: {
+                groupName: "Form",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'tamplate-form-update',
+            },
+        },
+        {
+            path: "/forms",
+            name: "FormPage",
+            component: FormPage,
+            meta: {
+                groupName: "Form",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'tamplate-form-index',
+            },
+        },
     ],
 };
 
@@ -502,13 +652,23 @@ let SignaturesPage = {
     children: [
 
         {
-            path: "/signatures",
+            path: "/contructs",
             name: "SignaturePage",
             component: SignaturePage,
             meta: {
                 groupName: "Signature",
-                middlewares: [Middleware.auth, Middleware.permission],
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
                 permissions: 'signature-index',
+            },
+        },
+        {
+            path: "/deliveries",
+            name: "DeliveryPage",
+            component: DeliveryPage,
+            meta: {
+                groupName: "Delivery",
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'delivery-index',
             },
         },
     ],
@@ -519,13 +679,23 @@ let FilePage = {
     component: BlankLayout,
     name: "FileSignaturePage",
     children: [{
-        path: "/signatures/:id",
+        path: "/contructs/:id",
         name: "FileSignature",
         component: FileSignature,
         meta: {
             groupName: "Signature",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'signature-show-file',
+        },
+    },
+    {
+        path: "appointments/:id/form/:form/view",
+        name: "AppointmentFormView",
+        component: FileForm,
+        meta: {
+            groupName: "AnswerForm",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'delivery-view',
         },
     },
     {
@@ -534,6 +704,15 @@ let FilePage = {
         component: BlankCheckQr,
         meta: {
             groupName: "Signature",
+        },
+    },
+    {
+        path: "/done",
+        name: "BlankRegisterDone",
+        component: BlankRegisterDone,
+        meta: {
+            groupName: "Done",
+            middlewares: [Middleware.authReject]
         },
     }],
 };
@@ -548,7 +727,7 @@ let campsPage = {
         component: NewCamp,
         meta: {
             groupName: "Camp",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'camp-create',
         },
     },
@@ -558,7 +737,7 @@ let campsPage = {
         component: EditCamp,
         meta: {
             groupName: "Camp",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'camp-update',
         },
     },
@@ -568,7 +747,7 @@ let campsPage = {
         component: CampPage,
         meta: {
             groupName: "Camp",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'camp-index',
         },
     },
@@ -584,9 +763,9 @@ let categoriesPage = {
         name: "NewCategory",
         component: NewCategory,
         meta: {
-            groupName: "Category",
-            middlewares: [Middleware.auth, Middleware.permission],
-            permissions: 'camp-create',
+            groupName: "Categories",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'category-create',
         },
     },
     {
@@ -594,9 +773,9 @@ let categoriesPage = {
         name: "EditCategory",
         component: EditCategory,
         meta: {
-            groupName: "Category",
-            middlewares: [Middleware.auth, Middleware.permission],
-            permissions: 'camp-update',
+            groupName: "Categories",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'category-update',
         },
     },
     {
@@ -604,9 +783,46 @@ let categoriesPage = {
         name: "CategoryPage",
         component: CategoryPage,
         meta: {
-            groupName: "Category",
-            middlewares: [Middleware.auth, Middleware.permission],
-            permissions: 'camp-index',
+            groupName: "Categories",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'category-index',
+        },
+    },
+    ],
+};
+
+let EnginnerOfficePage = {
+    path: "/",
+    component: DashboardLayout,
+    name: "EnginnerOffice",
+    children: [{
+        path: "/engineer-office/category/create",
+        name: "NewEnginnerOfficeCategory",
+        component: NewEnginnerOfficeCategory,
+        meta: {
+            groupName: "EnginnerOffice",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'engineer-office-create',
+        },
+    },
+    {
+        path: "/engineer-office/category/update/:id",
+        name: "EditEnginnerOfficeCategory",
+        component: EditEnginnerOfficeCategory,
+        meta: {
+            groupName: "EnginnerOffice",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'engineer-office-update',
+        },
+    },
+    {
+        path: "/engineer-office/category",
+        name: "EnginnerOfficeCategoryPage",
+        component: EnginnerOfficeCategoryPage,
+        meta: {
+            groupName: "EnginnerOffice",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'engineer-office-index',
         },
     },
     ],
@@ -622,7 +838,7 @@ let SquaresPage = {
         component: NewSquare,
         meta: {
             groupName: "Square",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'square-create',
         },
     },
@@ -632,7 +848,7 @@ let SquaresPage = {
         component: EditSquare,
         meta: {
             groupName: "Square",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'square-update',
         },
     },
@@ -642,7 +858,7 @@ let SquaresPage = {
         component: SquarePage,
         meta: {
             groupName: "Square",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'square-index',
         },
     },
@@ -659,7 +875,7 @@ let CitiesPage = {
         component: NewCity,
         meta: {
             groupName: "City",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'city-create',
         },
     },
@@ -669,7 +885,7 @@ let CitiesPage = {
         component: EditCity,
         meta: {
             groupName: "City",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'city-update',
         },
     },
@@ -679,7 +895,7 @@ let CitiesPage = {
         component: CityPage,
         meta: {
             groupName: "City",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'city-index',
         },
     },
@@ -696,7 +912,7 @@ let AssignsPage = {
         component: NewAssign,
         meta: {
             groupName: "Assign",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'assign-create',
         },
     },
@@ -706,7 +922,7 @@ let AssignsPage = {
         component: EditAssign,
         meta: {
             groupName: "Assign",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'assign-update',
         },
     },
@@ -716,7 +932,7 @@ let AssignsPage = {
         component: ReAssign,
         meta: {
             groupName: "Assign",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'assign-re-customization',
         },
     },
@@ -726,7 +942,7 @@ let AssignsPage = {
         component: AssignPage,
         meta: {
             groupName: "Assign",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'assign-index',
         },
     },
@@ -744,7 +960,7 @@ let TypesPage = {
             component: EditType,
             meta: {
                 groupName: "Type",
-                middlewares: [Middleware.auth, Middleware.permission],
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
                 permissions: 'type-update',
             },
         },
@@ -754,7 +970,7 @@ let TypesPage = {
             component: TypePage,
             meta: {
                 groupName: "Type",
-                middlewares: [Middleware.auth, Middleware.permission],
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
                 permissions: 'type-index',
             },
         },
@@ -772,8 +988,8 @@ let AppointmentsPage = {
             component: NewAppointment,
             meta: {
                 groupName: "Appointment",
-                middlewares: [Middleware.auth, Middleware.permission],
-                permissions: 'appointment-create-index',
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+                permissions: 'appointment-creat-index',
             },
         },
         {
@@ -782,20 +998,20 @@ let AppointmentsPage = {
             component: AppointmentPage,
             meta: {
                 groupName: "Appointment",
-                middlewares: [Middleware.auth, Middleware.permission],
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
                 permissions: 'appointment-index',
             },
         },
-        {
-            path: "/appointment/contract/:id",
-            name: "AppointmentContractPage",
-            component: AppointmentContractPage,
-            meta: {
-                groupName: "Appointment",
-                middlewares: [Middleware.auth, Middleware.permission],
-                permissions: 'appointment-contract-view',
-            },
-        },
+        // {
+        //     path: "/appointment/contract/:id",
+        //     name: "AppointmentContractPage",
+        //     component: AppointmentContractPage,
+        //     meta: {
+        //         groupName: "Appointment",
+        //         middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+        //         permissions: 'appointment-contract-view',
+        //     },
+        // },
     ],
 };
 
@@ -856,7 +1072,7 @@ let EmployeePage = {
                 import("@/views/Employees/index.vue"),
             meta: {
                 groupName: "employees",
-                middlewares: [Middleware.auth, Middleware.permission],
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
                 permissions: 'index-employee',
             },
         },
@@ -867,7 +1083,7 @@ let EmployeePage = {
                 import("@/views/Employees/create_emp.vue"),
             meta: {
                 groupName: "employees",
-                middlewares: [Middleware.auth, Middleware.permission],
+                middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
                 permissions: 'add-employee',
             },
         },
@@ -884,7 +1100,7 @@ let Admins = {
             import("@/views/Users/index.vue"),
         meta: {
             groupName: "users",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'user-index',
         },
     },
@@ -895,7 +1111,7 @@ let Admins = {
             import("@/views/Users/create.vue"),
         meta: {
             groupName: "users",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'user-create',
         },
     },
@@ -906,8 +1122,19 @@ let Admins = {
             import("@/views/Users/update.vue"),
         meta: {
             groupName: "users",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'user-update',
+        },
+    },
+    {
+        path: "/users/view/:id",
+        name: "ViewUser",
+        component: () =>
+            import("@/views/Users/view.vue"),
+        meta: {
+            groupName: "users",
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+            permissions: 'user-view',
         },
     },
     {
@@ -916,7 +1143,7 @@ let Admins = {
         component: OrderPage,
         meta: {
             groupName: "users",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'user-request',
         },
     },
@@ -946,7 +1173,7 @@ let Roles = {
             import("@/views/Roles/index.vue"),
         meta: {
             groupName: "roles",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'role-index',
         },
     },
@@ -957,7 +1184,7 @@ let Roles = {
             import("@/views/Roles/create.vue"),
         meta: {
             groupName: "roles",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'role-create',
         },
     },
@@ -968,7 +1195,7 @@ let Roles = {
             import("@/views/Roles/update.vue"),
         meta: {
             groupName: "roles",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: 'role-update',
         },
     },
@@ -986,7 +1213,7 @@ let Permissions = {
             import("@/views/Permissions/index.vue"),
         meta: {
             groupName: "permissions",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
         },
     },
     {
@@ -996,7 +1223,7 @@ let Permissions = {
             import("@/views/Permissions/create.vue"),
         meta: {
             groupName: "permissions",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
         },
     },
     {
@@ -1006,7 +1233,7 @@ let Permissions = {
             import("@/views/Permissions/update.vue"),
         meta: {
             groupName: "permissions",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
         },
     },
     ],
@@ -1041,7 +1268,7 @@ const routes = [{
         component: Dashboard,
         meta: {
             groupName: "Dashboards",
-            middlewares: [Middleware.auth, Middleware.permission],
+            middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
             permissions: '',
         },
     },
@@ -1141,17 +1368,17 @@ const routes = [{
             groupName: "Ecommerce",
         },
     },
-    {
-        path: "/form",
-        name: "Form",
-        component: () =>
-            import("@/views/Users/form.vue"),
-        meta: {
-            groupName: "Form",
-            middlewares: [Middleware.auth, Middleware.permission],
-            permissions: 'form-index',
-        },
-    },
+        // {
+        //     path: "/form",
+        //     name: "Form",
+        //     component: () =>
+        //         import("@/views/Users/form.vue"),
+        //     meta: {
+        //         groupName: "Form",
+        //         middlewares: [Middleware.auth, Middleware.permission, Middleware.signeture],
+        //         permissions: 'form-index',
+        //     },
+        // },
     ],
 },
     pricingPage,
@@ -1170,9 +1397,13 @@ const routes = [{
     SignUp,
     OrdersPage,
     campsPage,
+    EnginnerOfficePage,
     SquaresPage,
     CitiesPage,
     questionsPage,
+    questionCategoryPage,
+    AnswerFromPage,
+    TamplateFormPage,
     categoriesPage,
     SignaturesPage,
     AppointmentsPage,

@@ -12,7 +12,7 @@
         >
           <label
             :class="item.class_label"
-            class="text-xs text-typo font-weight-bolder ms-1"
+            class="text-xs text-typo mb-1 font-weight-bolder ms-1"
             >{{ item.label }}</label
           >
           <!-- :required="item.required" -->
@@ -55,6 +55,7 @@
             :error-messages="item.error"
             :multiple="item.type_select == 'multiple' ? true : false"
             @change="action_selectbox(item, $event)"
+            :rules="item.rules"
             :disabled="item.disabled"
           ></v-select>
 
@@ -70,6 +71,7 @@
             :multiple="item.type_select == 'multiple' ? true : false"
             @change="action_selectbox(item, $event)"
             :disabled="item.disabled"
+            :rules="item.rules"
           ></v-autocomplete>
 
           <v-textarea
@@ -77,9 +79,10 @@
             :label="item.label"
             auto-grow
             :class="item.class"
-            outlined
             :rows="item.row"
             row-height="15"
+            :outlined="item.outlined"
+            single-line
             :error-messages="item.error"
             :rules="item.rules"
             :value="item.value"
@@ -93,6 +96,7 @@
             :type="item.show ? 'text' : 'password'"
             @click:append="item.show = !item.show"
             v-model="item.value"
+            :error-messages="item.error"
             :disabled="item.disabled"
             :value="item.value"
             :rules="item.rules"
@@ -105,12 +109,82 @@
           >
           </v-text-field>
 
+          <template v-else-if="item.type == 'date'">
+            <!-- <custom-date-picker
+              :value="item.value"
+              v-model="item.value"
+            ></custom-date-picker> -->
+            <!-- @input="updateValue" -->
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="item.value"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <!-- :label="item.label ? item.label : $t('Please select a date')" -->
+                <v-text-field
+                  :class="item.class"
+                  v-model="item.value"
+                  class="date-input"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  :error-messages="item.error"
+                  color="rgba(0,0,0,.6)"
+                  :min="item.min"
+                  :rules="item.rules"
+                  single-line
+                  :placeholder="item.placeholder"
+                  :disabled="item.disabled"
+                  :value="item.value"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-hijri-date-picker no-title locale="ar" v-model="item.value">
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">
+                  {{ $t("Cancel") }}
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.menu[0].save(item.value)"
+                >
+                  {{ $t("OK") }}
+                </v-btn></v-hijri-date-picker
+              >
+            </v-menu>
+          </template>
+
           <input
             v-else-if="item.type == 'hidden'"
             type="hidden"
             :value="item.value"
           />
-
+          <v-text-field
+            v-else-if="item.type == 'datetime'"
+            :rules="item.rules"
+            type="datetime-local"
+            :error-messages="item.error"
+            color="rgba(0,0,0,.6)"
+            :min="item.min"
+            :placeholder="item.placeholder"
+            class="
+              font-size-input
+              placeholder-lighter
+              text-light-input
+              form-control
+            "
+            :class="item.class"
+            v-model="item.value"
+            :disabled="item.disabled"
+            :value="item.value"
+          >
+          </v-text-field>
           <v-text-field
             v-else
             @input="action_input_text(item, $event)"
@@ -189,6 +263,7 @@ export default {
   data() {
     return {
       valid: true,
+      menu: false,
     };
   },
   computed: {

@@ -24,6 +24,7 @@
               v-model="form.email"
               :rules="rules.email"
               height="40"
+              type="email"
               :placeholder="$t('auth.Email Address')"
             >
             </v-text-field>
@@ -45,7 +46,7 @@
               </v-text-field>
             </div>
           </div>
-          <div class="mb-2">
+          <!-- <div class="mb-2">
             <div class="form-check ms-3">
               <v-checkbox
                 class="mt-0"
@@ -54,8 +55,16 @@
                 :label="$t('remember_me')"
               ></v-checkbox>
             </div>
+          </div> -->
+          <div class="mb-2">
+            <router-link
+              to="/reset_password"
+              class="login-link"
+              style="color: #000"
+            >
+              <p>{{ $t("auth.forgot password ?") }}</p>
+            </router-link>
           </div>
-
           <div class="mb-0 text-end">
             <v-btn
               elevation="0"
@@ -92,6 +101,7 @@
 </template>
 <script>
 import Notify from "../Components/NewNotify.vue";
+import {  mapState } from "vuex";
 export default {
   components: {
     Notify,
@@ -118,6 +128,9 @@ export default {
       loading: false,
     };
   },
+  computed:{
+    ...mapState('auth',['user'])
+  },
   methods: {
     validate() {
       // this.valid=this.$refs.loginForm.validate();
@@ -125,12 +138,43 @@ export default {
     },
     handleLogin(e) {
       e.preventDefault();
-      // this.error_msg = "";
+      this.error_msg = {};
       this.loading = true;
       if (this.validate()) {
         this.$store.dispatch("auth/login", this.form).then(
           () => {
-            this.$router.push("/dashboard");
+            this.loading = false;
+            if(this.$store.state.auth.user.status == 'disabled' ){
+              this.error_msg = {
+                msg: this.$i18n.t('account is pending'),
+                type: "Danger",
+              };
+              this.$store
+              .dispatch("auth/logout")
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((err) => console.log(err));
+            }else if(this.$store.state.auth.user.status == 'review'){
+              this.error_msg = {
+                msg: this.$i18n.t('review account'),
+                type: "Danger",
+              };
+              this.$store
+              .dispatch("auth/logout")
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((err) => console.log(err));
+            }
+            else{
+              if(this.user.signature == null){
+                this.$router.push("/profile");
+              }else{
+                this.$router.push("/dashboard");
+              }
+            }
+              
             // console.log(document.referrer)
             // if (document.referrer == "" && document.referrer == "") {
             // } else {
@@ -172,7 +216,8 @@ export default {
 };
 </script>
 <style>
-h1,
+/* button, */
+/* h1,
 h2,
 h3,
 h4,
@@ -180,11 +225,10 @@ h5,
 h6,
 a,
 input,
-/* button, */
 label,
 input::placeholder,
 p {
-  font-family: Janna !important;
+  font-family: Poppins !important;
   font-weight: normal;
-}
+} */
 </style>

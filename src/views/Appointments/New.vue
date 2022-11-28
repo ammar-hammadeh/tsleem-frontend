@@ -1,6 +1,32 @@
 <template>
   <div>
     <Card>
+      <template slot="befor_table">
+        <div class="my-4">
+          <v-btn
+            v-if="str_per.indexOf('contruct-bulk') > -1"
+            :loading="loading_bulk"
+            :class="`font-weight-bold py-2 mr-4 text-white bg-gradient-default`"
+            @click="bulkContruct()"
+          >
+            <span slot="loader">
+              <v-progress-circular
+                style="width: 20px; height: 20px"
+                indeterminate
+                color="white"
+              ></v-progress-circular>
+            </span>
+            <div>{{ $t("Bulk contruct") }}</div>
+          </v-btn>
+          <v-btn
+            v-if="str_per.indexOf('contruct-all') > -1"
+            :class="`font-weight-bold py-2 mr-3 text-white bg-gradient-default`"
+            @click="contructAll()"
+          >
+            <div>{{ $t("contruct all") }}</div>
+          </v-btn>
+        </div>
+      </template>
       <template #action-btn-table="{ item2 }">
         <v-list-item
           v-if="
@@ -8,6 +34,8 @@
             str_per.indexOf('appointment-create') > -1
           "
         >
+        {{classBtn('d-block')}}
+
           <v-list-item-title class="my-3">
             <span style="cursor: pointer" @click="make_appointment(item2)">
               <v-icon>mdi-pencil</v-icon>
@@ -21,6 +49,8 @@
             str_per.indexOf('appointment-contract') > -1
           "
         >
+        {{classBtn('d-block')}}
+
           <v-list-item-title class="my-3">
             <span style="cursor: pointer" @click="appointment_contracts(item2)">
               <v-icon>mdi-pencil</v-icon>
@@ -44,8 +74,8 @@
 <script>
 import Card from "../Components/Card.vue";
 import Modal from "../Components/Modal.vue";
-// import TypeService from "../../services/type.service";
-import { mapMutations, mapActions, mapGetters } from "vuex";
+// import AppointmentService from "../../services/appointment.service";
+import { mapMutations, mapActions, mapGetters, mapState } from "vuex";
 export default {
   name: "Appointment-New",
   components: {
@@ -54,6 +84,8 @@ export default {
   },
   data() {
     return {
+      loading_all: false,
+      loading_bulk: false,
       loader: false,
       modal_data: {
         size: "600px",
@@ -62,7 +94,7 @@ export default {
       style_form: [
         {
           col: "12",
-          type: "date",
+          type: "datetime",
           label: this.$i18n.t("Appointment"),
           error: null,
           value_text: "appointment",
@@ -80,7 +112,7 @@ export default {
           type: "icon",
           text: "make_appointment",
           color: "bg-gradient-success",
-          icon: "mdi-pencil",
+          icon: "mdi-calendar-clock",
           permission: "appointment-create",
         },
         {
@@ -117,6 +149,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["str_per"]),
+    ...mapState("table", ["bulk_selected"]),
   },
 
   methods: {
@@ -128,24 +161,105 @@ export default {
       "SET_FUNCTION",
     ]),
     ...mapMutations("table", [
+      "SET_SELECT_VIEW",
       "SET_LOADING",
       "SET_HEADERS",
       "SET_BTNS",
       "SET_ITEMS",
       "SET_BTN_TABLE",
       "SET_PAGINATION",
+      "SET_CHECK_PER"
     ]),
     ...mapActions("appointment", [
       "getData",
       "save_appointment",
       "save_appointment_contracts",
+      "contruct_bulk",
     ]),
     ...mapMutations("form", ["SET_NOTIFY", "SET_FORM_STYLE", "SET_DIALOG"]),
+    classBtn(val){
+      // console.log("val_class "+val)
+      return this.SET_CHECK_PER(val)
+    },
+    bulkContruct() {
+      if (this.bulk_selected.length == 0) {
+        this.SET_NOTIFY({
+          msg: this.$i18n.t("please selecte rows"),
+          type: "Warning",
+        });
+        return;
+      }
+      this.loading_bulk = true;
+
+      console.log(this.bulk_selected);
+      this.contruct_bulk({ assign_camps_ids: this.bulk_selected }).then(
+        (res) => {
+          this.loading_bulk = false;
+          this.SET_NOTIFY({
+            msg: res.data.message,
+            type: "Success",
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.loading_bulk = false;
+          this.SET_NOTIFY({
+            msg: err.response.data.message,
+            type: "Danger",
+          });
+        }
+      );
+    },
+    contructAll() {
+      this.$swal({
+        title: this.$i18n.t("Are you sure to contruct all recourd in table?"),
+        text: this.$i18n.t("You won't be able to revert this!"),
+        type: "warning",
+        showCancelButton: true,
+        customClass: {
+          confirmButton: "btn bg-gradient-success",
+          cancelButton: "btn bg-gradient-danger",
+        },
+        confirmButtonText: this.$i18n.t("Yes"),
+        cancelButtonText: this.$i18n.t("No, cancel!"),
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.value) {
+          this.contruct_bulk({ select_all: true }).then(
+            (response) => {
+              // console.log(response)
+              this.$swal.fire(
+                this.$i18n.t("Done!"),
+                response.data.message,
+                "success"
+              );
+            },
+            (error) => {
+              console.log(error);
+              this.$swal.fire(
+                this.$i18n.t("Error"),
+                this.$i18n.t("There error please try again"),
+                "error"
+              );
+            }
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === this.$swal.DismissReason.cancel
+        ) {
+          this.$swal.fire(
+            this.$i18n.t("Cancelled"),
+            this.$i18n.t("Cancelled Proccess"),
+            "error"
+          );
+        }
+      });
+    },
     set_data() {
       this.SET_CARD(this.card);
       this.SET_COLLECTION("appointment");
       this.SET_LOADING(true);
-
+      this.SET_SELECT_VIEW(true);
       this.SET_HEADERS(this.header);
       this.SET_BTNS(this.btns);
       this.SET_BTN_TABLE(this.btn_table);
@@ -195,7 +309,7 @@ export default {
         ) {
           this.$swal.fire(
             this.$i18n.t("Cancelled"),
-            this.$i18n.t("Cancelled Delete"),
+            this.$i18n.t("Cancelled Proccess"),
             "error"
           );
         }
@@ -210,7 +324,7 @@ export default {
       this.SET_FUNCTION("save_appointment");
     },
     get_assigns() {
-      this.getData({ reset: true });
+      this.getData({});
     },
   },
   created() {

@@ -9,7 +9,16 @@ import i18n from "./i18n";
 import middleware from './middleware/'
 import VueQRCodeComponent from 'vue-qrcode-component'
 Vue.component('qr-code', VueQRCodeComponent)
+import VueSignature from "vue-signature-pad";
+Vue.use(VueSignature);
 Vue.config.productionTip = false;
+import uq from '@umalqura/core';
+uq.locale('ar');
+// Returns true
+uq.rtl();
+import VHijriDatePicker from 'vuetify-umalqura'
+
+Vue.component('v-hijri-date-picker', VHijriDatePicker)
 
 // Photoswipe Gallery
 import Photoswipe from "vue-pswipe";
@@ -23,12 +32,35 @@ import VueAxios from 'vue-axios'
 import authHeader from './services/auth-header';
 const axios = require('axios')
 Vue.use(VueAxios, axios)
-let url = 'https://95.177.179.143:8080/'
-// let url = 'https://tasleemback.dohalaw.net/'
-// let url = 'http://127.0.0.1:8000/'
+
+import VueDatetimeJs from 'vue-datetime-js';
+Vue.use(VueDatetimeJs, {
+    name: 'custom-date-picker',
+    props: {
+        inputFormat: 'YYYY-MM-DD HH:mm:ss',
+        format: 'jYYYY-jMM-jDD HH:mm:ss',
+        editable: false,
+        inputClass: 'form-control my-custom-class-name',
+        placeholder: i18n.t('Please select a date'),
+        altFormat: 'YYYY-MM-DD HH:mm:ss',
+        color: '#00acc1',
+        autoSubmit: false,
+        //...
+        //... And whatever you want to set as default
+        //...
+    }
+});
+// Vue.component('date-picker', VueDatetimeJs);
+
+// var url = 'https://backend.tsleem.com.sa/'
+var url = 'https://tasleemback.dohalaw.net/'
+// var url = 'https://backend-dev.tsleem.com.sa/'
+// var url = 'http://127.0.0.1:8000/'
 Vue.prototype.$baseURL = url
-// Vue.prototype.$frontURL = 'https://tasleem.dohalaw.net/'
-Vue.prototype.$frontURL = 'https://95.177.179.143/'
+// Vue.prototype.$frontURL = 'https://tsleem.com.sa/'
+Vue.prototype.$frontURL = 'https://tasleem.dohalaw.net/'
+//  Vue.prototype.$frontURL = 'https://services-dev.tsleem.com.sa/'
+// Vue.prototype.$frontURL = 'https://services.tsleem.com.sa/'
 
 window.axios = require('axios')
 axios.defaults.baseURL = url + "api/"
@@ -66,13 +98,13 @@ Vue.use(VueSweetalert2);
 import moment from 'moment';
 Vue.filter('formatDate', function (value) {
     if (value) {
-        return moment(String(value)).format('Y-m-d hh:mm')
+        return moment(String(value)).format('Y-M-D hh:mm')
     }
 });
 
 Vue.filter('formatDateOnly', function (value) {
     if (value) {
-        return moment(String(value)).format('Y-m-d')
+        return moment(String(value)).format('Y-M-D')
     }
 });
 

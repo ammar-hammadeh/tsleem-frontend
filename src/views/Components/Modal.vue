@@ -6,16 +6,20 @@
           <v-toolbar
             color="white"
             class="text-white bg-gradient-default header-info"
-            >{{ data.title ? data.title : $store.state.form.modal.title  }}</v-toolbar
+            >{{
+              data.title ? data.title : $store.state.form.modal.title
+            }}</v-toolbar
           >
 
           <v-card-text class="mt-5">
             <v-container>
-              <Form
-                :btn="true"
-                ref="myFormModal"
-                :collection="collection"
-              ></Form>
+              <slot name="body">
+                <Form
+                  :btn="true"
+                  ref="myFormModal"
+                  :collection="collection"
+                ></Form>
+              </slot>
             </v-container>
           </v-card-text>
           <v-card-actions>
@@ -23,22 +27,24 @@
             <v-btn color="dark" class="bg-light mw-80" text @click="close()">
               {{ $t("form.Close") }}
             </v-btn>
-            <v-btn
-              :loading="$store.state.form.loader"
-              class="bg-gradient-blue mw-80"
-              color="white"
-              text
-              @click="save_form()"
-            >
-              <span slot="loader">
-                <v-progress-circular
-                  style="width: 20px; height: 20px"
-                  indeterminate
-                  color="white"
-                ></v-progress-circular>
-              </span>
-              {{ $t("form.save") }}
-            </v-btn>
+            <slot name="footer-save">
+              <v-btn
+                :loading="$store.state.form.loader"
+                class="bg-gradient-blue mw-80"
+                color="white"
+                text
+                @click="save_form()"
+              >
+                <span slot="loader">
+                  <v-progress-circular
+                    style="width: 20px; height: 20px"
+                    indeterminate
+                    color="white"
+                  ></v-progress-circular>
+                </span>
+                {{ $t("form.save") }}
+              </v-btn>
+            </slot>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -78,7 +84,7 @@ export default {
     ...mapActions(["SaveForm"]),
     close() {
       this.SET_DIALOG(false);
-      this.$refs.myFormModal.reset();
+      if (this.$refs.myFormModal) this.$refs.myFormModal.reset();
     },
     validate() {
       return this.$refs.myFormModal.validate();
@@ -102,7 +108,7 @@ export default {
     },
   },
   mounted() {
-    console.log("modal");
+    // console.log("modal");
   },
 };
 </script>

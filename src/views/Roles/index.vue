@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           permission: "role-update",
         },
-        {
-          type: "icon",
-          text: "delete_role",
-          color: "bg-gradient-danger",
-          icon: "mdi-delete",
-          permission: "role-delete",
-          swal: true,
-        },
+        // {
+        //   type: "icon",
+        //   text: "delete_role",
+        //   color: "bg-gradient-danger",
+        //   icon: "mdi-delete",
+        //   permission: "role-delete",
+        //   swal: true,
+        // },
       ],
       header: [
         { text: this.$i18n.t("Name"), value: "name", align: "center" },

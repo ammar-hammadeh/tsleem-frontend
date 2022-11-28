@@ -6,8 +6,8 @@
       :color="snackbarC.color"
       class="snackbar-shadow"
     >
-      <div class="d-flex align-end alert-notify">
-        <v-icon size="24" class="text-white mr-5">ni ni-bell-55</v-icon>
+      <div class="d-flex align-center alert-notify">
+        <v-icon size="24" class="text-white ml-5">ni ni-bell-55</v-icon>
         <p class="mb-0">
           <span class="font-size-root font-weight-600">{{
             snackbarC.note
@@ -53,86 +53,42 @@ export default {
     snackbarC() {
       // console.log("type");
       // console.log(this.details.type);
-      if (!this.details.type) return;
+      if (!this.details.type) return this.snackbar;
       switch (this.details.type) {
         case "Info":
           return {
             color: "#17c1e8",
             visible: true,
             msg: this.details.msg,
-            note: "Info",
+            note: this.$i18n.t("Info"),
           };
-          break;
         case "Success":
           return {
             color: "#2dce89",
             visible: true,
             msg: this.details.msg,
-            note: "Success",
+            note: this.$i18n.t("Success"),
           };
-          break;
         case "Warning":
           return {
             color: "#fbcf33",
             visible: true,
             msg: this.details.msg,
-            note: "Warning",
+            note: this.$i18n.t("Warning"),
           };
-          break;
         case "Danger":
           return {
             color: "#f5365c",
             visible: true,
             msg: this.details.msg,
-            note: "Error",
+            note: this.$i18n.t("Error"),
           };
-          break;
       }
     },
   },
-  methods: {
-    SnackbarShow(details) {
-      console.log("type");
-      console.log(details.type);
-      if (!details.type) return;
-      switch (details.type) {
-        case "Info":
-          this.snackbar = {
-            color: "#17c1e8",
-            visible: true,
-            msg: details.msg,
-            note: "Info",
-          };
-          break;
-        case "Success":
-          this.snackbar = {
-            color: "#82d616",
-            visible: true,
-            msg: details.msg,
-            note: "Success",
-          };
-          break;
-        case "Warning":
-          this.snackbar = {
-            color: "#fbcf33",
-            visible: true,
-            msg: details.msg,
-            note: "Warning",
-          };
-          break;
-        case "Danger":
-          this.snackbar = {
-            color: "#ea0606",
-            visible: true,
-            msg: details.msg,
-            note: "Error",
-          };
-          break;
-      }
-    },
-  },
+  methods: {},
   mounted() {
-    this.SnackbarShow(this.details);
+    // this.SnackbarShow(this.details);
     // console.log('details notufy1')
     // console.log(this.details)
   },

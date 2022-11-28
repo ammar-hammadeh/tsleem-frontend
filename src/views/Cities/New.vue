@@ -18,14 +18,18 @@ export default {
           col: "12",
           type: "text",
           label: this.$i18n.t("Name"),
-          placeholder: "تبوك",
+          placeholder: this.$i18n.t("Name"),
           error: null,
           value_text: "name",
           value: "",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
       ],
-      card: { title: "New City", loading: true, sub_title: "City info" },
+      card: {
+        title: "New City",
+        loading: true,
+        sub_title: this.$i18n.t("City info"),
+      },
     };
   },
   methods: {

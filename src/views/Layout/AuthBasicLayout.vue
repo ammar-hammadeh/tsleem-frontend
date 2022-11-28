@@ -5,11 +5,19 @@
         class="header-auth position-relative ma-4 pb-17 pt-16 border-radius-xl"
         :style="`background-image:  url(${require('../../assets/img/bg-login.png')}; background-size: cover; background-position: 50%;`"
       >
+        <div @click="logout" class="logout">
+          <h6 class="text-md font-weight-bold mb-1 text-typo text-gray">
+            <v-icon size="20"
+            >fas fa-sign-out-alt me-sm-2 text-md</v-icon
+            >
+            {{ $t("logout") }}
+          </h6>
+      </div>
         <span
           v-if="this.$route.name == 'RegisterForm'"
           class="mask bg-gradient-default border-radius-xl opacity-6"
         ></span>
-        <a href="#" class="d-block auth-logo">
+        <a href="#" class="d-block auth-logo corner-logo">
           <img src="@/assets/img/logo2.png" alt="" width="100px" />
           <span class="logo-txt"></span>
         </a>
@@ -53,6 +61,20 @@
               >
                 {{ paragraphs }}
               </p>
+              <!-- <p
+                class="
+                  text-danger
+                  font-size-root
+                  text-center
+                  font-weight-thin
+                  mb-12
+                  font-diner
+                "
+                v-if="user.status == 'rejected'"
+              >
+              {{$t('Reason reject')}}
+                {{ user.reject_reason }}
+              </p> -->
             </v-col>
           </v-row>
         </v-container>
@@ -73,7 +95,7 @@
 import AppBarAuth from "@/components/AppBarAuth";
 import { FadeTransition } from "vue2-transitions";
 import ContentFooter from "@/components/Footer.vue";
-
+import { mapState } from "vuex";
 export default {
   name: "page-layout",
   components: {
@@ -87,7 +109,19 @@ export default {
       tab: null,
     };
   },
+  computed:{
+    ...mapState('auth',['user']),
+  },
   methods: {
+    logout() {
+      this.$store
+        .dispatch("auth/logout")
+        .then((response) => {
+          console.log(response);
+          this.$router.push("/login");
+        })
+        .catch((err) => console.log(err));
+    },
     headerTitle() {
       switch (this.$route.name) {
         case "SignUpBasic":
@@ -104,3 +138,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+.logout{
+  position: absolute;
+    z-index: 1;
+    top: 23px;
+    left: 21px;
+    cursor: pointer;
+}
+.logout .text-gray{
+  color: #494851 !important
+}
+</style>

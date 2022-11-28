@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div :class="class_div">
     <v-btn
       :loading="loader"
       class="font-weight-bold text-xs btn-default py-5 px-6 mb-0 ms-auto"
       :class="classes"
       color="white"
       text
+      :link="link ? true : false"
+      :to="link"
       @click="$emit('click')"
     >
       <span slot="loader">
@@ -34,9 +36,16 @@ export default {
     title: {
       type: String,
     },
+    class_div: {
+      type: String,
+      default: "",
+    },
     classes: {
       type: String,
       default: "bg-gradient-default",
+    },
+    link: {
+      type: String,
     },
   },
   name: "Button",

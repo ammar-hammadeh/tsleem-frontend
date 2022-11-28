@@ -1,13 +1,33 @@
 <template>
   <div>
-    <Card></Card>
+    <Card>
+      <template #list-item-table="{ item2 }">
+        <v-list-item
+          v-if="
+            str_per.indexOf('assign-re-customization') > -1 &&
+            type.code == 'raft_company'
+          "
+        >
+          {{classBtn('d-block')}}
+          <v-list-item-title class="my-3">
+            <a
+              style="color: #67748e"
+              class="text-decoration-none"
+              :href="`assign/re-customization/${item2.id}`"
+            >
+              <v-icon>mdi-pencil</v-icon>
+              {{ $t("general.re assign") }}
+            </a>
+          </v-list-item-title>
+        </v-list-item>
+      </template>
+    </Card>
   </div>
 </template>
 <script>
 import Card from "../Components/Card.vue";
 // import AssignService from "../../services/assign.service";
-import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("assign");
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   name: "Assign-Page",
   components: {
@@ -15,6 +35,7 @@ export default {
   },
   data() {
     return {
+      loading_bulk: false,
       btns: [
         {
           type: "icon",
@@ -25,15 +46,15 @@ export default {
           item: true,
           permission: "assign-update",
         },
-        {
-          type: "icon",
-          text: "re_assign",
-          color: "bg-gradient-success",
-          icon: "mdi-pencil",
-          url: "/assign/re-customization/",
-          item: true,
-          permission: "assign-re-customization",
-        },
+        // {
+        //   type: "icon",
+        //   text: "re_assign",
+        //   color: "bg-gradient-success",
+        //   icon: "mdi-pencil",
+        //   url: "/assign/re-customization/",
+        //   item: true,
+        //   permission: "assign-re-customization",
+        // },
         {
           type: "icon",
           text: "delete_assign",
@@ -45,9 +66,20 @@ export default {
       ],
       header: [
         {
+          text: this.$i18n.t("user type"),
+          align: "center",
+          value: "get_company.type.name",
+        },
+
+        {
           text: this.$i18n.t("Company Name"),
           align: "center",
-          value: "name",
+          value: "get_company.name",
+        },
+        {
+          text: this.$i18n.t("license"),
+          align: "center",
+          value: "get_company.license",
         },
         {
           text: this.$i18n.t("Square"),
@@ -55,6 +87,7 @@ export default {
           align: "center",
         },
         { text: this.$i18n.t("Camp"), align: "center", value: "get_camp.name" },
+        { text: this.$i18n.t("status"), align: "center", value: "status_text" },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
       ],
       card: {
@@ -67,8 +100,16 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters("auth", ["str_per"]),
+    ...mapState("auth", ["type"]),
+  },
   methods: {
-    ...mapActions(["getData"]),
+    ...mapActions("assign", ["getData"]),
+    classBtn(val){
+      // console.log("val_class "+val)
+      return this.$store.commit("table/SET_CHECK_PER",val)
+    },
     set_data() {
       this.$store.commit("SET_CARD", this.card);
       this.$store.commit("SET_COLLECTION", "assign");

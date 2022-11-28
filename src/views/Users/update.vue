@@ -57,7 +57,8 @@ export default {
           error: null,
           value_text: "commercial",
           value: "",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required"),
+          (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),],
         },
         {
           col: "6",
@@ -67,7 +68,9 @@ export default {
           error: null,
           value_text: "owner_hardcopyid",
           value: "",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required"),
+          (v) => /^(1)\d*$/.test(v) || this.$i18n.t("have to start number 1"),
+            (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),],
         },
         {
           col: "6",
@@ -77,17 +80,28 @@ export default {
           error: null,
           value_text: "email",
           value: "",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              (v &&
+              /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
+                  v
+                )) ||
+              this.$i18n.t("auth.E-mail must be valid"),
+        ],
         },
         {
           col: "6",
           type: "text",
-          label: this.$i18n.t("mobile"),
-          placeholder: this.$i18n.t("mobile"),
+          label: this.$i18n.t("phone"),
+          placeholder: '5xxxxxxxx',
           error: null,
           value_text: "phone",
           value: "",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required"),
+          (v) =>
+              /^(5)\d*$/.test(v) || this.$i18n.t("have to start number 5"),
+            (v) => (v && v.length == 9) || this.$i18n.t("equal 9 characters"),],
         },
       ],
 

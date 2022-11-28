@@ -15,8 +15,10 @@ export default function permission({ to, next, router, store }) {
 
 
   function checkPer() {
+    // console.log(to.meta.permissions)
     if (to.meta.permissions) {
-      if (["index-employee", "index-employee"].includes(to.meta.permissions) && store.state.auth.user.parent_id != null) {
+      if (["index-employee", "add-employee"].includes(to.meta.permissions) && store.state.auth.user.parent_id != null
+        || ["add-employee", "index-employee"].includes(to.meta.permissions) && store.state.auth.type.code == 'admin') {
         return next({
           path: '/403',
         })

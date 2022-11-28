@@ -33,6 +33,7 @@ export default {
           error: null,
           value_text: "camp_id",
           value: "",
+          type_select: "multiple",
           items: [],
           disabled: true,
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
@@ -50,11 +51,14 @@ export default {
         },
         {
           col: "6",
-          type: "text",
-          label: this.$i18n.t("license"),
+          visible: true,
+          type: "autocomplete",
+          label: this.$i18n.t("or") + " " + this.$i18n.t("license"),
           error: null,
           value_text: "receiver_cr",
           value: "",
+          items: [],
+          title_select: "license",
           action: "select_licence",
           // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
@@ -90,8 +94,18 @@ export default {
           console.log(response.data);
           this.style_form.map(function (v) {
             if (v.value_text == "receiver_company_id") {
-              v.items = response.data.companies;
-              return v.items.unshift({ id: null, name: "-----" });
+              return (v.items = response.data.companies.filter(
+                (v) => v.name != null
+              ));
+              // return (v.items = response.data.companies);
+              // return v.items.unshift({ id: null, name: "-----" });
+            }
+
+            if (v.value_text == "receiver_cr") {
+              return (v.items = response.data.companies.filter(
+                (v) => v.license != null
+              ));
+              // return v.items.unshift({ id: null, name: "-----" });
             }
 
             if (v.value_text == "square_id")

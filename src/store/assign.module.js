@@ -9,39 +9,70 @@ export const assign = {
     actions: {
         // assign
         select_licence({ rootState }, value) {
-            if (value.length == 0) {
-                rootState.form.style_form.map(function (v) {
-                    if (v.value_text == "receiver_company_id") {
-                        v.disabled = false
-                        return v
+            var val;
+            rootState.form.style_form.map(function (v) {
+                if (v.value_text == "receiver_company_id") {
+                    val = v.items.filter(s => s.id == value)
+                    if (val.length > 0) {
+                        v.value = val[0].id
                     }
-                });
-            } else {
-                rootState.form.style_form.map(function (v) {
-                    if (v.value_text == "receiver_company_id") {
-                        v.disabled = true
-                        return v
-                    }
-                });
-            }
+                    console.log(val)
+                    // v.disabled = false
+                    return v
+                }
+            });
+            // if (value.length == 0) {
+            // } else {
+            //     rootState.form.style_form.map(function (v) {
+            //         if (v.value_text == "receiver_company_id") {
+            //             // v.disabled = true
+            //             return v
+            //         }
+            //     });
+            // }
         },
         select_company({ rootState }, value) {
-            console.log('value... ' + value)
-            if (value == null) {
-                rootState.form.style_form.map(function (v) {
-                    if (v.value_text == "receiver_cr") {
-                        v.disabled = false
-                        return v
+            // console.log('value... ' + value)
+            var label = i18n.t("license")
+            var visible = true
+            rootState.form.style_form.map(function (v) {
+                if (v.value_text == "receiver_company_id") {
+                    var type = v.items.filter(s => s.id == value)
+                    if (type[0].type.code == "raft_office" || type[0].type.code == 'service_provider') {
+                        visible = true
+                        if (type[0].type.code == "raft_office") {
+                            label = i18n.t("or") + " " + i18n.t("center number")
+                        } else {
+                            label = i18n.t("or") + " " + i18n.t("license")
+                        }
+                    } else {
+                        visible = false
                     }
-                });
-            } else {
-                rootState.form.style_form.map(function (v) {
-                    if (v.value_text == "receiver_cr") {
-                        v.disabled = true
-                        return v
+
+                }
+                if (v.value_text == "receiver_cr") {
+                    v.label = label
+                    v.visible = visible
+                    var val = v.items.filter(s => s.id == value)
+                    if (val.length > 0) {
+                        v.value = val[0].id
+                    } else {
+                        v.value = ""
                     }
-                });
-            }
+                    console.log(v.value)
+                    // v.disabled = false
+                    return v
+                }
+            });
+            // if (value == null) {
+            // } else {
+            //     rootState.form.style_form.map(function (v) {
+            //         if (v.value_text == "receiver_cr") {
+            //             v.disabled = true
+            //             return v
+            //         }
+            //     });
+            // }
         },
         getCampBySquare({ rootState }, value) {
             return AssignService.get_camps_by_square(value).then(
@@ -171,7 +202,7 @@ export const assign = {
                         }
                     } else if (error.response.status != 401) {
                         rootState.form.notify = {
-                            msg: i18n.t("general.there is problem"),
+                            msg: error.response.data,
                             type: "Danger",
                         };
                     }
@@ -252,6 +283,12 @@ export const assign = {
                     "paginate",
                     data.pre_page
                 );
+            } else {
+                if (rootState.table.paginate.itemsPerPage != '')
+                    formData.append(
+                        "paginate",
+                        rootState.table.paginate.itemsPerPage
+                    );
             }
             return AssignService.get_assigns(rootState.table.paginate.page, formData).then(
                 (response) => {

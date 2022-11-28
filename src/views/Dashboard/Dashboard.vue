@@ -49,3 +49,6 @@ export default {
   },
 };
 </script>
+<style scoped>
+@import "@/assets/css/dashboard.scss";
+</style>

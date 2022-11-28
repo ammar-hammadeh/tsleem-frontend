@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { auth } from './auth.module';
 import { form } from './form.module';
+import { notifications } from './notifications.module';
 import { table } from './table.module';
 import { order } from './order.module';
 import { camp } from './camp.module';
@@ -13,6 +14,9 @@ import { square } from './square.module';
 import { assign } from './assign.module';
 import { appointment } from './appointment.module';
 import { category } from './category.module';
+import { assign_form } from './assign_form.module';
+import { question_category } from './question_category.module';
+
 Vue.use(Vuex);
 // Vue.use(router);
 export default new Vuex.Store({
@@ -62,7 +66,8 @@ export default new Vuex.Store({
                 row_pre_page: false
             };
             rootState.table.select_view = false
-            state.url = null
+            rootState.table.bulk_selected = [],
+                state.url = null
             state.name_function = ''
             state.collection = ''
             state.id = ''
@@ -88,7 +93,8 @@ export default new Vuex.Store({
         },
     },
     modules: {
-        auth, table, form, order, category, user, appointment,
-        camp, city, type, square, question, assign
+        assign_form,
+        auth, table, form, order, category, user, appointment, notifications,
+        camp, city, type, square, question, assign, question_category
     }
 });

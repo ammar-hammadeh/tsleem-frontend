@@ -17,8 +17,17 @@ class AppointmentService {
   add_contracts(data) {
     return axios.post('general/contracts/store', data)
   }
+  contruct_bulk(data) {
+    return axios.post('general/contracts/bulk-store', data)
+  }
   signature(id) {
     return axios.get('general/contracts/sign-contract/' + id)
+  }
+  signature_bulk(data) {
+    return axios.post('general/contracts/bulk-sign', data)
+  }
+  deliverd_signature(data) {
+    return axios.post('general/forms/sign-form', data)
   }
 }
 export default new AppointmentService();

@@ -36,6 +36,7 @@ export default {
       ],
       header: [
         { text: this.$i18n.t("Name"), align: "center", value: "name" },
+        { text: this.$i18n.t("Type"), align: "center", value: "type.name" },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
       ],
       card: {

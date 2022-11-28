@@ -16,8 +16,8 @@ export default {
         {
           col: "12",
           type: "text",
-          label: this.$i18n.t("Name"),
-          placeholder: this.$i18n.t("Name"),
+          label: this.$i18n.t("Square"),
+          placeholder: this.$i18n.t("Square"),
           error: null,
           value_text: "name",
           value: "",

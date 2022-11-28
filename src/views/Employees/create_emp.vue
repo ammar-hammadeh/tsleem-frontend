@@ -36,7 +36,15 @@ export default {
           error: null,
           value_text: "email",
           value: "",
-          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          rules: [
+            (v) => !!v || this.$i18n.t("form.Item is required"),
+            (v) =>
+              (v &&
+              /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
+                  v
+                )) ||
+              this.$i18n.t("auth.E-mail must be valid"),
+          ],
         },
         {
           col: "6",

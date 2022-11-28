@@ -28,8 +28,8 @@ export default {
       header: [
         { text: this.$i18n.t("Type"), align: "center", value: "name" },
         {
-          text: this.$i18n.t("signer"),
-          value: "signer_text",
+          text: this.$i18n.t("status"),
+          value: "status_text",
           align: "center",
         },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },

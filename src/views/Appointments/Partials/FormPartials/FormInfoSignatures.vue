@@ -1,0 +1,52 @@
+<template>
+  <v-row class="mt-7 margin-bottom">
+    <v-col
+        cols="6"
+        v-for="item in type_need_sign"
+        :key="`need-sign-${item.id}`"
+    >
+      <h5 class="sub-title-body">{{ item.name_in_form }}</h5>
+      <div class="d-flex align-items-center">
+        <h5 class="sub-title-body">الاسم :</h5>
+        <h5 class="content-body"></h5>
+      </div>
+      <div class="d-flex flex-column" style="margin-right: 0px">
+        <h5 class="sub-title-body">التوقيع :</h5>
+        <h5 class="content-body">
+          <!-- <img width="150" alt="" /> -->
+        </h5>
+      </div>
+    </v-col>
+    <v-col
+        cols="6"
+        v-for="(item, index) in signature"
+        :key="`signature-${index}`"
+    >
+      <h5 class="sub-title-body">{{ item.name_in_form }}</h5>
+      <div class="d-flex align-items-center">
+        <h5 class="sub-title-body ml-2">الاسم :</h5>
+        <h5 class="content-body">
+          {{ item.username }}
+        </h5>
+      </div>
+      <div class="d-flex flex-column mt-3" style="margin-right: 0px">
+        <h5 class="sub-title-body">التوقيع :</h5>
+        <h5 class="content-body">
+          <img width="150" :src="item.sign" alt="" />
+        </h5>
+      </div>
+    </v-col>
+  </v-row>
+
+</template>
+
+<script>
+export default {
+  name: "FormInfoSignatures",
+  props: ['type_need_sign', 'signature']
+}
+</script>
+
+<style scoped>
+
+</style>

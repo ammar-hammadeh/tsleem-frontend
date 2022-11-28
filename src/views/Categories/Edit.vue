@@ -30,6 +30,16 @@ export default {
           error: null,
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        {
+          col: "12",
+          type: "select",
+          label: this.$i18n.t("Type"),
+          error: null,
+          value_text: "type_id",
+          items: [],
+          value: "",
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
       ],
     };
   },
@@ -39,6 +49,7 @@ export default {
       return CategoryService.get_category(id).then(
         (response) => {
           this.$store.commit("SET_CARD_LOADING", false);
+          this.style_form[1].items = response.data.types;
           console.log(response.data);
           for (let i = 0; i < this.style_form.length; i++) {
             const element = this.style_form[i];

@@ -58,6 +58,9 @@ export const auth = {
         setPermission(state, data) {
             state.permissions = data
         },
+        setSigneture(state, data) {
+            state.user.signature = data
+        },
         loginSuccess(state, user) {
             state.loggedIn = true;
             state.user = user.user;

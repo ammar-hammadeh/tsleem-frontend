@@ -33,8 +33,8 @@ export default {
         {
           col: "6",
           type: "checkbox",
-          label: this.$i18n.t("signer"),
-          value_text: "signer",
+          label: this.$i18n.t("status"),
+          value_text: "status",
           label_input: this.$i18n.t("Active"),
           error: null,
           value: "",

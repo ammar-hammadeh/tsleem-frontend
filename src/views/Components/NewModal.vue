@@ -80,7 +80,7 @@ export default {
     save_form() {},
   },
   mounted() {
-    console.log("modal");
+    // console.log("modal");
   },
 };
 </script>

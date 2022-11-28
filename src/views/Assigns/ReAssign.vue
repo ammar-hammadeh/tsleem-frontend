@@ -3,8 +3,8 @@
     <CardForm>
       <template #customize-form>
         <router-link
-          :title="$t('Add employee')"
-          v-if="$store.getters['auth/str_per'].indexOf('add-employee') > -1"
+          :title="$t('Create')"
+          v-if="$store.getters['auth/str_per'].indexOf('user-create') > -1"
           to="/users/create"
           class="mr-5"
         >
@@ -75,9 +75,9 @@ export default {
           this.style_form.map(function (v) {
             if (v.value_text == "receiver_company_id") {
               v.items = response.data.companies;
-              v.items.unshift({ id: null, name: "------" });
             }
-            v.value = response.data.data[v.value_text];
+            // v.items.unshift({ id: null, name: "------" });
+            v.value = parseInt(response.data.data[v.value_text]);
             return v;
           });
         },

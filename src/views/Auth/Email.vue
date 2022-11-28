@@ -13,66 +13,66 @@
         {{ error_msg.msg }}
       </span>
     </v-alert>
-    <div class="card-padding pb-0">
-      <h3 class="text-h3 font-weight-bolder text-primary text-gradient mb-2">
-        {{ $t("auth.Email Address") }}
-      </h3>
-    </div>
-    <div class="card-padding pb-4">
-      <v-form @submit="handleLogin" ref="loginForm">
-        <div class="row">
-          <div class="col-lg-12 pt-0">
-            <v-text-field
-              :rules="rules.email"
-              type="email"
-              outlined
-              color="rgba(0,0,0,.6)"
-              :placeholder="$t('auth.Email Address')"
-              class="font-size-input placeholder-lighter text-light-input"
-              v-model="form.email"
-            >
-            </v-text-field>
+    <v-form ref="loginForm" @submit="handleLogin" class="mt-4 pt-2">
+      <div class="login">
+        <div class="login-header pa-4">
+          <div class="mb-0">
+            <a href="#" class="d-block auth-logo">
+              <img src="@/assets/img/logo2.png" alt="" width="100px" />
+              <span class="logo-txt"></span>
+            </a>
           </div>
-          <div class="col-lg-12 pt-0">
-            <div class="div_btn">
-              <v-btn
-                elevation="0"
-                :ripple="false"
-                height="43"
-                class="
-                  font-weight-bold
-                  text-uppercase
-                  btn-primary
-                  bg-gradient-primary
-                  py-2
-                  px-6
-                  me-2
-                  mt-7
-                  mb-2
-                  w-100
-                "
-                color="#5e72e4"
-                small
-                :loading="loading"
-                type="submit"
-              >
-                <!-- @submit="handleLogin()" -->
-                <span slot="loader">
-                  <v-progress-circular
-                    style="width: 20px; height: 20px"
-                    indeterminate
-                    color="white"
+          <div class="text-center mb-1">
+            <h2 class="bg mb-0">{{ $t("auth.Email Address") }}</h2>
+          </div>
+        </div>
+
+        <div class="login-body bg-body p-4">
+          <div class="">
+            <div class="row">
+              <div class="col-lg-12 pt-0">
+                <label class="form-label">{{ $t("auth.Email Address") }}</label>
+                <v-text-field
+                  :rules="rules.email"
+                  type="email"
+                  outlined
+                  color="rgba(0,0,0,.6)"
+                  :placeholder="$t('auth.Email Address')"
+                  class="form-control"
+                  v-model="form.email"
+                >
+                </v-text-field>
+              </div>
+              <div class="col-lg-12 pt-0">
+                <div class="div_btn text-end">
+                  <v-btn
+                    elevation="0"
+                    :ripple="false"
+                    height="43"
+                    class="btn px-5 py-1 btn-blue waves-effect waves-light"
+                    small
+                    :loading="loading"
+                    type="submit"
                   >
-                  </v-progress-circular>
-                  <!-- {{ $t("general.loading") }} -->
-                </span>
-                {{ $t("auth.send") }}
-              </v-btn>
+                    <!-- @submit="handleLogin()" -->
+                    <span slot="loader">
+                      <v-progress-circular
+                        style="width: 20px; height: 20px"
+                        indeterminate
+                        color="white"
+                      >
+                      </v-progress-circular>
+                      <!-- {{ $t("general.loading") }} -->
+                    </span>
+                    {{ $t("auth.send") }}
+                  </v-btn>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </v-form>
-    </div>
+      </div>
+    </v-form>
   </v-card>
 </template>
 <script>

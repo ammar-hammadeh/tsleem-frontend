@@ -345,7 +345,7 @@ export default {
             (response) => {
               // console.log(response)
               this.$swal.fire(
-                this.$i18n.t("general.Deleted!"),
+                this.$i18n.t("general.Deleted"),
                 response.data.message,
                 "success"
               );

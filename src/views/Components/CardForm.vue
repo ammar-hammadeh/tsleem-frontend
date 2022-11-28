@@ -7,13 +7,16 @@
           Build {{ $store.state.card.title }}
         </h3>
       </v-col> -->
-      <v-col lg="8" cols="12" class="mx-auto mb-6">
+      <v-col md="8" cols="12" class="mx-auto mb-6">
         <slot name="card-body">
           <v-card class="card-shadow border-radius-xl mt-9">
             <Loading v-if="$store.state.card.loading"></Loading>
             <v-row class="text-center">
               <v-col cols="10" class="mx-auto">
-                <h5 class="text-h5 text-typo font-weight-normal mb-6 mt-3">
+                <h5
+                  v-if="$store.state.card.sub_title"
+                  class="text-h5 text-typo font-weight-normal mb-6 mt-3"
+                >
                   {{ $store.state.card.sub_title }}
                 </h5>
               </v-col>
@@ -34,6 +37,8 @@
           </v-card>
         </slot>
       </v-col>
+      <slot name="card-section-2">
+      </slot>
     </v-row>
   </v-container>
 </template>

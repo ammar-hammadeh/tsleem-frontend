@@ -35,6 +35,10 @@
         @drawer-toggle="drawer = $event"
         :toggle-active="drawer"
       ></app-bar>
+      <div class="px-6 mt-5">
+
+      <custom-breadcrumb/>
+      </div>
       <fade-transition :duration="200" origin="center top" mode="out-in">
         <!-- your content here -->
         <router-view></router-view>
@@ -96,9 +100,11 @@ import Drawer from "@/components/Drawer.vue";
 import AppBar from "@/components/AppBar.vue";
 import ContentFooter from "@/components/Footer.vue";
 import SettingsDrawer from "@/components/Widgets/SettingsDrawer.vue";
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 
 export default {
   components: {
+    CustomBreadcrumb,
     ContentFooter,
     FadeTransition,
     Drawer,

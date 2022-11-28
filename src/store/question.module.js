@@ -155,6 +155,12 @@ export const question = {
                     "paginate",
                     data.pre_page
                 );
+            } else {
+                if (rootState.table.paginate.itemsPerPage != '')
+                    formData.append(
+                        "paginate",
+                        rootState.table.paginate.itemsPerPage
+                    );
             }
             return QuestionService.get_questions(rootState.table.paginate.page, formData).then(
                 (response) => {

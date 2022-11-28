@@ -9,7 +9,7 @@ export const appointment = {
 
         save_appointment({ commit, rootState }, data) {
 
-            commit('form/SET_DIALOG', false, { root: true })
+
             return AppointmentService.add_appointment(data).then(
                 (response) => {
                     // console.log(response)
@@ -19,6 +19,7 @@ export const appointment = {
                         msg: response.data.message,
                         type: "Success",
                     };
+                    commit('form/SET_DIALOG', false, { root: true })
                 },
                 (error) => {
                     console.log(error);
@@ -43,28 +44,37 @@ export const appointment = {
             );
         },
         edit_appointment({ commit, rootState }, item) {
+            console.log(item)
             commit('form/SET_DIALOG', true, { root: true })
             rootState.form.style_form[0].value = item.appointment
+            console.log(rootState.form.style_form[0].value)
             rootState.form.style_form[1].value = item.id
+            commit('form/SET_MODAL', { title: i18n.t("Reschedule an appointment") + " # " + item.square_name + " - " + item.camp_name }, { root: true });
+            rootState.id = item.id
+            commit("SET_FUNCTION", "update_appointment", { root: true });
         },
         update_appointment({ commit, rootState }, data) {
             console.log(...data)
-            commit('form/SET_DIALOG', false, { root: true })
-            return AppointmentService.edit_appointment(data).then(
+            rootState.form.loader = true
+            // console.log()
+            return AppointmentService.edit_appointment(rootState.id, data).then(
                 (response) => {
-                    // console.log(response)
-                    // rootState.table.items.forEach(v => {
-                    //     if (v.id == data.assign_camp_id) {
-                    //         v.appointment == data.appointment
-                    //     }
-                    // });
+                    rootState.form.loader = false
+                    rootState.table.items.forEach(v => {
+                        if (v.id == rootState.id) {
+                            v.appointment = response.data.data
+                            return v
+                        }
+                    });
+                    commit('form/SET_DIALOG', false, { root: true })
                     rootState.form.notify = {
-                        msg: response.data.msg,
+                        msg: response.data.message,
                         type: "Success",
                     };
                 },
                 (error) => {
                     console.log(error);
+                    rootState.form.loader = false
                     if (error.response.status != 401) {
 
                         rootState.form.notify = {
@@ -93,11 +103,40 @@ export const appointment = {
 
         },
 
-        signature_construct({ rootState }, data) {
-            return AppointmentService.signature(data).then(
+        contruct_bulk({ rootState, dispatch }, data) {
+
+            return AppointmentService.contruct_bulk(data).then(
+                (response) => {
+                    window.location.reload();
+                    // dispatch("getData", { reset: true })
+                    // rootState.table.bulk_selected = []
+                    // var status = response.data.contract_status
+                    // if (data.hasOwnProperty('select_all')) {
+                    //     rootState.table.items.map(v => {
+                    //         return v.contract_status = status
+                    //     });
+                    // } else {
+
+                    //     rootState.table.items.map(v => {
+                    //         if (rootState.table.bulk_selected.includes(v.id)) {
+                    //             return v.contract_status = status
+                    //         }
+                    //     });
+                    // }
+                    return Promise.resolve(response);
+                },
+                (error) => {
+                    // console.log(error);
+                    return Promise.reject(error);
+                }
+            );
+        },
+
+        signature_construct({ rootState }, id) {
+            return AppointmentService.signature(id).then(
                 (response) => {
                     rootState.table.items.map(v => {
-                        if (v.id == data.id) {
+                        if (v.id == id) {
                             return v.status = response.data.status
                         }
                     });
@@ -109,6 +148,54 @@ export const appointment = {
                 }
             );
         },
+
+        signature_bulk({ rootState, dispatch }, data) {
+            return AppointmentService.signature_bulk(data).then(
+                (response) => {
+                    window.location.reload();
+                    // dispatch("getData", { reset: true })
+                    // rootState.table.bulk_selected = []
+                    // var status = response.data.status
+                    // if (data.hasOwnProperty('select_all')) {
+                    //     rootState.table.items.map(v => {
+                    //         return v.status = status
+                    //     });
+                    // } else {
+
+                    //     rootState.table.items.map(v => {
+                    //         if (rootState.table.bulk_selected.includes(v.id)) {
+                    //             return v.status = status
+                    //         }
+                    //     });
+                    // }
+                    return Promise.resolve(response);
+                },
+                (error) => {
+                    // console.log(error);
+                    return Promise.reject(error);
+                }
+            );
+        },
+
+
+        signature_delivery({ rootState }, id) {
+
+            return AppointmentService.deliverd_signature(id).then(
+                (response) => {
+                    rootState.table.items.map(v => {
+                        if (v.id == id) {
+                            return v.status = response.data.status
+                        }
+                    });
+                    return Promise.resolve(response);
+                },
+                (error) => {
+                    // console.log(error);
+                    return Promise.reject(error);
+                }
+            );
+        },
+
         // pagination section
         handlePageChange({ rootState, dispatch }, page) {
             rootState.table.paginate.page = page
@@ -131,8 +218,7 @@ export const appointment = {
         },
 
         getData({ rootState }, data) {
-            console.log('ammar')
-            console.log(data)
+            // console.log(data)
             rootState.table.loading = true;
             const formData = new FormData();
             if (!data.hasOwnProperty('reset')) {
@@ -146,6 +232,12 @@ export const appointment = {
                     "paginate",
                     data.pre_page
                 );
+            } else {
+                if (rootState.table.paginate.itemsPerPage != '')
+                    formData.append(
+                        "paginate",
+                        rootState.table.paginate.itemsPerPage
+                    );
             }
             // var url ;
             console.log(rootState.url)

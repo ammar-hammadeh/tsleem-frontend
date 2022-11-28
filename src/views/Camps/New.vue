@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- <Input v-model="commercial_text" :item="commercial"></Input>
-    {{ commercial_text }} -->
     <CardForm></CardForm>
   </div>
 </template>
@@ -22,8 +20,8 @@ export default {
         {
           col: "12",
           type: "text",
-          label: this.$i18n.t("Name"),
-          placeholder: this.$i18n.t("Name"),
+          label: this.$i18n.t("Camp"),
+          placeholder: this.$i18n.t("Camp"),
           error: null,
           value_text: "name",
           value: "",
@@ -45,15 +43,6 @@ export default {
         loading: true,
         sub_title: this.$i18n.t("camp info"),
       },
-      commercial: {
-        class: "form-control",
-        type: "text",
-        label: this.$i18n.t("Commercial Register num"),
-        placeholder: this.$i18n.t("Commercial Register num"),
-        class_div: "input-group auth-pass-inputgroup",
-        rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
-      },
-      commercial_text: "",
     };
   },
   methods: {
