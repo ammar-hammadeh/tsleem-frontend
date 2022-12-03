@@ -58,6 +58,9 @@ export const table = {
       // console.log(data)
       state.items = data;
     },
+    PUSH_ITEMS(state, data) {
+      state.items.push(data)
+    },
     SET_HEADERS(state, data) {
       state.headers = data;
     },

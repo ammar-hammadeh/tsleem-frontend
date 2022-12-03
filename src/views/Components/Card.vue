@@ -29,19 +29,21 @@
                 <slot name="befor_table"></slot>
                 <Table>
                   <template #top-right-actions>
-                    <v-btn
-                        v-if="
-                    card.permission && str_per.indexOf(card.permission) > -1
-                  "
-                        class="mx-2 btn-primary bg-gradient-blue"
-                        dark
-                        link
-                        :to="card.add_url"
-                    >
-                      <!--                      <v-icon dark> mdi-plus</v-icon>-->
-                      <h5>{{ $t('Add new') }}</h5>
-                    </v-btn>
-                  </template>
+                    <slot name="top-card">
+                      <v-btn
+                          v-if="
+                      card.permission && str_per.indexOf(card.permission) > -1
+                    "
+                          class="mx-2 btn-primary bg-gradient-blue"
+                          dark
+                          link
+                          :to="card.add_url"
+                      >
+                        <!--                      <v-icon dark> mdi-plus</v-icon>-->
+                        <h5>{{ $t('Add new') }}</h5>
+                      </v-btn>
+                    </slot>
+                    </template>
                   <template slot="table">
                     <slot name="table-card"></slot>
                   </template>

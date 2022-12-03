@@ -6,9 +6,9 @@
 <script>
 import Card from "../Components/Card.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("square");
+const { mapActions } = createNamespacedHelpers("gis");
 export default {
-  name: "Square-Page",
+  name: "Kitchen-Page",
   components: {
     Card,
   },
@@ -17,30 +17,38 @@ export default {
       btns: [
         {
           type: "icon",
-          text: "edit_square",
+          text: "edit",
           color: "bg-gradient-success",
           icon: "mdi-pencil",
-          url: "/squares/update/",
+          url: "/kitchens/update/",
           item: true,
-          permission: "square-update",
+          permission: "kitchen-update",
         },
         {
           type: "icon",
-          text: "delete_square",
+          text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "square-delete",
+          permission: "kitchen-delete",
           swal: true,
+          api:"gis/locations/destroy/"
         },
       ],
       header: [
-        { text: this.$i18n.t("Square"), align: "center", value: "name" },
+        { text: this.$i18n.t("Kitchen"), align: "center", value: "name" },
+        { text: this.$i18n.t("Location"), align: "center", value: "location.name" },
+        { text: this.$i18n.t("Camps"),value: "data-table-expand",align: "center" },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
       ],
       card: {
-        title: this.$i18n.t("SquarePage"),
-        add_url: "/squares/create",
-        permission: "square-create",
+        title: this.$i18n.t("KitchenPage"),
+        add_url: "/kitchens/create",
+        permission: "kitchen-create",
+      },
+      data_expand: { singleExpand: true, expanded: [], show: true },
+      data_extend: {
+        title: 'camp',
+        name: "name",
       },
       btn_table: [
         { name: "print", visible: true, loading: false, global: true },
@@ -51,15 +59,17 @@ export default {
     ...mapActions(["getData"]),
     set_data() {
       this.$store.commit("SET_CARD", this.card);
-      this.$store.commit("SET_COLLECTION", "square");
+      this.$store.commit("SET_COLLECTION", "gis");
+      this.$store.commit("SET_URL", "gis/kitchens");
       this.$store.commit("table/SET_LOADING", true);
       this.$store.commit("table/SET_HEADERS", this.header);
       this.$store.commit("table/SET_BTNS", this.btns);
-      this.$store.commit("table/SET_PAGINATION", true);
       this.$store.commit("table/SET_BTN_TABLE", this.btn_table);
+      this.$store.commit("table/SET_DATA_EXTEND", this.data_extend);
+      this.$store.commit("table/SET_DATA_EXPAND", this.data_expand);
     },
-    get_squares() {
-      this.getData({ reset: true });
+    get_kitchens() {
+      this.getData({});
     },
   },
   created() {
@@ -69,9 +79,9 @@ export default {
     }
   },
   mounted() {
-    this.get_squares();
     this.set_data();
-    document.title = this.$i18n.t("SquarePage");
+    this.get_kitchens();
+    document.title = this.$i18n.t("KitchenPage");
   },
 };
 </script>

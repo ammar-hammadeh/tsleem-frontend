@@ -289,25 +289,6 @@ export default {
           },
         ],
       },
-      // {
-      //   action: "mdi-graph",
-      //   title: "EnginnerOffice",
-      //   permission: "engineer-office",
-      //   items: [
-      //     {
-      //       title: "EnginnerOfficeCategoryPage",
-      //       prefix: "K",
-      //       link: "/engineer-office/category",
-      //       permission: "engineer-office-index",
-      //     },
-      //     {
-      //       title: "Add new",
-      //       prefix: "W",
-      //       link: "/engineer-office/category/create",
-      //       permission: "engineer-office-create",
-      //     },
-      //   ],
-      // },
       {
         action: "mdi-tent",
         title: "CampPage",
@@ -466,12 +447,222 @@ export default {
         link: "/contructs",
         permission: "signature-index",
       },
+      
+      // reports
+      {
+        action: "mdi-vector-square",
+        title: "ReportPage",
+        permission: "report",
+        items: [
+          {
+            title: "Logs",
+            prefix: "IS",
+            link: "/logs",
+            permission: "report-log",
+          },
+        ],
+      },
       // {
       //   action: "mdi-clipboard-check",
       //   title: "DeliveryPage",
       //   link: "/deliveries",
       //   permission: "delivery-index",
       // },
+      // 
+      /*************** GIS **************/ 
+      // location
+      {
+        action: "mdi-vector-square",
+        title: "LocationPage",
+        permission: "location",
+        items: [
+          {
+            title: "ShowLocation",
+            prefix: "IS",
+            link: "/locations",
+            permission: "location-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/locations/create",
+            permission: "location-create",
+          },
+        ],
+      },
+// tent
+      {
+        action: "mdi-vector-square",
+        title: "TentPage",
+        permission: "tent",
+        items: [
+          {
+            title: "ShowTent",
+            prefix: "IS",
+            link: "/tents",
+            permission: "tent-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/tents/create",
+            permission: "tent-create",
+          },
+        ],
+      },
+// kitchen
+      {
+        action: "mdi-vector-square",
+        title: "KitchenPage",
+        permission: "kitchen",
+        items: [
+          {
+            title: "Showkitchen",
+            prefix: "IS",
+            link: "/kitchens",
+            permission: "kitchen-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/kitchens/create",
+            permission: "kitchen-create",
+          },
+        ],
+      },
+      // container
+      {
+        action: "mdi-vector-square",
+        title: "ContainerPage",
+        permission: "container",
+        items: [
+          {
+            title: "ShowContainer",
+            prefix: "IS",
+            link: "/containers",
+            permission: "container-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/containers/create",
+            permission: "container-create",
+          },
+        ],
+      },
+// zone
+      {
+        action: "mdi-clipboard-check",
+        title: "ZonePage",
+        link: "/zones",
+        permission: "zone-index",
+      },
+
+      // plot
+      {
+        action: "mdi-vector-square",
+        title: "PlotPage",
+        permission: "plot",
+        items: [
+          {
+            title: "ShowPlot",
+            prefix: "IS",
+            link: "/plots",
+            permission: "plot-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/plots/create",
+            permission: "plot-create",
+          },
+        ],
+      },
+      // establishments
+      {
+        action: "mdi-vector-square",
+        title: "EstablishmentsPage",
+        permission: "establishments",
+        items: [
+          {
+            title: "ShowEstablishment",
+            prefix: "IS",
+            link: "/establishments",
+            permission: "establishments-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/establishments/create",
+            permission: "establishments-create",
+          },
+        ],
+      },
+
+      // water-tape
+      {
+        action: "mdi-vector-square",
+        title: "WaterTapePage",
+        permission: "water-tape",
+        items: [
+          {
+            title: "ShowWaterTape",
+            prefix: "IS",
+            link: "/water-tapes",
+            permission: "water-tape-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/water-tapes/create",
+            permission: "water-tape-create",
+          },
+        ],
+      },
+
+      // washroom
+      {
+        action: "mdi-vector-square",
+        title: "WashroomPage",
+        permission: "washroom",
+        items: [
+          {
+            title: "ShowWashroom",
+            prefix: "IS",
+            link: "/washrooms",
+            permission: "washroom-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/washrooms/create",
+            permission: "washroom-create",
+          },
+        ],
+      },
+
+       // washroom
+       {
+        action: "mdi-vector-square",
+        title: "ElectricalMetersPage",
+        permission: "electrical-meter",
+        items: [
+          {
+            title: "ShowElectricalMeters",
+            prefix: "IS",
+            link: "/electrical-meters",
+            permission: "electrical-meter-index",
+          },
+          {
+            title: "Add new",
+            prefix: "CS",
+            link: "/electrical-meters/create",
+            permission: "electrical-meter-create",
+          },
+        ],
+      },
+
+
     ],
 
     items: [

@@ -15,10 +15,7 @@
 
         <v-container class="mt-5">
           <FormInfoTopSection :name="name" :body="body" />
-          <FormInfoSignatures
-            :type_need_sign="type_need_sign"
-            :signature="signature"
-          />
+         
           <FormQuestionsTable
             v-if="questions && questions.length > 0"
             :questions="questions"
@@ -26,6 +23,10 @@
           <FormCategoriesTable
             v-if="categories && categories.length > 0"
             :categories="categories"
+          />
+          <FormInfoSignatures
+            :type_need_sign="type_need_sign"
+            :signature="signature"
           />
         </v-container>
       </v-container>

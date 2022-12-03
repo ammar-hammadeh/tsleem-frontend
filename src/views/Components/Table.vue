@@ -142,16 +142,18 @@
 
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          <!-- {{ item["products"] }} -->
+          <!-- {{ data_extend.name }} -->
           <div
             class="d-inline-block"
             v-for="(data, index) in item[data_extend.title]"
             :key="index"
           >
-            <v-chip color="green" class="mr-3 overflow-visible" dark>
-              <v-badge color="red" :content="data[data_extend.number]">
+            <v-chip outlined label color="default" class="py-1 mt-1 px-2 my-0 ml-2">
+              <!-- <v-badge color="red" :content="data[data_extend.number]">
+              </v-badge> -->
+              <span class="text-caption ls-0">
                 {{ data[data_extend.name] }}
-              </v-badge>
+              </span>
             </v-chip>
           </div>
         </td>
@@ -173,11 +175,11 @@
             v-for="(data, index) in item[data_extend.title]"
             :key="index"
           >
-            <v-chip color="green" class="mr-3 overflow-visible" dark>
-              <v-badge color="red" :content="data[data_extend.number]">
-                {{ data[data_extend.name] }}
-              </v-badge>
-            </v-chip>
+            <v-chip outlined label color="default"  class="mr-3 overflow-visible">
+                <!-- <v-badge color="red" :content="data[data_extend.number]">
+                </v-badge> -->
+                <span class="text-caption ls-0">{{ data[data_extend.name] }}</span>
+              </v-chip>
           </div>
         </div>
       </template>
@@ -230,7 +232,7 @@
                     <span
                       style="cursor: pointer"
                       v-else
-                      @click="action(item, btn.text)"
+                      @click="btn.api ? action_with_api(item, btn.text ,btn.api) : action(item, btn.text)"
                     >
                       <v-icon v-if="btn.type == 'icon'">{{ btn.icon }}</v-icon>
                       {{ $t("general." + btn.text.replace("_", " ")) }}
@@ -400,6 +402,19 @@ export default {
         );
       } else {
         this.$store.dispatch(name.replace(" ", "_"), item);
+      }
+    },
+    action_with_api: function (item, name,api) {
+      // alert(name);
+      if (this.collection != "") {
+        var data = Object.assign({},{api:api,item:item})
+        this.$store.dispatch(
+          this.collection + "/" + name.replace(" ", "_"),
+          data
+        );
+      } else {
+        var data = Object.assign({},{api:api,item:item})
+        this.$store.dispatch(name.replace(" ", "_"), data);
       }
     },
   },

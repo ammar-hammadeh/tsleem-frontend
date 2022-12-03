@@ -21,13 +21,13 @@ class AuthService {
             .then(resp => {
                 localStorage.removeItem('accessToken')
                 localStorage.removeItem('user')
-                // localStorage.removeItem('permissions')
+                localStorage.removeItem('type')
                 return resp
             })
             .catch(err => {
                 localStorage.removeItem('accessToken')
                 localStorage.removeItem('user')
-                // localStorage.removeItem('permissions')
+                localStorage.removeItem('type')
                 return err
             })
     }

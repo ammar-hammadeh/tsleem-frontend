@@ -41,7 +41,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               icon
-              v-if="types.includes(type.code)"
+              v-if="type && types.includes(type.code)"
               :ripple="false"
               :class="{ 'btn-dark-hover': !hasBg, 'btn-hover': hasBg }"
               class="text-body ml-6"

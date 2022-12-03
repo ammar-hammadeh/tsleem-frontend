@@ -58,7 +58,8 @@
             </span>
           </v-list-item-title>
         </v-list-item>
-        <v-list-item v-else-if="item2.contract_status == 'unsigned'">
+        <v-list-item v-else-if="item2.contract_status == 'unsigned' && str_per.indexOf('appointment-contract') > -1">
+          {{classBtn('d-block')}}
           <v-list-item-title class="my-3">
             <span class="text-danger">
               <v-icon>mdi-cicrle</v-icon>

@@ -6,41 +6,22 @@
 <script>
 import Card from "../Components/Card.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("square");
+const { mapActions } = createNamespacedHelpers("report");
 export default {
-  name: "Square-Page",
+  name: "Log-Page",
   components: {
     Card,
   },
   data() {
     return {
-      btns: [
-        {
-          type: "icon",
-          text: "edit_square",
-          color: "bg-gradient-success",
-          icon: "mdi-pencil",
-          url: "/squares/update/",
-          item: true,
-          permission: "square-update",
-        },
-        {
-          type: "icon",
-          text: "delete_square",
-          color: "bg-gradient-danger",
-          icon: "mdi-delete",
-          permission: "square-delete",
-          swal: true,
-        },
-      ],
       header: [
-        { text: this.$i18n.t("Square"), align: "center", value: "name" },
-        { text: this.$i18n.t("Action"), value: "btns", align: "center" },
+        { text: this.$i18n.t("Proccess"), align: "center", value: "actions.name" },
+        { text: this.$i18n.t("User"), value: "", align: "center" },
       ],
       card: {
-        title: this.$i18n.t("SquarePage"),
-        add_url: "/squares/create",
-        permission: "square-create",
+        title: this.$i18n.t("LogPage"),
+        add_url: null,
+        permission: null,
       },
       btn_table: [
         { name: "print", visible: true, loading: false, global: true },
@@ -51,14 +32,15 @@ export default {
     ...mapActions(["getData"]),
     set_data() {
       this.$store.commit("SET_CARD", this.card);
-      this.$store.commit("SET_COLLECTION", "square");
+      this.$store.commit("SET_COLLECTION", "report");
+      this.$store.commit("SET_URL","general/logs");
       this.$store.commit("table/SET_LOADING", true);
       this.$store.commit("table/SET_HEADERS", this.header);
       this.$store.commit("table/SET_BTNS", this.btns);
       this.$store.commit("table/SET_PAGINATION", true);
       this.$store.commit("table/SET_BTN_TABLE", this.btn_table);
     },
-    get_squares() {
+    get_logs() {
       this.getData({ reset: true });
     },
   },
@@ -69,9 +51,9 @@ export default {
     }
   },
   mounted() {
-    this.get_squares();
     this.set_data();
-    document.title = this.$i18n.t("SquarePage");
+    this.get_logs();
+    document.title = this.$i18n.t("LogPage");
   },
 };
 </script>

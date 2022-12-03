@@ -22,8 +22,8 @@
         <v-btn elevation="0"
                       :ripple="false"
                       height="43"
-                      link
-                      :to="'/login'"
+                      
+                      @click="logout"
                       class=" mt-5
                         font-weight-bold
                         text-capitalize
@@ -35,8 +35,6 @@
     </div>
   </template>
   <script>
-import router from '../../router';
-import { form } from '../../store/form.module';
   export default {
     name: "BlankRegisterDone",
   
@@ -57,17 +55,18 @@ import { form } from '../../store/form.module';
         return next({path: from.fullPath})
       }
     },
-    mounted() {
-      var self = this
-      setTimeout(function(){
-        self.$store
+    methods: {
+      logout(){
+        this.$store
         .dispatch("auth/logout")
         .then((response) => {
           console.log(response);
+          this.$router.push({path:'/login'})
         })
         .catch((err) => console.log(err));
-      },6000)
+      }
     },
+    
     
   };
   </script>

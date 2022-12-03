@@ -16,6 +16,8 @@ import { appointment } from './appointment.module';
 import { category } from './category.module';
 import { assign_form } from './assign_form.module';
 import { question_category } from './question_category.module';
+import { gis } from './gis.module';
+import { report } from './report.module';
 
 Vue.use(Vuex);
 // Vue.use(router);
@@ -24,6 +26,7 @@ export default new Vuex.Store({
         collection: '',
         name_function: '',
         id: '',
+        parent_page: '',
         url: null,
         card: {},
     }),
@@ -46,6 +49,9 @@ export default new Vuex.Store({
         SET_CARD_LOADING(state, data) {
             state.card.loading = data;
         },
+        SET_PARENT_PAGE(state, data) {
+            state.parent_page = data;
+        },
         // SET_FORM_DATA(state,data){
         //     state.form_data = data
         // },
@@ -58,6 +64,7 @@ export default new Vuex.Store({
             rootState.table.data_expand = {};
             rootState.table.headers = [];
             rootState.table.btns = [];
+            rootState.table.chack_permission = 'd-none';
             rootState.table.pagination = false;
             rootState.table.paginate = {
                 page: 1,
@@ -70,10 +77,11 @@ export default new Vuex.Store({
                 state.url = null
             state.name_function = ''
             state.collection = ''
-            state.id = ''
+            state.id = '',
+                state.parent_page = '',
 
-            // form
-            rootState.form.filters = [];
+                // form
+                rootState.form.filters = [];
             rootState.form.formData = null;
             rootState.form.form_data = {};
             rootState.form.style_form = [];
@@ -95,6 +103,6 @@ export default new Vuex.Store({
     modules: {
         assign_form,
         auth, table, form, order, category, user, appointment, notifications,
-        camp, city, type, square, question, assign, question_category
+        camp, city, type, square, question, assign, question_category, gis, report
     }
 });

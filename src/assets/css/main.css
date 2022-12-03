@@ -628,9 +628,10 @@ ul.attributes-list-container li.price-row {
 .v-application.v-application--is-rtl input[type="number"],
 .v-application.v-application--is-rtl input[type="date"],
 .v-application.v-application--is-rtl input[type="datetime-local"]
+
 /* .v-application.v-application--is-rtl input[type="text"], */
 /* .v-application.v-application--is-rtl input[type="password"]  */
-{
+    {
     font-family: Poppins !important;
 }
 
@@ -825,7 +826,7 @@ ul.attributes-list-container li.price-row {
     }
 
     .margin-table {
-        margin-top: 200px;
+        /* margin-top: 200px; */
         /* margin-top: 200pt; */
     }
 
@@ -896,10 +897,10 @@ ul.attributes-list-container li.price-row {
         font-size: 5px;
     }
 
-    table {
-        padding: 20px;
-        position: fixed;
-        left: 0;
-        top: 0;
-    }
+    /*table {*/
+    /*    padding: 20px;*/
+    /*    position: fixed;*/
+    /*    left: 0;*/
+    /*    top: 0;*/
+    /*}*/
 }

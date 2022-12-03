@@ -6,9 +6,9 @@
 <script>
 import Card from "../Components/Card.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("square");
+const { mapActions } = createNamespacedHelpers("gis");
 export default {
-  name: "Square-Page",
+  name: "Plot-Page",
   components: {
     Card,
   },
@@ -17,30 +17,38 @@ export default {
       btns: [
         {
           type: "icon",
-          text: "edit_square",
+          text: "edit",
           color: "bg-gradient-success",
           icon: "mdi-pencil",
-          url: "/squares/update/",
+          url: "/plots/update/",
           item: true,
-          permission: "square-update",
+          permission: "plot-update",
         },
         {
           type: "icon",
-          text: "delete_square",
+          text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "square-delete",
+          permission: "plot-delete",
           swal: true,
+          api:"gis/plots/destroy/"
         },
       ],
       header: [
-        { text: this.$i18n.t("Square"), align: "center", value: "name" },
+        { text: this.$i18n.t("plot_number"), align: "center", value: "plot_number" },
+        { text: this.$i18n.t("Zone"), align: "center", value: "zone.id" },
+      { text: this.$i18n.t("Establishments"),value: "data-table-expand",align: "center" },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
       ],
       card: {
-        title: this.$i18n.t("SquarePage"),
-        add_url: "/squares/create",
-        permission: "square-create",
+        title: this.$i18n.t("PlotPage"),
+        add_url: "/plots/create",
+        permission: "plot-create",
+      },
+      data_expand: { singleExpand: true, expanded: [], show: true },
+      data_extend: {
+        title: 'establishment',
+        name: "name",
       },
       btn_table: [
         { name: "print", visible: true, loading: false, global: true },
@@ -51,15 +59,17 @@ export default {
     ...mapActions(["getData"]),
     set_data() {
       this.$store.commit("SET_CARD", this.card);
-      this.$store.commit("SET_COLLECTION", "square");
+      this.$store.commit("SET_COLLECTION", "gis");
+      this.$store.commit("SET_URL", "gis/plots");
       this.$store.commit("table/SET_LOADING", true);
       this.$store.commit("table/SET_HEADERS", this.header);
       this.$store.commit("table/SET_BTNS", this.btns);
-      this.$store.commit("table/SET_PAGINATION", true);
       this.$store.commit("table/SET_BTN_TABLE", this.btn_table);
+      this.$store.commit("table/SET_DATA_EXTEND", this.data_extend);
+      this.$store.commit("table/SET_DATA_EXPAND", this.data_expand);
     },
-    get_squares() {
-      this.getData({ reset: true });
+    get_plots() {
+      this.getData({ });
     },
   },
   created() {
@@ -69,9 +79,9 @@ export default {
     }
   },
   mounted() {
-    this.get_squares();
     this.set_data();
-    document.title = this.$i18n.t("SquarePage");
+    this.get_plots();
+    document.title = this.$i18n.t("PlotPage");
   },
 };
 </script>

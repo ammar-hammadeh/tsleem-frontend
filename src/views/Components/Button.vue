@@ -2,7 +2,7 @@
   <div :class="class_div">
     <v-btn
       :loading="loader"
-      class="font-weight-bold text-xs btn-default py-5 px-6 mb-0 ms-auto"
+      class="font-weight-bold text-xs btn-default py-5 px-6 mb-0 "
       :class="classes"
       color="white"
       text

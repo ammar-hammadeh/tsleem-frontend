@@ -75,6 +75,7 @@ export const auth = {
             state.loggedIn = false;
             state.user = null;
             state.type = null;
+            state.permissions = [];
         },
         registerSuccess(state) {
             state.loggedIn = false;
