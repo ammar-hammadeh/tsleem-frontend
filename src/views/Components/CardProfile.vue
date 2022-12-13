@@ -26,7 +26,7 @@
 
         <v-list-item-content v-if="item.path" class="py-0 text-end">
           <a
-            :href="item.path"
+            :href="item.full_path"
             target="_blank"
             color="#fff"
             class="text-dark font-poppins font-weight-bolder py-6 px-5 shadow-0"

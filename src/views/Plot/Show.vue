@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/plots/update/",
           item: true,
-          permission: "plot-update",
+          permission: "gis-plot-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "plot-delete",
+          permission: "gis-plot-delete",
           swal: true,
           api:"gis/plots/destroy/"
         },
@@ -43,7 +43,7 @@ export default {
       card: {
         title: this.$i18n.t("PlotPage"),
         add_url: "/plots/create",
-        permission: "plot-create",
+        permission: "gis-plot-create",
       },
       data_expand: { singleExpand: true, expanded: [], show: true },
       data_extend: {

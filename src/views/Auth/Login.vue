@@ -101,7 +101,8 @@
 </template>
 <script>
 import Notify from "../Components/NewNotify.vue";
-import {  mapState } from "vuex";
+import { mapState } from "vuex";
+import {getRedirectionFromStorageAndRemove} from "@/util/helpers/LoginRedirectionHelpers/LoginRedirectionHelpers";
 export default {
   components: {
     Notify,
@@ -128,8 +129,8 @@ export default {
       loading: false,
     };
   },
-  computed:{
-    ...mapState('auth',['user'])
+  computed: {
+    ...mapState("auth", ["user"]),
   },
   methods: {
     validate() {
@@ -144,37 +145,42 @@ export default {
         this.$store.dispatch("auth/login", this.form).then(
           () => {
             this.loading = false;
-            if(this.$store.state.auth.user.status == 'disabled' ){
+            if (this.$store.state.auth.user.status == "disabled") {
               this.error_msg = {
-                msg: this.$i18n.t('account is pending'),
+                msg: this.$i18n.t("account is pending"),
                 type: "Danger",
               };
               this.$store
-              .dispatch("auth/logout")
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((err) => console.log(err));
-            }else if(this.$store.state.auth.user.status == 'review'){
+                .dispatch("auth/logout")
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((err) => console.log(err));
+            } else if (this.$store.state.auth.user.status == "review") {
               this.error_msg = {
-                msg: this.$i18n.t('review account'),
+                msg: this.$i18n.t("review account"),
                 type: "Danger",
               };
               this.$store
-              .dispatch("auth/logout")
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((err) => console.log(err));
-            }
-            else{
-              if(this.user.signature == null){
-                this.$router.push("/profile");
-              }else{
-                this.$router.push("/dashboard");
+                .dispatch("auth/logout")
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((err) => console.log(err));
+            } else {
+
+
+              let goTo = '';
+              if (this.user.signature == null) {
+                goTo = "/profile";
+              } else {
+                goTo = "/dashboard";
               }
+
+              const redirectTo = getRedirectionFromStorageAndRemove();
+              this.$router.push(redirectTo ?? goTo);
             }
-              
+
             // console.log(document.referrer)
             // if (document.referrer == "" && document.referrer == "") {
             // } else {

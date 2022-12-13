@@ -54,7 +54,7 @@
                       v-if="str_per.indexOf('appointment-form-answer') > -1 && item.forms_status == 'unsigned'"
                       :to="`/appointments/${$route.params.id}/form/${item.id}`"
                     >
-                      الاجابات
+                      {{$t('answers')}}
                       <!-- <v-icon
                         color="#000"
                         size="20"
@@ -84,7 +84,7 @@
                       "
                       :to="`/appointments/${$route.params.id}/form/${item.id}/signature`"
                     >
-                      التواقيع
+                      {{$t('signetures')}}
                       <!-- <v-icon color="#000" size="20"> mdi-pencil </v-icon> -->
                     </v-btn>
                   </div>
@@ -101,11 +101,12 @@
                         bg-gradient-default
                         ms-auto
                       "
+                      target="_blank"
                       link
                       v-if="str_per.indexOf('delivery-view') > -1"
                       :to="`/appointments/${$route.params.id}/form/${item.id}/view`"
                     >
-                      عرض
+                      {{$t('view')}}
                       <!-- <v-icon color="#000" size="20"> mdi-eye </v-icon> -->
                     </v-btn>
                   </div>

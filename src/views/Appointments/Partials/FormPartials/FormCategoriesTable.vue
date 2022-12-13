@@ -1,119 +1,115 @@
 <template>
   <div class="table-wrapper">
-    <table>
+    <table class="main-table">
       <tr>
-        <th class="py-3">{{ $t("band") }}</th>
-        <th class="py-3">{{ $t("answer") }}</th>
+        <th class="py-3 outer-th empty-th"></th>
+        <th class="py-3 outer-th">{{ $t("band") }}</th>
+        <th class="py-3 outer-th">{{ $t("answer") }}</th>
+        <th class="py-3 outer-th">{{ $t("notes") }}</th>
+        <th class="py-3 outer-th attachments">{{ $t("attachments") }}</th>
       </tr>
-      <tr v-for="category in categories" :key="category.id">
-        <td class="d-flex bordered-td">
-          <span class="d-flex align-center" style="max-width: 20%">
-
+      <tr
+          v-for="category in categories"
+          :key="category.id"
+          class="inner-table-row"
+      >
+        <td
+            class="text-center category-td pa-2 text-typo text-center text-subtitle-2
+                  ls-0"
+        >
+          <div
+              class="text-typo text-subtitle-2"
+              style="writing-mode: vertical-lr; margin-right: 40px;">
           {{ category.get_category.name }}
-          </span>
-          <table>
-            <tr
-                v-for="item in category.get_category.get_question"
-                :key="`band-${item.id}`"
-            >
-              <td class="text-center">{{ item.title }}</td>
-            </tr>
-          </table>
+          </div>
         </td>
-        <td class="bordered-td">
-          <table>
+        <td colspan="5">
+          <table class="inner-table">
             <tr
                 v-for="item in category.get_category.get_question"
                 :key="`band-${item.id}`"
+                class="inner-table-row mb-2"
             >
-              <!--              <td>{{ item.title }}</td>-->
-              <td class="text-center">
-                <span
-                    v-if="item.answer"
-                    class="
-                    text-typo text-center text-subtitle-2
-                    font-poppins
-                    ls-0
-                  "
-                >{{ item.answer.answer || "-" }}
-                </span>
-                <span
-                    v-else
-                    class="
-                    text-typo text-center text-subtitle-2
-                    font-poppins
-                    ls-0
-                  "
-                >-
-                </span>
+              <td
+                  class="
+                  text-center
+                  title-td
+                  text-typo text-center text-subtitle-2
+                  ls-0
+                  inner-td
+                "
+              >
+                {{ item.title }}
               </td>
+              <td
+                  class="
+                  text-center
+                  answer-td
+                  text-typo text-center text-subtitle-2
+                  ls-0
+                  inner-td
+                "
+              >
+                <span v-if="item.inputs.type == 'checkbox' && (item.answer && item.answer.answer) == 'true'">
+                  <v-icon
+                      class="check"
+                  >mdi-check
+                  </v-icon>
+                </span>
+                <span v-else
+                  class="text-typo text-center text-subtitle-2
+                  ls-0"
+                >
+                  {{ (item.answer && item.answer.answer) || "-" }}
+                </span>
+
+              </td>
+              <td
+                  class="
+                  text-center
+                  title-td
+                  text-typo text-center text-subtitle-2
+                  ls-0
+                  inner-td
+                "
+              >
+
+                {{ item.answer && item.answer.note || "-" }}
+              </td>
+              <td
+                  class="
+                  text-center
+                  title-td
+                  text-typo text-center text-subtitle-2
+                  ls-0
+                  inner-td
+                  attachments
+                "
+              >
+                <div
+                    class="pa-2"
+                >
+                <image-viewer
+                    v-if="item.answer && item.answer.attachements.length"
+                    :images="item.answer.attachements"
+                />
+                </div>
+<!--                {{item.answer.attachements }}-->
+              </td>
+
             </tr>
           </table>
         </td>
       </tr>
     </table>
-
-    <v-row
-        class="margin-table"
-        v-for="category in categories"
-        :key="category.id"
-    >
-      <v-col cols="2" class="pl-0">
-        <v-list class="py-0 border border-bottom-none fill-height">
-          <v-list-item class="fill-height">
-            <v-list-item-content class="text-center">
-              <v-list-item-title class="text-wrap"
-              >{{ category.get_category.name }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-col>
-      <v-col cols="4" class="pl-0 pr-0">
-        <v-list class="py-0 border border-bottom-none">
-          <v-list-item
-              v-for="item in category.get_category.get_question"
-              :key="`band-${item.id}`"
-              class="py-1"
-          >
-            <v-list-item-content>
-              <v-list-item-title
-                  class="text-typo text-center text-subtitle-2 font-poppins ls-0"
-              >{{ item.title }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-col>
-      <v-col cols="6" class="pr-0">
-        <v-list class="py-0 border border-bottom-none">
-          <v-list-item
-              v-for="item in category.get_category.get_question"
-              :key="`band-${item.id}`"
-              class="py-1"
-          >
-            <v-list-item-content>
-              <v-list-item-title
-                  v-if="item.answer"
-                  class="text-typo text-center text-subtitle-2 font-poppins ls-0"
-              >{{ item.answer.answer || "-" }}
-              </v-list-item-title>
-              <v-list-item-title
-                  v-else
-                  class="text-typo text-center text-subtitle-2 font-poppins ls-0"
-              >-
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-col>
-    </v-row>
   </div>
 </template>
 
 <script>
+import ImageViewer from "./ImageViewer";
 export default {
   name: "FormCategoriesTable",
+  components: {ImageViewer},
   props: ["categories"],
 };
 </script>
@@ -121,25 +117,64 @@ export default {
 <style scoped>
 table {
   width: 100%;
+  /*border-spacing: 10px 5px;*/
+  /*border-collapse: collapse;*/
+}
+
+.main-table {
+  border-spacing: 0px 10px;
+}
+
+.inner-table {
+  border-collapse: collapse;
 }
 
 th {
-  width: 50%;
-}
-
-th{
   text-align: center;
   border: 1px solid #e9ecef;
 }
-.bordered-td{
-  border: 1px solid #e9ecef;
 
+.outer-th{
+  width: 20%;
+}
+
+.empty-th{
+  width: 10%;
+}
+.category-td {
+  width: 10%;
+}
+
+.title-td {
+  width: 40.9%;
+}
+
+.answer-td {
+  width: 59.1%;
+}
+
+.inner-td{
+  width: 22.5%;
+}
+
+.inner-table-row > td {
+  border: 1px solid #e9ecef;
 }
 
 @media print {
   .table-wrapper {
-    /*page-break-after: auto;*/
     page-break-inside: avoid;
+  }
+  .category-td{
+    writing-mode: vertical-lr;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  .attachments{
+    display: none;
   }
 }
 </style>

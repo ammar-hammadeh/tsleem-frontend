@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/locations/update/",
           item: true,
-          permission: "location-update",
+          permission: "gis-location-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "location-delete",
+          permission: "gis-location-delete",
           swal: true,
           api:"gis/locations/destroy/"
         },
@@ -41,7 +41,7 @@ export default {
       card: {
         title: this.$i18n.t("LocationPage"),
         add_url: "/locations/create",
-        permission: "location-create",
+        permission: "gis-location-create",
       },
       btn_table: [
         { name: "print", visible: true, loading: false, global: true },

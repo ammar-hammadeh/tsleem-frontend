@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/kitchens/update/",
           item: true,
-          permission: "kitchen-update",
+          permission: "gis-kitchen-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "kitchen-delete",
+          permission: "gis-kitchen-delete",
           swal: true,
           api:"gis/locations/destroy/"
         },
@@ -43,7 +43,7 @@ export default {
       card: {
         title: this.$i18n.t("KitchenPage"),
         add_url: "/kitchens/create",
-        permission: "kitchen-create",
+        permission: "gis-kitchen-create",
       },
       data_expand: { singleExpand: true, expanded: [], show: true },
       data_extend: {

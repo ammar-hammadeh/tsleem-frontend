@@ -21,18 +21,18 @@ export default {
       id: this.$route.params.id,
       style_form: [
         {
-          col: "12",
+          col: "6",
           type: "text",
-          label: this.$i18n.t("Name"),
-          placeholder: this.$i18n.t("Name"),
+          label: this.$i18n.t("Camp"),
+          placeholder: this.$i18n.t("Camp"),
           error: null,
           value_text: "name",
           value: "",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "12",
-          type: "select",
+          col: "6",
+          type: "autocomplete",
           label: this.$i18n.t("square"),
           error: null,
           value_text: "square_id",
@@ -40,6 +40,68 @@ export default {
           value: "",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        // {
+        //   col: "6",
+        //   type: "text",
+        //   label: this.$i18n.t("gate"),
+        //   error: null,
+        //   value_text: "gate",
+        //   value: "",
+        //   rules: [
+        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
+        //   (v) =>
+        //       (v && v.length <= 5) ||
+        //       this.$i18n.t("auth.maximum 5 characters at least"),],
+        // },
+        // {
+        //   col: "6",
+        //   type: "text",
+        //   label: this.$i18n.t("street"),
+        //   error: null,
+        //   value_text: "street",
+        //   value: "",
+        //   rules: [
+        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
+        //   (v) =>
+        //       (v && v.length <= 5) ||
+        //       this.$i18n.t("auth.maximum 5 characters at least"),],
+        // },
+        
+       
+        // {
+        //   col: "12",
+        //   type: "autocomplete",
+        //   label: this.$i18n.t("Location"),
+        //   error: null,
+        //   value_text: "location_id",
+        //   items: [],
+        //   value: "",
+        //   // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        // },
+        {
+          col: "6",
+          type: "checkbox",
+          label: null,
+          value_text: "is_developed",
+          label_input: this.$i18n.t("is_developed"),
+          error: null,
+          value: false,
+          color: "success",
+          rules: [],
+        },
+        // {
+        //   col: "6",
+        //   type: "text",
+        //   label: this.$i18n.t("developed_name"),
+        //   error: null,
+        //   value_text: "developed_name",
+        //   value: "",
+        //   rules: [
+        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
+        //   (v) =>
+        //       (v && v.length <= 25) ||
+        //       this.$i18n.t("auth.maximum 25 characters at least"),],
+        // },
       ],
     };
   },
@@ -50,11 +112,15 @@ export default {
         (response) => {
           this.$store.commit("SET_CARD_LOADING", false);
           console.log(response.data);
-          this.style_form[1].items = response.data.squares;
-          for (let i = 0; i < this.style_form.length; i++) {
-            const element = this.style_form[i];
-            element.value = response.data.data[element.value_text];
-          }
+          this.style_form = this.style_form.map((v)=>{
+            if(v.value_text == 'square_id')
+            v.items = response.data.squares;
+            else if(v.value_text == 'location_id')
+            v.items = response.data.locations;
+
+            v.value = response.data.data[v.value_text];
+            return v
+          })
         },
         (error) => {
           console.log(error);

@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/washrooms/update/",
           item: true,
-          permission: "washroom-update",
+          permission: "gis-washroom-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "washroom-delete",
+          permission: "gis-washroom-delete",
           swal: true,
           api:"gis/washrooms/destroy/"
         },
@@ -53,7 +53,7 @@ export default {
       card: {
         title: this.$i18n.t("WashroomPage"),
         add_url: "/washrooms/create",
-        permission: "washroom-create",
+        permission: "gis-washroom-create",
       },
       data_expand: { singleExpand: true, expanded: [], show: true },
       data_extend: {

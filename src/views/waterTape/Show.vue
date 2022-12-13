@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/water-tapes/update/",
           item: true,
-          permission: "water-tape-update",
+          permission: "gis-water-tape-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "water-tape-delete",
+          permission: "gis-water-tape-delete",
           swal: true,
           api:"gis/water-tape/destroy/"
         },
@@ -43,7 +43,7 @@ export default {
       card: {
         title: this.$i18n.t("WaterTapePage"),
         add_url: "/water-tapes/create",
-        permission: "water-tape-create",
+        permission: "gis-water-tape-create",
       },
       data_expand: { singleExpand: true, expanded: [], show: true },
       data_extend: {

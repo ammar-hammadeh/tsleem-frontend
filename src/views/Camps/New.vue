@@ -18,7 +18,7 @@ export default {
     return {
       style_form: [
         {
-          col: "12",
+          col: "6",
           type: "text",
           label: this.$i18n.t("Camp"),
           placeholder: this.$i18n.t("Camp"),
@@ -28,8 +28,8 @@ export default {
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "12",
-          type: "select",
+          col: "6",
+          type: "autocomplete",
           label: this.$i18n.t("square"),
           error: null,
           value_text: "square_id",
@@ -37,6 +37,68 @@ export default {
           value: "",
           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+        // {
+        //   col: "6",
+        //   type: "text",
+        //   label: this.$i18n.t("gate"),
+        //   error: null,
+        //   value_text: "gate",
+        //   value: "",
+        //   rules: [
+        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
+        //   (v) =>
+        //       (v && v.length <= 5 && v.length > 0) ||
+        //       this.$i18n.t("auth.maximum 5 characters at least"),],
+        // },
+        // {
+        //   col: "6",
+        //   type: "text",
+        //   label: this.$i18n.t("street"),
+        //   error: null,
+        //   value_text: "street",
+        //   value: "",
+        //   rules: [
+        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
+        //   (v) =>
+        //       (v && v.length <= 5) ||
+        //       this.$i18n.t("auth.maximum 5 characters at least"),],
+        // },
+        
+       
+        // {
+        //   col: "12",
+        //   type: "autocomplete",
+        //   label: this.$i18n.t("Location"),
+        //   error: null,
+        //   value_text: "location_id",
+        //   items: [],
+        //   value: "",
+        //   // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        // },
+        {
+          col: "6",
+          type: "checkbox",
+          label: null,
+          value_text: "is_developed",
+          label_input: this.$i18n.t("is_developed"),
+          error: null,
+          value: false,
+          color: "success",
+          rules: [],
+        },
+        // {
+        //   col: "6",
+        //   type: "text",
+        //   label: this.$i18n.t("developed_name"),
+        //   error: null,
+        //   value_text: "developed_name",
+        //   value: "",
+        //   rules: [
+        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
+        //   (v) =>
+        //       (v && v.length <= 25) ||
+        //       this.$i18n.t("auth.maximum 25 characters at least"),],
+        // },
       ],
       card: {
         title: this.$i18n.t("create camp"),
@@ -66,7 +128,12 @@ export default {
         (response) => {
           this.SET_CARD_LOADING(false);
           console.log(response.data);
-          this.style_form[1].items = response.data.squares;
+          this.style_form = this.style_form.map((v)=>{
+            if(v.value_text == 'square_id')
+            return v.items = response.data.squares;
+            else if(v.value_text == 'location_id')
+            return v.items = response.data.locations;
+          })
         },
         (error) => {
           console.log(error);

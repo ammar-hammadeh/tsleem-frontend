@@ -175,7 +175,7 @@
               <h5 v-if="data.users.signature" class="content-body ">
                 <img
                   width="150"
-                  :src="data.users.signature"
+                  :src="data.users.full_signature"
                   alt=""
                 />
               </h5>
@@ -198,7 +198,7 @@
               <h5 v-if="data.kidana.signature" class="content-body ">
                 <img
                   width="150"
-                  :src="data.kidana.signature"
+                  :src="data.kidana.full_signature"
                   alt=""
                 />
               </h5>

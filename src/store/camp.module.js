@@ -97,6 +97,12 @@ export const camp = {
             });
         },
         add_camp({ rootState }, data) {
+            const is_developed = data.get("is_developed");
+            if (is_developed) {
+                data.append("is_developed", 1);
+            } else {
+                data.append("is_developed", 0);
+            }
             return CampService.add_camp(data).then(
                 (response) => {
                     console.log(response);

@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/establishments/update/",
           item: true,
-          permission: "establishments-update",
+          permission: "gis-establishments-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "establishments-delete",
+          permission: "gis-establishments-delete",
           swal: true,
           api:"gis/establishments/destroy/"
         },
@@ -43,7 +43,7 @@ export default {
       card: {
         title: this.$i18n.t("EstablishmentsPage"),
         add_url: "/establishments/create",
-        permission: "establishments-create",
+        permission: "gis-establishments-create",
       },
       data_expand: { singleExpand: true, expanded: [], show: true },
       data_extend: {

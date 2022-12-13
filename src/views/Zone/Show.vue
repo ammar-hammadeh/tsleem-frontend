@@ -3,7 +3,7 @@
     <Card>
       <template #top-card>
         <Button v-if="
-        str_per.indexOf('zone-create') > -1
+        str_per.indexOf('gis-zone-create') > -1
       "  @click="addZone" :loader="loader" :classes="`mx-2 ms-2 bg-gradient-blue`" :title="$t('Add new')"></Button>
       </template>
     </Card>
@@ -28,7 +28,7 @@ export default {
       card: {
         title: this.$i18n.t("ZonePage"),
         add_url: "/zones/create",
-        permission: "zone-create",
+        permission: "gis-zone-create",
       },
       btn_table: [
         { name: "print", visible: true, loading: false, global: true },

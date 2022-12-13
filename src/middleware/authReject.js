@@ -1,17 +1,20 @@
-export default function authReject({ next, router, store }) {
+import { saveRedirectionIntoStorage } from "@/util/helpers/LoginRedirectionHelpers/LoginRedirectionHelpers";
+
+export default function authReject({ nextMiddleware, contextNext, store, to }) {
   if (!store.state.auth.loggedIn) {
-    return next({
-      path: '/login',
-    })
+    saveRedirectionIntoStorage(to.fullPath);
+    return contextNext({
+      path: "/login",
+    });
   }
-  // console.log(store.state.auth.user.status)
-  if (store.state.auth.user.status != "rejected" && store.state.auth.user.status != 'pending') {
-    // router.go(-1)
-    // console.log('test auth rejected')
-    return next({
-      path: '/403',
-    })
+  if (
+    store.state.auth.user.status != "rejected" &&
+    store.state.auth.user.status != "pending"
+  ) {
+    return contextNext({
+      path: "/403",
+    });
   }
 
-  return next();
+  return nextMiddleware();
 }

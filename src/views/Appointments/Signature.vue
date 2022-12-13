@@ -94,7 +94,7 @@
         <v-card class="card-shadow px-6 py-4 overflow-hidden border-radius-xl">
           <div class="py-3">
             <h5 class="text-h5 text-typo font-diner font-weight-bold">
-              توقيع الجهات المعنية
+              {{('have_to_sign')}}
             </h5>
           </div>
           <div
@@ -121,7 +121,7 @@
             >
               <h5 class="sub-title-body text-sm text-typo">التوقيع :</h5>
               <h5 class="content-body text-sm mr-3">
-                <img width="150" :src="item.sign" alt="" />
+                <img width="150" :src="item.full_path_sign" alt="" />
               </h5>
             </div>
             <hr class="horizontal dark mb-2" />

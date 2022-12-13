@@ -109,6 +109,13 @@
         </v-list>
       </template>
 
+      <template v-slot:item.oldProperties="{ item }" >
+        <div v-for="(value ,key) in item.properties.old">
+          <span v-if="value">
+            {{value}} : {{key}}
+          </span>
+        </div>
+      </template>
       <template v-slot:item.circle="{ item }" :id="item.id">
         <div>
           <v-btn

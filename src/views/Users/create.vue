@@ -355,7 +355,7 @@ export default {
           value: null,
           req_val: [
             "service_provider",
-            "consulting_office",
+            // "consulting_office",
             "design_office",
             "contractor",
           ],
@@ -377,7 +377,7 @@ export default {
           error: null,
           req_val: [
             "service_provider",
-            "consulting_office",
+            // "consulting_office",
             "design_office",
             "contractor",
           ],
@@ -391,7 +391,9 @@ export default {
           error: null,
           type: "file",
           value: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office", 
+            "design_office", "contractor"],
           label:
             this.$i18n.t("My rating certificate") + " " + this.$i18n.t("(PDF)"),
           value_text: "classification_file",
@@ -408,7 +410,9 @@ export default {
           type: "date",
           visible: true,
           error: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office",
+            "design_office", "contractor"],
           label: this.$i18n.t("expire_date"),
           value_text: "classification_expire",
         },
@@ -418,7 +422,9 @@ export default {
           error: null,
           type: "file",
           value: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office",
+            "design_office", "contractor"],
           label:
             this.$i18n.t("Profession practice certificate") +
             " " +
@@ -437,7 +443,9 @@ export default {
           type: "date",
           visible: true,
           error: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office",
+            "design_office", "contractor"],
           label: this.$i18n.t("expire_date"),
           value_text: "practice_expire",
         },
@@ -446,7 +454,9 @@ export default {
           error: null,
           type: "file",
           value: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office",
+            "design_office", "contractor"],
           label: this.$i18n.t("business license") + " " + this.$i18n.t("(PDF)"),
           value_text: "business_file",
           accept: ".pdf",
@@ -462,7 +472,9 @@ export default {
           type: "date",
           visible: true,
           error: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office",
+            "design_office", "contractor"],
           label: this.$i18n.t("expire_date"),
           value_text: "business_expire",
         },
@@ -471,7 +483,9 @@ export default {
           error: null,
           type: "file",
           value: null,
-          req_val: ["consulting_office", "design_office", "contractor"],
+          req_val: [
+            // "consulting_office",
+          "design_office", "contractor"],
           label: this.$i18n.t("National address") + " " + this.$i18n.t("(PDF)"),
           value_text: "national_file",
           accept: ".pdf",
@@ -489,7 +503,7 @@ export default {
           value: null,
           req_val: [
             "service_provider",
-            "consulting_office",
+            // "consulting_office",
             "design_office",
             "contractor",
           ],
@@ -504,181 +518,181 @@ export default {
           ],
         },
         // رخصة التأمينات الاجتماعية
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Social Security License") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "social_security",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
-        {
-          value: "",
-          type: "date",
-          visible: true,
-          error: null,
-          req_val: ["consulting_office"],
-          label: this.$i18n.t("expire_date"),
-          value_text: "social_security_expire",
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Social Security License") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "social_security",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
+        // {
+        //   value: "",
+        //   type: "date",
+        //   visible: true,
+        //   error: null,
+        //   req_val: ["consulting_office"],
+        //   label: this.$i18n.t("expire_date"),
+        //   value_text: "social_security_expire",
+        // },
         // رخصة الزكاة والدخل
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Zakat and Income License") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "zakat_income",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
-        {
-          value: "",
-          type: "date",
-          visible: true,
-          error: null,
-          req_val: ["consulting_office"],
-          label: this.$i18n.t("expire_date"),
-          value_text: "zakat_income_expire",
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Zakat and Income License") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "zakat_income",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
+        // {
+        //   value: "",
+        //   type: "date",
+        //   visible: true,
+        //   error: null,
+        //   req_val: ["consulting_office"],
+        //   label: this.$i18n.t("expire_date"),
+        //   value_text: "zakat_income_expire",
+        // },
         // شهادة السعودة
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Saudization certificate") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "saudization",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
-        {
-          value: "",
-          type: "date",
-          visible: true,
-          error: null,
-          req_val: ["consulting_office"],
-          label: this.$i18n.t("expire_date"),
-          value_text: "saudization_expire",
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Saudization certificate") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "saudization",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
+        // {
+        //   value: "",
+        //   type: "date",
+        //   visible: true,
+        //   error: null,
+        //   req_val: ["consulting_office"],
+        //   label: this.$i18n.t("expire_date"),
+        //   value_text: "saudization_expire",
+        // },
         // شهادة الغرفة التجارية
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Chamber of Commerce certificate") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "chamber_commerce",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
-        {
-          value: "",
-          type: "date",
-          visible: true,
-          error: null,
-          req_val: ["consulting_office"],
-          label: this.$i18n.t("expire_date"),
-          value_text: "chamber_commerce_expire",
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Chamber of Commerce certificate") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "chamber_commerce",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
+        // {
+        //   value: "",
+        //   type: "date",
+        //   visible: true,
+        //   error: null,
+        //   req_val: ["consulting_office"],
+        //   label: this.$i18n.t("expire_date"),
+        //   value_text: "chamber_commerce_expire",
+        // },
         // شهادة تسجيل الضريبة
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Tax registration certificate") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "tax_registration",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Tax registration certificate") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "tax_registration",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
         // شهادة حماية الأجور
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Wage Protection Certificate") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "wage_protection",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Wage Protection Certificate") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "wage_protection",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
         // عقد التأسيس
-        {
-          visible: true,
-          error: null,
-          type: "file",
-          value: null,
-          req_val: ["consulting_office"],
-          label:
-            this.$i18n.t("Memorandum of Association") +
-            " " +
-            this.$i18n.t("(PDF)"),
-          value_text: "memorandum_association",
-          accept: ".pdf",
-          rules: [
-            (v) =>
-              !v ||
-              v.size <= 2000000 ||
-              this.$i18n.t("size should be less or equal than 2 MB"),
-          ],
-        },
+        // {
+        //   visible: true,
+        //   error: null,
+        //   type: "file",
+        //   value: null,
+        //   req_val: ["consulting_office"],
+        //   label:
+        //     this.$i18n.t("Memorandum of Association") +
+        //     " " +
+        //     this.$i18n.t("(PDF)"),
+        //   value_text: "memorandum_association",
+        //   accept: ".pdf",
+        //   rules: [
+        //     (v) =>
+        //       !v ||
+        //       v.size <= 2000000 ||
+        //       this.$i18n.t("size should be less or equal than 2 MB"),
+        //   ],
+        // },
         
         {
           // req_val: ["raft_office"],

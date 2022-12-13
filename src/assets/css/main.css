@@ -601,7 +601,12 @@ ul.attributes-list-container li.price-row {
 }
 
 .position-relative {
-    font-family: Poppins;
+    /* font-family: Poppins; */
+}
+
+.ql-container.ql-snow,
+.ql-toolbar.ql-snow {
+    border-color: #949494 !important
 }
 
 .text-color-primary {
@@ -724,6 +729,29 @@ ul.attributes-list-container li.price-row {
     border-top: 0;
 }
 
+.box-file {
+    width: 120px;
+    height: 100px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.v-application.v-application--is-rtl .ql-editor p {
+    direction: rtl;
+    text-align: right;
+    font-family: Tajawal, Poppins
+}
+
+
+.btn-close {
+    position: absolute !important;
+    top: 7px;
+    left: 5px;
+
+}
+
 .col-paragraph {
     /* max-width: 77%; */
     /* text-align: center; */
@@ -800,6 +828,10 @@ ul.attributes-list-container li.price-row {
 
 .login .form-control.error--text>.v-input__control>.v-input__slot {
     border: 1px solid #f05173;
+}
+
+.white-space-pre {
+    white-space: pre
 }
 
 /* end section*/

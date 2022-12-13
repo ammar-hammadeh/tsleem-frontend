@@ -192,6 +192,121 @@ export const gis = {
             )
         },
 
+
+
+        // customize
+        add_electrical_meters({ rootState }, data) {
+            const shared = data.get("shared");
+            if (shared) {
+                data.append("shared", 1);
+            } else {
+                data.append("shared", 0);
+            }
+
+            const payment_status = data.get("payment_status");
+            if (payment_status) {
+                data.append("payment_status", 1);
+            } else {
+                data.append("payment_status", 0);
+            }
+
+            const metric_status = data.get("metric_status");
+            if (metric_status) {
+                data.append("metric_status", 1);
+            } else {
+                data.append("metric_status", 0);
+            }
+
+            return axios.post(rootState.url, data).then(
+                (response) => {
+                    console.log(response);
+                    rootState.form.loader = false;
+                    rootState.form.style_form = [];
+                    router.push({
+                        name: rootState.parent_page,
+                        params: { message: { msg: response.data.message, type: "Success" } },
+                    });
+                },
+                (error) => {
+                    console.log(error);
+                    rootState.form.loader = false;
+                    if (error.response.status == 422) {
+                        var errors = error.response.data.errors;
+                        for (
+                            let i = 0;
+                            i < rootState.form.style_form.length;
+                            i++
+                        ) {
+                            const element = rootState.form.style_form[i];
+                            element.error = errors[element.value_text];
+                        }
+                    } else if (error.response.status != 401) {
+                        rootState.form.notify = {
+                            msg: i18n.t("general.there is problem"),
+                            type: "Danger",
+                        };
+                    }
+                }
+            );
+
+        },
+
+        update_electrical_meters({ rootState }, data) {
+            const shared = data.get("shared");
+            if (shared) {
+                data.append("shared", 1);
+            } else {
+                data.append("shared", 0);
+            }
+
+            const payment_status = data.get("payment_status");
+            if (payment_status) {
+                data.append("payment_status", 1);
+            } else {
+                data.append("payment_status", 0);
+            }
+
+            const metric_status = data.get("metric_status");
+            if (metric_status) {
+                data.append("metric_status", 1);
+            } else {
+                data.append("metric_status", 0);
+            }
+
+            return axios.post(rootState.url, data).then(
+                (response) => {
+                    console.log(response);
+                    rootState.form.loader = false;
+                    rootState.form.style_form = [];
+                    router.push({
+                        name: rootState.parent_page,
+                        params: { message: { msg: response.data.message, type: "Success" } },
+                    });
+                },
+                (error) => {
+                    console.log(error);
+                    rootState.form.loader = false;
+                    if (error.response.status == 422) {
+                        var errors = error.response.data.errors;
+                        for (
+                            let i = 0;
+                            i < rootState.form.style_form.length;
+                            i++
+                        ) {
+                            const element = rootState.form.style_form[i];
+                            element.error = errors[element.value_text];
+                        }
+                    } else if (error.response.status != 401) {
+                        rootState.form.notify = {
+                            msg: i18n.t("general.there is problem"),
+                            type: "Danger",
+                        };
+                    }
+                }
+            );
+
+        },
     },
+
 
 };

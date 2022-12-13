@@ -1,32 +1,18 @@
 <template>
   <div class="form-group">
-    <!-- <label  class="small" :for="id">{{label}}</label> -->
-    <!-- <div class="position-relative">
-    <input
-      class="form-control"
-      :value ="value"
-      :id="id"
-      :type="type"
-      :style="[!!error ? {'border': '1px solid #dc3545'} : {} ]"
-      :placeholder="placeholder"
-      @input="updateValue($event.target.value)"
-      @blur="updatekeyValue($event.target.value)"
-    />
-    
-
-    </div> -->
-    <!-- <small class="error" v-if="!!error">{{error}}</small> -->
-    <label
-      v-if="item.label"
-      :class="
-        item.class_div
-          ? 'form-label'
-          : 'text-xs text-typo font-weight-bolder ms-1'
-      "
-      >{{ item.label }}</label
-    >
-    <slot name="label-section"></slot>
-    <span v-if="item.required" class="text-danger astrik mr-2">*</span>
+    <div style="display: flex;">
+      <label
+        v-if="item.label"
+        :class="
+          item.class_div
+            ? 'form-label'
+            : 'text-xs text-typo font-weight-bolder ms-1'
+        "
+        >{{ item.label }}</label
+      >
+      <slot name="label-section"></slot>
+      <span v-if="item.required" class="text-danger astrik mr-2">*</span>
+    </div>
     <div :class="item.class_div" class="position-relative">
       <v-checkbox
         v-if="item.type == 'checkbox'"
@@ -54,7 +40,8 @@
         :error-messages="item.error"
         :disabled="item.disabled"
         :chips="item.chips"
-        @change="updateChangeFiles($event)"
+        @change="$emit('change',$event)"
+        @input="updateChangeFiles($event)"
       ></v-file-input>
 
       <v-select
@@ -251,8 +238,8 @@ export default {
     updatekeyValue: function (value) {
       this.$emit("blur", value);
     },
-    updateChangeFile: function (value, item) {
-      this.$emit("change", value, item.value_text);
+    updateChangeFile: function (value) {
+      this.$emit("change", value);
     },
     updateChangeFiles: function (value) {
       this.$emit("input", value);

@@ -19,7 +19,7 @@ class CampService {
     return axios.delete('general/camps/delete/' + id)
   }
   get_square() {
-    return axios.get('general/camps/get-data')
+    return axios.get('general/camps/get-all-data')
   }
 }
 export default new CampService();

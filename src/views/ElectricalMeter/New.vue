@@ -13,28 +13,19 @@ export default {
   data() {
     return {
       style_form: [
-        {
-          col: "6",
-          type: "text",
-          label: this.$i18n.t("name"),
-          placeholder: this.$i18n.t("name"),
+      {
+          col: "12",
+          type: "autocomplete",
+          label: this.$i18n.t("Camp"),
           error: null,
-          value_text: "name",
-          value: "",
-          // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          value_text: "camps",
+          type_select:'multiple',
+          items: [],
+          value: [],
+          rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "6",
-          type: "text",
-          label: this.$i18n.t("type"),
-          placeholder: this.$i18n.t("type"),
-          error: null,
-          value_text: "type",
-          value: "",
-          // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
-        },
-        {
-          col: "6",
+          col: "12",
           type: "text",
           label: this.$i18n.t("subscription_number"),
           placeholder: this.$i18n.t("subscription_number"),
@@ -44,7 +35,7 @@ export default {
           // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "6",
+          col: "12",
           type: "text",
           label: this.$i18n.t("metric_capacity"),
           placeholder: this.$i18n.t("metric_capacity"),
@@ -54,36 +45,58 @@ export default {
           // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "6",
-          type: "text",
-          label: this.$i18n.t("closest_cabin"),
-          placeholder: this.$i18n.t("closest_cabin"),
+          col: "4",
+          type: "checkbox",
+          label: this.$i18n.t("metric_status"),
+          placeholder: this.$i18n.t("metric_status"),
           error: null,
-          value_text: "closest_cabin",
+          value_text: "metric_status",
+          label_input: this.$i18n.t("Active_metric"),
           value: "",
           // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
-          col: "6",
-          type: "autocomplete",
-          label: this.$i18n.t("Location"),
+          col: "4",
+          type: "checkbox",
+          label: this.$i18n.t("payment_status"),
+          placeholder: this.$i18n.t("payment_status"),
           error: null,
-          value_text: "location_id",
-          items: [],
+          value_text: "payment_status",
+          label_input: this.$i18n.t("payment"),
+          value: "",
+          // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+        {
+          col: "4",
+          type: "checkbox",
+          label: this.$i18n.t("shared"),
+          error: null,
+          value_text: "shared",
+          label_input: this.$i18n.t("Yes"),
           value: "",
           // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
         {
           col: "12",
-          type: "autocomplete",
-          label: this.$i18n.t("Camp"),
+          type: "text",
+          label: this.$i18n.t("last_read"),
+          placeholder: this.$i18n.t("last_read"),
           error: null,
-          value_text: "camps",
-          type_select:'multiple',
-          items: [],
-          value: [],
-          // // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+          value_text: "last_read",
+          value: "",
+          // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
         },
+      
+        {
+          col: "12",
+          type: "textarea",
+          label: this.$i18n.t("Notes"),
+          error: null,
+          value_text: "note",
+          value: "",
+          // rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
+        },
+        
       ],
       card: {
         title: this.$i18n.t("create electrical_meters"),
@@ -95,7 +108,7 @@ export default {
   methods: {
     set_data() {
       this.$store.commit("SET_COLLECTION", "gis");
-      this.$store.commit("SET_FUNCTION", "add");
+      this.$store.commit("SET_FUNCTION", "add_electrical_meters");
       this.$store.commit("SET_URL", "gis/electrical_meters/store-with-camps");
       this.$store.commit("SET_PARENT_PAGE", "ElectricalMetersPage");
       this.$store.commit("form/SET_FORM_STYLE", this.style_form);
@@ -108,8 +121,7 @@ export default {
         (response) => {
           this.$store.commit("SET_CARD_LOADING", false);
           console.log(response.data);
-          this.style_form[5].items = response.data.locations;
-          this.style_form[6].items = response.data.camps;
+          this.style_form[0].items = response.data.camps;
         },
         (error) => {
           console.log(error);
@@ -129,7 +141,7 @@ export default {
   mounted() {
     this.set_data();
     this.get_data();
-    document.title = this.$i18n.t("create washroom");
+    document.title = this.$i18n.t("create electrical_meters");
   },
 };
 </script>

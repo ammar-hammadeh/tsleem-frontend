@@ -20,6 +20,8 @@
                   </h3>
                   <p>==camp== عرض المخيم</p>
                   <p>==square== عرض المربع</p>
+                  <p>==company== عرض الشركة</p>
+                  <p>==license== رقم الترخيص</p>
                   <p>==date== عرض التاريخ بالهجري</p>
                   <p>==day== عرض اليوم بالهجري</p>
                   <p>==month== عرض الشهر بالهجري</p>
@@ -58,7 +60,7 @@ export default {
         },
         {
           col: "12",
-          type: "textarea",
+          type: "editor",
           label: this.$i18n.t("body"),
           placeholder: this.$i18n.t("body"),
           error: null,

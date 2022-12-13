@@ -1,6 +1,15 @@
 <template>
   <div>
-    <Card></Card>
+    <Card>
+      <template #table-column="{ item2 }">
+        <div v-for="(value ,key) in item2.properties.attributes">
+          <span v-if="value">
+            {{value}} : {{key}}
+          </span>
+        </div>
+      </template>
+      
+    </Card>
   </div>
 </template>
 <script>
@@ -15,8 +24,12 @@ export default {
   data() {
     return {
       header: [
-        { text: this.$i18n.t("Proccess"), align: "center", value: "actions.name" },
-        { text: this.$i18n.t("User"), value: "", align: "center" },
+        { text: this.$i18n.t("table name"), align: "center", value: "log_name" },
+        { text: this.$i18n.t("Proccess"), align: "center", value: "description" },
+        { text: this.$i18n.t("old"), align: "center", value: "oldProperties" },
+        { text: this.$i18n.t("new"), align: "center", value: "column" },
+        { text: this.$i18n.t("Created at"), align: "center", value: "created_at" },
+        { text: this.$i18n.t("User"), value: "name", align: "center" },
       ],
       card: {
         title: this.$i18n.t("LogPage"),

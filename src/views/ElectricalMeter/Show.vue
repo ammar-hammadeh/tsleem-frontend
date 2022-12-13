@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Card></Card>
+    <Card>
+    </Card>
   </div>
 </template>
 <script>
@@ -22,26 +23,27 @@ export default {
           icon: "mdi-pencil",
           url: "/electrical-meters/update/",
           item: true,
-          permission: "washroom-update",
+          permission: "gis-electrical-meter-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "washroom-delete",
+          permission: "gis-electrical-meter-delete",
           swal: true,
           api:"gis/electrical_meters/destroy/"
         },
       ],
       header: [
-        { text: this.$i18n.t("name"), align: "center", value: "name" },
-        { text: this.$i18n.t("type"), align: "center", value: "type" },
         { text: this.$i18n.t("subscription_number"), align: "center", value: "subscription_number" },
         { text: this.$i18n.t("metric_capacity"), align: "center", value: "metric_capacity" },
-        { text: this.$i18n.t("closest_cabin"), align: "center", value: "closest_cabin" },
-        { text: this.$i18n.t("Location"), align: "center", value: "location.name" },
+        { text: this.$i18n.t("metric_status"), align: "center", value: "metric_status_text" },
+        { text: this.$i18n.t("payment_status"), align: "center", value: "payment_status_text" },
+        { text: this.$i18n.t("shared"), align: "center", value: "shared_text" },
+        { text: this.$i18n.t("last_read"), align: "center", value: "last_read" },
         { text: this.$i18n.t("Camps"),value: "data-table-expand",align: "center" },
+        { text: this.$i18n.t("Notes"), align: "center", value: "note" },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
       ],
       card: {

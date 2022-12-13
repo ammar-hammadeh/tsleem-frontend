@@ -689,7 +689,7 @@ export default {
             visible: true,
             error: null,
             req_val: ["consulting_office", "design_office", "contractor"],
-            label: this.$i18n.t("expire_date"),
+            label: this.$i18n.t("classification_expire"),
             value_text: "classification_expire",
           },
   
@@ -718,7 +718,7 @@ export default {
             visible: true,
             error: null,
             req_val: ["consulting_office", "design_office", "contractor"],
-            label: this.$i18n.t("expire_date"),
+            label: this.$i18n.t("practice_expire"),
             value_text: "practice_expire",
           },
           {
@@ -743,7 +743,7 @@ export default {
             visible: true,
             error: null,
             req_val: ["consulting_office", "design_office", "contractor"],
-            label: this.$i18n.t("expire_date"),
+            label: this.$i18n.t("business_expire"),
             value_text: "business_expire",
           },
           {
@@ -1045,6 +1045,24 @@ export default {
             accept: ".pdf",
             value_text: "assign_file",
           },
+          {
+            col:12,
+            visible: true,
+            error: null,
+            type: "file",
+            value: null,
+            req_val: ["design_office", "contractor"],
+            label:
+              this.$i18n.t("secret_information") + " " + this.$i18n.t("(PDF)"),
+            value_text: "secret_information",
+            accept: ".pdf",
+            rules: [
+              (v) =>
+                !v ||
+                v.size <= 2000000 ||
+                this.$i18n.t("size should be less or equal than 2 MB"),
+            ],
+          },
         ],
       snackbar: {
         color: "#f5365c",
@@ -1269,7 +1287,7 @@ export default {
           this.data_user = response.data.user;
           this.form = response.data.user;
           this.saved_avatar_src = response.data.user.avatar;
-          this.saved_avatar_signature = response.data.user.signature;
+          this.saved_avatar_signature = response.data.user.full_signature;
           this.form.signature = null;
           var self = this;
           var type = self.type.code
@@ -1295,12 +1313,12 @@ export default {
                   item.value = ""
                 }
                 var category = response.data.user.category
-                if (Array.isArray(category) && category.length > 0 ){
+                if (Array.isArray(category) && category.length > 0 && type == "design_office"){
                   category.forEach(function (v) {
                       item.value.push(v.id)
                   });
-                }else{
-                  item.value = category.id;
+                }else if(Array.isArray(category) && category.length > 0 && type == "contractor") {
+                  item.value = category[0].id;
                 }
               }
             }else{
@@ -1334,7 +1352,7 @@ export default {
               }
             }
               if(item.type != 'file'){
-                if(item.value_text == "company_name" && !item.req_val.includes('raft_office')){
+                if(item.value_text == "company_name" && response.data.company != null && !item.req_val.includes('raft_office')){
                   item.value = response.data.company.name
                 }else{
                   if (response.data.company != null)

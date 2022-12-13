@@ -325,7 +325,7 @@ export default {
       this.SET_FUNCTION("save_appointment");
     },
     get_assigns() {
-      this.getData({});
+      this.getData({reset: true});
     },
   },
   created() {

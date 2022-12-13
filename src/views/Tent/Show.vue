@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/tents/update/",
           item: true,
-          permission: "tent-update",
+          permission: "gis-tent-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "tent-delete",
+          permission: "gis-tent-delete",
           swal: true,
           api:"gis/tents/destroy/"
         },
@@ -48,7 +48,7 @@ export default {
       card: {
         title: this.$i18n.t("TentPage"),
         add_url: "/tents/create",
-        permission: "tent-create",
+        permission: "gis-tent-create",
       },
       btn_table: [
         { name: "print", visible: true, loading: false, global: true },

@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="mb-5">
     <v-col cols="6" class="text-right">
       <Button
           :title="$t('back')"

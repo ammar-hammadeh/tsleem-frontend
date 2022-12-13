@@ -22,14 +22,14 @@ export default {
           icon: "mdi-pencil",
           url: "/containers/update/",
           item: true,
-          permission: "container-update",
+          permission: "gis-container-update",
         },
         {
           type: "icon",
           text: "delete",
           color: "bg-gradient-danger",
           icon: "mdi-delete",
-          permission: "container-delete",
+          permission: "gis-container-delete",
           swal: true,
           api:"gis/containers/destroy/"
         },
@@ -43,7 +43,7 @@ export default {
       card: {
         title: this.$i18n.t("ContainerPage"),
         add_url: "/containers/create",
-        permission: "container-create",
+        permission: "gis-container-create",
       },
       data_expand: { singleExpand: true, expanded: [], show: true },
       data_extend: {

@@ -46,7 +46,7 @@
                 class="py-1 px-6 my-0"
                 :text-color="general.status != 'disabled' ? 'white' : 'black'"
               >
-                {{ $t(general.status) }}
+                {{ general.status_text }}
               </v-chip>
             </v-col>
           </v-row>
@@ -59,8 +59,8 @@
               <v-avatar rounded width="74" height="74">
                 <img
                   v-if="general.signature"
-                  :src="general.signature"
-                  :lazy-src="general.signature"
+                  :src="general.full_signature"
+                  :lazy-src="general.full_signature"
                   alt="Avatar"
                   class="border-radius-lg"
                 />
@@ -300,7 +300,6 @@ export default {
             console.log(response.data.data[v.value_text]);
             // if (response.data.data[v.value_text] != undefined) {
             if (v.value_text == "code") {
-              // alert(v.value_text);
               v.value = response.data.data.type.name;
             } else if (v.value_text == "roles") {
               if (response.data.data.roles != null) {
@@ -313,14 +312,9 @@ export default {
             } else if (v.value_text == "phone")
               v.value = `966${response.data.data[v.value_text]}+`;
             else v.value = response.data.data[v.value_text];
-            // } else v.value = null;
           });
 
           this.company.forEach((v) => {
-            // if (v.value_text == "engineer_office") {
-            //   if (response.data.data.engineer_office != null)
-            //     v.value = response.data.data.company.engineer_office.name;
-            // } else
             if (v.value_text == "city") {
               if (response.data.data.city != null)
                 v.value = response.data.data.city.name;
@@ -334,8 +328,6 @@ export default {
                   });
                   v.value = values;
                 } else {
-                  // var values = "";
-                  // values = category.name;
                   v.value = category.name;
                 }
               }

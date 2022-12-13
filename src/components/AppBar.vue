@@ -277,7 +277,8 @@ export default {
             item.is_seen = 1;
             this.increaseUnreadMessage();
           }
-          if (this.$route.path != item.link) this.$router.push(item.link);
+          window.location = item.link
+          // if (this.$route.path != item.link) this.$router.push(item.link);
         });
     },
     read_more_method() {

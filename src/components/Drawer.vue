@@ -230,6 +230,18 @@ export default {
             link: "/type",
             permission: "type-index",
           },
+          {
+            title: "Roles",
+            prefix: "K",
+            link: "/roles",
+            permission: "role-index",
+          },
+          {
+            title: "CategoryPage",
+            prefix: "K",
+            link: "/categories",
+            permission: "category-index",
+          },
         ],
       },
       {
@@ -251,82 +263,7 @@ export default {
           },
         ],
       },
-      {
-        action: "mdi-badge-account-outline",
-        title: "Roles",
-        permission: "role",
-        items: [
-          {
-            title: "Roles",
-            prefix: "K",
-            link: "/roles",
-            permission: "role-index",
-          },
-          {
-            title: "Add new",
-            prefix: "W",
-            link: "/roles/create",
-            permission: "role-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-graph",
-        title: "categories",
-        permission: "category",
-        items: [
-          {
-            title: "CategoryPage",
-            prefix: "K",
-            link: "/categories",
-            permission: "category-index",
-          },
-          {
-            title: "Add new",
-            prefix: "W",
-            link: "/categories/create",
-            permission: "category-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-tent",
-        title: "CampPage",
-        permission: "camp",
-        items: [
-          {
-            title: "ShowCamp",
-            prefix: "SC",
-            link: "/camps",
-            permission: "camp-index",
-          },
-          {
-            title: "Add new",
-            prefix: "AC",
-            link: "/camps/create",
-            permission: "camp-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-vector-square",
-        title: "SquarePage",
-        permission: "square",
-        items: [
-          {
-            title: "ShowSquare",
-            prefix: "IS",
-            link: "/squares",
-            permission: "square-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/squares/create",
-            permission: "square-create",
-          },
-        ],
-      },
+      
       // {
       //   action: "mdi-city-variant",
       //   title: "cities",
@@ -348,85 +285,52 @@ export default {
       // },
       {
         action: "mdi-clipboard-account-outline",
-        title: "Questions",
-        permission: "question",
+        title: "Tamplates",
+        permission: "tamplate-form",
         items: [
-          {
+        {
             title: "Question View",
             prefix: "K",
             link: "/questions",
             permission: "question-index",
-          },
-          {
-            title: "Add new",
-            prefix: "W",
-            link: "/questions/create",
-            permission: "question-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-clipboard-account-outline",
-        title: "QuestionCategory",
-        permission: "question_category",
-        items: [
-          {
+        },
+        {
             title: "QuestionCategoryView",
             prefix: "K",
             link: "/question-category",
             permission: "question_category-index",
           },
           {
-            title: "NewQuestionCategory",
-            prefix: "W",
-            link: "/question-category/create",
-            permission: "question_category-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-clipboard-account-outline",
-        title: "Tamplate Form",
-        permission: "tamplate-form",
-        items: [
-          {
             title: "Tamplate Form View",
             prefix: "K",
             link: "/forms",
             permission: "tamplate-form-index",
           },
-          {
-            title: "Add new",
-            prefix: "W",
-            link: "/forms/create",
-            permission: "tamplate-form-create",
-          },
         ],
       },
       {
-        action: "mdi-account-switch-outline",
-        title: "assign",
-        permission: "assign",
+        action: "mdi-tent",
+        title: "assign camp",
+        permission: "appointment",
         items: [
+          {
+            title: "ShowCamp",
+            prefix: "SC",
+            link: "/camps",
+            permission: "camp-index",
+          },
+          {
+            title: "ShowSquare",
+            prefix: "IS",
+            link: "/squares",
+            permission: "square-index",
+          },
           {
             title: "assign View",
             prefix: "K",
             link: "/assign",
             permission: "assign-index",
           },
-          {
-            title: "Add new",
-            prefix: "W",
-            link: "/assign/create",
-            permission: "assign-create",
-          },
-        ],
-      },
-      {
-        action: "mdi-calendar-clock",
-        title: "AppointmentPage",
-        permission: "appointment",
-        items: [
           {
             title: "Appointments view",
             prefix: "I C",
@@ -439,18 +343,18 @@ export default {
             link: "/appointments/create",
             permission: "appointment-creat-index",
           },
+          {
+            title: "SignaturePage",
+            prefix: "SI",
+            link: "/contructs",
+            permission: "signature-index",
+          },
         ],
-      },
-      {
-        action: "mdi-clipboard-check",
-        title: "SignaturePage",
-        link: "/contructs",
-        permission: "signature-index",
       },
       
       // reports
       {
-        action: "mdi-vector-square",
+        action: "mdi-chart-line",
         title: "ReportPage",
         permission: "report",
         items: [
@@ -470,199 +374,84 @@ export default {
       // },
       // 
       /*************** GIS **************/ 
-      // location
       {
-        action: "mdi-vector-square",
-        title: "LocationPage",
-        permission: "location",
+        action: "mdi-map-legend",
+        title: "GisPage",
+        permission: "gis",
         items: [
+          // // location
+          // {
+          //   title: "LocationPage",
+          //   prefix: "IS",
+          //   link: "/locations",
+          //   permission: "gis-location-index",
+          // },
+          // // tent
+          // {
+          //   title: "TentPage",
+          //   prefix: "IS",
+          //   link: "/tents",
+          //   permission: "gis-tent-index",
+          // },
+          // // kitchen
+          // {
+          //   title: "KitchenPage",
+          //   prefix: "IS",
+          //   link: "/kitchens",
+          //   permission: "gis-kitchen-index",
+          // },
+          // // container
+          // {
+          //   title: "ContainerPage",
+          //   prefix: "IS",
+          //   link: "/containers",
+          //   permission: "gis-container-index",
+          // },
+          // // zone
+          // {
+          //   title: "ZonePage",
+          //   prefix: "Z",
+          //   link: "/zones",
+          //   permission: "gis-zone-index",
+          // },
+          // // plot
+          // {
+          //   title: "PlotPage",
+          //   prefix: "IS",
+          //   link: "/plots",
+          //   permission: "gis-plot-index",
+          // },
+          // // establishments
+          // {
+          //   title: "EstablishmentsPage",
+          //   prefix: "IS",
+          //   link: "/establishments",
+          //   permission: "gis-establishments-index",
+          // },
+          // // water-tape
+          // {
+          //   title: "WaterTapePage",
+          //   prefix: "IS",
+          //   link: "/water-tapes",
+          //   permission: "gis-water-tape-index",
+          // },
+          // // washroom
+          // {
+          //   title: "WashroomPage",
+          //   prefix: "IS",
+          //   link: "/washrooms",
+          //   permission: "gis-washroom-index",
+          // },
+           // electrical-meters
           {
-            title: "ShowLocation",
-            prefix: "IS",
-            link: "/locations",
-            permission: "location-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/locations/create",
-            permission: "location-create",
-          },
-        ],
-      },
-// tent
-      {
-        action: "mdi-vector-square",
-        title: "TentPage",
-        permission: "tent",
-        items: [
-          {
-            title: "ShowTent",
-            prefix: "IS",
-            link: "/tents",
-            permission: "tent-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/tents/create",
-            permission: "tent-create",
-          },
-        ],
-      },
-// kitchen
-      {
-        action: "mdi-vector-square",
-        title: "KitchenPage",
-        permission: "kitchen",
-        items: [
-          {
-            title: "Showkitchen",
-            prefix: "IS",
-            link: "/kitchens",
-            permission: "kitchen-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/kitchens/create",
-            permission: "kitchen-create",
-          },
-        ],
-      },
-      // container
-      {
-        action: "mdi-vector-square",
-        title: "ContainerPage",
-        permission: "container",
-        items: [
-          {
-            title: "ShowContainer",
-            prefix: "IS",
-            link: "/containers",
-            permission: "container-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/containers/create",
-            permission: "container-create",
-          },
-        ],
-      },
-// zone
-      {
-        action: "mdi-clipboard-check",
-        title: "ZonePage",
-        link: "/zones",
-        permission: "zone-index",
-      },
-
-      // plot
-      {
-        action: "mdi-vector-square",
-        title: "PlotPage",
-        permission: "plot",
-        items: [
-          {
-            title: "ShowPlot",
-            prefix: "IS",
-            link: "/plots",
-            permission: "plot-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/plots/create",
-            permission: "plot-create",
-          },
-        ],
-      },
-      // establishments
-      {
-        action: "mdi-vector-square",
-        title: "EstablishmentsPage",
-        permission: "establishments",
-        items: [
-          {
-            title: "ShowEstablishment",
-            prefix: "IS",
-            link: "/establishments",
-            permission: "establishments-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/establishments/create",
-            permission: "establishments-create",
-          },
-        ],
-      },
-
-      // water-tape
-      {
-        action: "mdi-vector-square",
-        title: "WaterTapePage",
-        permission: "water-tape",
-        items: [
-          {
-            title: "ShowWaterTape",
-            prefix: "IS",
-            link: "/water-tapes",
-            permission: "water-tape-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/water-tapes/create",
-            permission: "water-tape-create",
-          },
-        ],
-      },
-
-      // washroom
-      {
-        action: "mdi-vector-square",
-        title: "WashroomPage",
-        permission: "washroom",
-        items: [
-          {
-            title: "ShowWashroom",
-            prefix: "IS",
-            link: "/washrooms",
-            permission: "washroom-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/washrooms/create",
-            permission: "washroom-create",
-          },
-        ],
-      },
-
-       // washroom
-       {
-        action: "mdi-vector-square",
-        title: "ElectricalMetersPage",
-        permission: "electrical-meter",
-        items: [
-          {
-            title: "ShowElectricalMeters",
+            title: "ElectricalMetersPage",
             prefix: "IS",
             link: "/electrical-meters",
-            permission: "electrical-meter-index",
-          },
-          {
-            title: "Add new",
-            prefix: "CS",
-            link: "/electrical-meters/create",
-            permission: "electrical-meter-create",
+            permission: "gis-electrical-meter-index",
           },
         ],
       },
-
-
+    
     ],
 
     items: [
@@ -995,6 +784,7 @@ export default {
 <style>
 .v-navigation-drawer {
   max-width: 17.25rem !important;
+  z-index: 5555555555 !important;
 }
 .v-navigation-drawer .v-list-item__title{
   font-size: 12px !important;

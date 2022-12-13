@@ -74,6 +74,13 @@
             :rules="item.rules"
           ></v-autocomplete>
 
+          <html-editor
+            v-else-if="item.type == 'editor'"
+            row="20"
+            class="white-space-pre"
+            v-model="item.value"
+          ></html-editor>
+
           <v-textarea
             v-else-if="item.type == 'textarea'"
             :label="item.label"
@@ -108,6 +115,8 @@
             class="font-size-input placeholder-lighter mt-2 mb-4"
           >
           </v-text-field>
+
+          
 
           <template v-else-if="item.type == 'date'">
             <!-- <custom-date-picker
@@ -251,6 +260,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import Input from "../Components/Input.vue";
+import HtmlEditor from "../Components/HtmlEditor.vue";
 export default {
   props: {
     btn: { type: Boolean, default: false },
@@ -258,6 +268,7 @@ export default {
   },
   components: {
     Input,
+    HtmlEditor
   },
   name: "Form",
   data() {
