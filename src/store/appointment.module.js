@@ -47,8 +47,8 @@ export const appointment = {
             console.log(item)
             commit('form/SET_DIALOG', true, { root: true })
             rootState.form.style_form[0].value = item.appointment
-            console.log(rootState.form.style_form[0].value)
-            rootState.form.style_form[1].value = item.id
+            // console.log(item.assign_camp_id)
+            rootState.form.style_form[1].value = item.assign_camp_id
             commit('form/SET_MODAL', { title: i18n.t("Reschedule an appointment") + " # " + item.square_name + " - " + item.camp_name }, { root: true });
             rootState.id = item.id
             commit("SET_FUNCTION", "update_appointment", { root: true });

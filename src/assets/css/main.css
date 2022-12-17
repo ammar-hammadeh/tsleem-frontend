@@ -744,6 +744,9 @@ ul.attributes-list-container li.price-row {
     font-family: Tajawal, Poppins
 }
 
+.ql-editor {
+    color: #000;
+}
 
 .btn-close {
     position: absolute !important;
@@ -831,7 +834,11 @@ ul.attributes-list-container li.price-row {
 }
 
 .white-space-pre {
-    white-space: pre
+    white-space: pre !important;
+}
+
+.white-space-break {
+    white-space: break-spaces
 }
 
 /* end section*/

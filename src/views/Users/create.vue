@@ -77,6 +77,7 @@ import Input from "../Components/Input.vue";
 import Stepper from "../Components/Stepper.vue";
 import Button from "../Components/Button.vue";
 import { mapMutations, mapState } from "vuex";
+import {EmailWithNoArabicValidator} from "@/util/helpers/Validators/EmailValidator";
 export default {
   name: "Wizard",
   components: {
@@ -137,10 +138,7 @@ export default {
           rules: [
             (v) => !!v || this.$i18n.t("form.Item is required"),
             (v) =>
-            (v &&
-            /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-                  v
-                )) ||
+              (v && EmailWithNoArabicValidator(v)) ||
               this.$i18n.t("auth.E-mail must be valid"),
           ],
         },
@@ -236,7 +234,7 @@ export default {
             (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),
           ],
         },
-       
+
         {
           visible: true,
           error: null,
@@ -257,7 +255,7 @@ export default {
             (v) => (v && v.length == 10) || this.$i18n.t("equal 10 characters"),
           ],
         },
-        
+
         {
           visible: true,
           error: null,
@@ -392,7 +390,7 @@ export default {
           type: "file",
           value: null,
           req_val: [
-            // "consulting_office", 
+            // "consulting_office",
             "design_office", "contractor"],
           label:
             this.$i18n.t("My rating certificate") + " " + this.$i18n.t("(PDF)"),
@@ -693,7 +691,7 @@ export default {
         //       this.$i18n.t("size should be less or equal than 2 MB"),
         //   ],
         // },
-        
+
         {
           // req_val: ["raft_office"],
           visible: false,
@@ -796,7 +794,7 @@ export default {
             rules: [(v) => !!v || this.$i18n.t("form.Item is required"),],
             value_text: "hajj_license_expire",
           },
-        
+
       ],
 
       currentType: "",

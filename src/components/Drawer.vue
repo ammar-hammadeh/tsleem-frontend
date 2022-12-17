@@ -784,7 +784,10 @@ export default {
 <style>
 .v-navigation-drawer {
   max-width: 17.25rem !important;
-  z-index: 5555555555 !important;
+}
+.v-navigation-drawer.v-navigation-drawer--is-mobile{
+  z-index: 55555 !important;
+
 }
 .v-navigation-drawer .v-list-item__title{
   font-size: 12px !important;

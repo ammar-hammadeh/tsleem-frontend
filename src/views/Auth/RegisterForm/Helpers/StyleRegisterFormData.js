@@ -118,7 +118,17 @@ export const HujajDakhilStyleFormData = [
         accept: ".pdf",
         value_text: "commercial_file",
     },
-
+    {
+        class: "form-control",
+        value: "",
+        error: null,
+        required: true,
+        type: "date",
+        label: i18n.t("Commercial Register Expire"),
+        class_div: "input-group auth-pass-inputgroup",
+        rules: [(v) => !!v || i18n.t("form.Item is required")],
+        value_text: "commercial_expiration",
+    },
     {
         error: null,
         required: true,
@@ -193,7 +203,7 @@ export const HujajDakhilStyleFormData = [
         value: null,
         label: i18n.t("seasonal_license") + " " + i18n.t("(PDF)"),
         rules: [
-            // (v) => !!v || i18n.t("form.Item is required"),
+            (v) => !!v || i18n.t("form.Item is required"),
             (v) =>
                 !v ||
                 v.size <= 2000000 ||
@@ -211,7 +221,7 @@ export const HujajDakhilStyleFormData = [
         value: null,
         label: i18n.t("assign_file") + " " + i18n.t("(PDF)"),
         rules: [
-            // (v) => !!v || i18n.t("form.Item is required"),
+            (v) => !!v || i18n.t("form.Item is required"),
             (v) =>
                 !v ||
                 v.size <= 2000000 ||

@@ -39,14 +39,14 @@
         <!--    Notes    -->
         <td class="py-3">
           <span class="text-typo text-center text-subtitle-2 ">
-            {{ item.questions.answer.note || '-' }}
+            {{ (item.questions.answer && item.questions.answer.note) || '-' }}
           </span>
         </td>
         <!--    Notes    -->
         <td class="py-3 attachment">
           <div class="text-typo text-center text-subtitle-2 ">
 
-            <image-viewer                 v-if="item.questions.answer.attachements.length"
+            <image-viewer                 v-if="item.questions.answer && item.questions.answer.attachements.length"
              :images="item.questions.answer.attachements"/>
             <span v-else>
               -

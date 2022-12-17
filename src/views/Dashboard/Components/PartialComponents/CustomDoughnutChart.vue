@@ -18,6 +18,7 @@ export default {
   components: { VueApexCharts },
   props: {
     title: { required: true },
+    type:{type:String},
     dataValues: { required: true, type: Array },
     labels: { required: true, type: Array },
   },
@@ -27,6 +28,16 @@ export default {
       series: this.dataValues,
       chartOptions: {
         chart: {
+          events: {
+              dataPointSelection: function(event, chartContext, config) {
+                alert(this.type)
+                console.log(this)
+                if(this.type == 'user_statue'){
+                  let label = config.w.config.labels[config.dataPointIndex]
+                  this.$router.push({path:`/users?status=${label}`})
+                }
+              }.bind(this)
+            },
           type: "donut",
           height: 300,
         },

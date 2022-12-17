@@ -125,7 +125,7 @@ export default {
         {
           text: this.$i18n.t("status"),
           align: "center",
-          value: "status",
+          value: "status_assign",
         },
         { text: this.$i18n.t("Action"), value: "btns", align: "center" },
       ],

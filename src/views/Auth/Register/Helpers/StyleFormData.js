@@ -1,4 +1,5 @@
 import i18n from "@/i18n";
+import { EmailWithNoArabicValidator } from "@/util/helpers/Validators/EmailValidator";
 
 export const HujajDakhilStyleFormData = [
   {
@@ -28,11 +29,7 @@ export const HujajDakhilStyleFormData = [
     rules: [
       (v) => !!v || i18n.t("form.Item is required"),
       (v) =>
-        (v &&
-          // /^(([a-zA-Z\-0-9]+[^<>()\\.,;:@"]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-          /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-            v
-          )) ||
+        (v && EmailWithNoArabicValidator(v)) ||
         i18n.t("auth.E-mail must be valid"),
     ],
   },
@@ -232,11 +229,7 @@ export const ContactorStyleFormData = [
     rules: [
       (v) => !!v || i18n.t("form.Item is required"),
       (v) =>
-        (v &&
-          // /^(([a-zA-Z\-0-9]+[^<>()\\.,;:@"]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-          /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-            v
-          )) ||
+        (v && EmailWithNoArabicValidator(v)) ||
         i18n.t("auth.E-mail must be valid"),
     ],
   },
@@ -387,11 +380,7 @@ export const DesignOfficeStyleFormData = [
     rules: [
       (v) => !!v || i18n.t("form.Item is required"),
       (v) =>
-        (v &&
-          // /^(([a-zA-Z\-0-9]+[^<>()\\.,;:@"]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-          /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-            v
-          )) ||
+        (v && EmailWithNoArabicValidator(v)) ||
         i18n.t("auth.E-mail must be valid"),
     ],
   },

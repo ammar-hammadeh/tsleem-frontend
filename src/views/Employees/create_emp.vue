@@ -9,6 +9,7 @@
 import Input from "../Components/Input.vue";
 import { mapMutations } from "vuex";
 import CardForm from "../Components/CardForm.vue";
+import {EmailWithNoArabicValidator} from "@/util/helpers/Validators/EmailValidator";
 export default {
   name: "Create-Employee",
   components: {
@@ -39,10 +40,7 @@ export default {
           rules: [
             (v) => !!v || this.$i18n.t("form.Item is required"),
             (v) =>
-              (v &&
-              /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-                  v
-                )) ||
+              (v && EmailWithNoArabicValidator(v)) ||
               this.$i18n.t("auth.E-mail must be valid"),
           ],
         },

@@ -682,7 +682,7 @@
   "seasonal_license": "الرخصة الموسمية",
   "account is pending": "لا تستطيع الدخول حسابك غير مفعل",
   "delegateid": "صورة هوية المفوض",
-  "delegation": "خطاب التفويض",
+  "delegation": "خطاب التفويض مصدق من الغرفة التجارية",
   "hajj_license": "ترخيص خدمة الحجاج",
   "hajj_license_expire_date": "تاريخ انتهاء ترخيص خدمة الحجاج",
   "messageDoneRegister": "نود إعلامك بأنه سيتم مراجعة الطلب الذي قمت بتقديمه وسيتم إبلاغك في حال القبول",
@@ -830,5 +830,15 @@
   "table name": "اسم الجدول",
   "view": "عرض",
   "signetures": "التواقيع",
-  "answers": "الاجابات"
+  "answers": "الاجابات",
+  "type_user": "نوع الجهة",
+  "name_user": "اسم الجهة",
+  "user status": "حالة المستخدمين",
+  "status_assign": {
+    "pending": "انتظار",
+    "returned": "تم ارجاعه",
+    "appointment": "تم تحديد موعد",
+    "answered": "لم يتم توقيعها",
+    "deliverd": "تم التسليم"
+  }
 }

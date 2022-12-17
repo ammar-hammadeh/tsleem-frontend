@@ -73,7 +73,7 @@
         <v-row class="mt-5" v-if="data.assign_camps">
           <v-col cols="5" class="d-flex ms-15">
             <div class="d-flex flex-column align-items-center">
-              <h5 class="sub-title-body">نوع الجهة :</h5>
+              <h5 class="sub-title-body">{{$t('type_user')}} :</h5>
               <!-- <h5 class="sub-title-body mt-5" v-if="data.assign_camps.get_square">
                   رقم المربع :
                 </h5> -->
@@ -92,7 +92,7 @@
           </v-col>
           <v-col cols="5" class="d-flex justify-center">
             <div class="d-flex flex-column align-items-center">
-              <h5 class="sub-title-body">اسم الجهة :</h5>
+              <h5 class="sub-title-body">{{$t('name_user')}} :</h5>
               <!-- <h5 class="sub-title-body mt-5" v-if="data.assign_camps.get_camp">
                   رقم المخيم :
                 </h5> -->

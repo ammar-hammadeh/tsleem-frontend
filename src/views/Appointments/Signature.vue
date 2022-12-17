@@ -94,7 +94,7 @@
         <v-card class="card-shadow px-6 py-4 overflow-hidden border-radius-xl">
           <div class="py-3">
             <h5 class="text-h5 text-typo font-diner font-weight-bold">
-              {{('have_to_sign')}}
+              {{$t('have_to_sign')}}
             </h5>
           </div>
           <div
@@ -103,13 +103,13 @@
             :key="index"
           >
             <div v-if="item.username" class="d-flex align-items-center">
-              <h5 class="sub-title-body text-sm text-typo">اسم الجهة :</h5>
+              <h5 class="sub-title-body text-sm text-typo">{{$t('name_user')}} :</h5>
               <h5 class="content-body text-sm mr-3">
                 {{ item.username }}
               </h5>
             </div>
             <div v-if="item.type_name" class="d-flex align-items-center">
-              <h5 class="sub-title-body text-sm text-typo">نوع الجهة :</h5>
+              <h5 class="sub-title-body text-sm text-typo">{{$t('type_user')}} :</h5>
               <h5 class="content-body text-sm mr-3">
                 {{ item.type_name }}
               </h5>
@@ -119,7 +119,7 @@
               style="margin-right: 0px"
               v-if="item.sign"
             >
-              <h5 class="sub-title-body text-sm text-typo">التوقيع :</h5>
+              <h5 class="sub-title-body text-sm text-typo">{{$t('signer')}} :</h5>
               <h5 class="content-body text-sm mr-3">
                 <img width="150" :src="item.full_path_sign" alt="" />
               </h5>
@@ -128,7 +128,7 @@
           </div>
         </v-card>
       </v-col>
-      <v-col class="" cols="12">
+      <v-col class="" cols="12" v-if=" data.users && data.users.length > 0">
         <v-card class="card-shadow px-4 py-4 overflow-hidden border-radius-xl">
           <v-row>
             <v-col
@@ -139,7 +139,7 @@
             >
               <v-form ref="form" v-model="valid" lazy-validation>
                 <div class="mb-3">
-                  <span class="text-body text-md">نوع الجهة : </span>
+                  <span class="text-body text-md">{{$t('type_user')}} : </span>
                   <label class="text-sm text-typo font-weight-bolder ms-1">
                     {{ item.type_name }}</label
                   >

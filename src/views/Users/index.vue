@@ -276,7 +276,15 @@ export default {
       },
       (error) => {}
     );
-    this.$store.dispatch("user/getData", { reset: true });
+    if (this.$route.query.status) {
+      this.$store.dispatch("user/getData", 
+      { 
+        custom : [{name :'status' , value: this.$route.query.status}] ,
+        reset: true
+      });
+    }else{
+      this.$store.dispatch("user/getData", { reset: true });
+    }
     document.title = this.$i18n.t("Users");
   },
 };

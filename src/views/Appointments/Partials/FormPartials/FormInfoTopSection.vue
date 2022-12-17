@@ -6,7 +6,7 @@
       </h1>
     </v-col>
     <v-col cols="12" class="pl-0">
-      <h3 class="title-body white-space-pre text-md" v-html="body">
+      <h3 class="title-body white-space-break text-md" v-html="body">
       </h3>
     </v-col>
   </v-row>

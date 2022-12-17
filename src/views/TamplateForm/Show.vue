@@ -78,7 +78,7 @@
                 <div class="text-md text-typo font-weight-bolder ms-1">
                   {{ $t("body") }}
                 </div>
-                <div class="mt-3 mr-2 white-space-pre" v-html="item.body">
+                <div class="mt-3 mr-2 white-space-break" v-html="item.body">
                 </div>
               </v-col>
             </v-row>

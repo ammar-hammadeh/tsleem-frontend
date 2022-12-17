@@ -86,6 +86,7 @@
 import Input from "../Components/Input.vue";
 import Notify from "../Components/NewNotify.vue";
 import Loading from "../Components/Loading.vue";
+import {EmailWithNoArabicValidator} from "@/util/helpers/Validators/EmailValidator";
 export default {
   components: {
     Input,
@@ -123,8 +124,8 @@ error:null,
 //           class_div: "input-group auth-pass-inputgroup",
 //           rules: [(v) => !!v || this.$i18n.t("form.Item is required")],
 //         },
-        
-        
+
+
         {
           class: "form-control",
 error:null,
@@ -137,11 +138,7 @@ error:null,
           rules: [
             (v) => !!v || this.$i18n.t("form.Item is required"),
             (v) =>
-              (v &&
-                // /^(([a-zA-Z\-0-9]+[^<>()\\.,;:@"]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-                  /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-                  v
-                )) ||
+                (v && EmailWithNoArabicValidator(v)) ||
               this.$i18n.t("auth.E-mail must be valid"),
           ],
         },
@@ -571,7 +568,7 @@ error:null,
                 const val = value[i];
                 formData.append(`${v.value_text}[ ${i} ]`, val);
               }
-            } 
+            }
             else {
               // if (v.value_text == "phone") {
               //   var val = null;

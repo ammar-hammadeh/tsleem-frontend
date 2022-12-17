@@ -545,7 +545,7 @@ let questionCategoryPage = {
     },
     {
       path: "/question-category/update/:id",
-      name: "EditCategory",
+      name: "EditQuastionCategory",
       component: EditQuestionCategory,
       meta: {
         groupName: "QuestionCategory",

@@ -25,7 +25,7 @@ export default {
     return {
       header: [
         { text: this.$i18n.t("table name"), align: "center", value: "log_name" },
-        { text: this.$i18n.t("Proccess"), align: "center", value: "description" },
+        { text: this.$i18n.t("Proccess"), align: "center", value: "event_text" },
         { text: this.$i18n.t("old"), align: "center", value: "oldProperties" },
         { text: this.$i18n.t("new"), align: "center", value: "column" },
         { text: this.$i18n.t("Created at"), align: "center", value: "created_at" },

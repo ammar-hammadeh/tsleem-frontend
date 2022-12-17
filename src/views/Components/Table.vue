@@ -116,6 +116,14 @@
           </span>
         </div>
       </template>
+
+      <template v-slot:item.status_assign="{ item }" >
+        <div>
+          {{$t(`status_assign.${item.status}`)}}
+        </div>
+      </template>
+
+
       <template v-slot:item.circle="{ item }" :id="item.id">
         <div>
           <v-btn

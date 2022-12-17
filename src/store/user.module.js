@@ -364,7 +364,7 @@ export const user = {
         // filter section 
         filterData({ dispatch }) {
             // console.log('filter')
-            dispatch("getData", { reset: false })
+            dispatch("getData", {})
         },
         resetFilter({ rootState, dispatch }) {
             rootState.table.paginate.page = 1;
@@ -375,7 +375,12 @@ export const user = {
             // console.log(data)
             rootState.table.loading = true;
             const formData = new FormData();
-            if (data.hasOwnProperty('reset') && !data.reset) {
+            if (data.hasOwnProperty('custom')) {
+                data.custom.filter(function (filter) {
+                    formData.append(filter.name, filter.value);
+                });
+            }
+            if (!data.hasOwnProperty('reset')) {
                 rootState.form.filters.filter(function (filter) {
                     formData.append(filter.name, filter.value);
                 });

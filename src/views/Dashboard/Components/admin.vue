@@ -84,35 +84,45 @@ x<template>
           {{ $t("General Charts") }}
         </h5>
       </v-col>
-      <v-col sm="4" cols="12" class="grid">
+      <v-col sm="6" cols="12" class="grid">
+        <CustomDoughnutChart
+            :title="$t('user status')"
+            :type="'user_statue'"
+            :data-values="this.usersChartData.dataValues"
+            :labels="this.usersChartData.lables"
+        />
+      </v-col>
+      <v-col sm="6" cols="12" class="grid">
         <CustomDoughnutChart
           :title="$t('appointmets status')"
           :data-values="this.appointmentsChartData.dataValues"
           :labels="this.appointmentsChartData.lables"
         />
       </v-col>
-      <v-col sm="4" cols="12" class="grid">
+      <v-col sm="6" cols="12" class="grid">
         <CustomDoughnutChart
             :title="$t('assignations status')"
             :data-values="this.assignationsChartData.dataValues"
             :labels="this.assignationsChartData.lables"
         />
       </v-col>
-      <v-col sm="4" cols="12" class="grid">
+      <v-col sm="6" cols="12" class="grid">
         <CustomDoughnutChart
             :title="$t('assignations status')"
             :data-values="this.campsChartData.dataValues"
             :labels="this.campsChartData.lables"
         />
       </v-col>
+     
     </v-row>
   </div>
 </template>
 <script>
 import CustomCard from "@/views/Dashboard/Components/PartialComponents/CustomCard";
 import CustomDoughnutChart from "@/views/Dashboard/Components/PartialComponents/CustomDoughnutChart";
+import CustomUserChart from "@/views/Dashboard/Components/PartialComponents/CustomUserChart";
 export default {
-  components: { CustomDoughnutChart, CustomCard },
+  components: { CustomDoughnutChart,CustomUserChart, CustomCard },
   props: {
     data: {},
   },
@@ -135,6 +145,14 @@ export default {
 
     campsChartData(){
       const camps = this.data.camps_chart; 
+      return{
+        lables: camps.lables,
+        dataValues: camps.count.map(cnt=>parseInt(cnt))
+      }
+    },
+
+    usersChartData(){
+      const camps = this.data.users_chart; 
       return{
         lables: camps.lables,
         dataValues: camps.count.map(cnt=>parseInt(cnt))
