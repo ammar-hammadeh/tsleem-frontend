@@ -29,5 +29,9 @@ class AssignFormService {
   answer_questions(data) {
     return axios.post('general/forms/form-update-answer', data)
   }
+
+  sendNotify(data) {
+    return axios.post('general/forms/send-notification', data)
+  }
 }
 export default new AssignFormService();

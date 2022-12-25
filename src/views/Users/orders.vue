@@ -88,6 +88,7 @@ export default {
         },
       ],
       header: [
+        { text: 'ID', value: "id", align: "center" },
         { text: this.$i18n.t("Name"), value: "name", align: "center" },
 
         {
@@ -101,7 +102,7 @@ export default {
           align: "center",
         },
         {
-          text: this.$i18n.t("Commercial Register"),
+          text: this.$i18n.t("Commercial Register num"),
           value: "company.commercial",
           align: "center",
         },
@@ -134,7 +135,6 @@ export default {
       },
     };
   },
- 
   methods: {
     color_status(val) {
       if (val == "pending") {

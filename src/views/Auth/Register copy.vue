@@ -255,7 +255,7 @@ export default {
       },
       email: {
         class: "form-control",
-        type: "email",
+        type: "text",
         label: this.$i18n.t("auth.Email Address"),
         placeholder: this.$i18n.t("auth.Email Address"),
         class_div: "input-group auth-pass-inputgroup",

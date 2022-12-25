@@ -38,38 +38,45 @@
               :label="$t('Search')"
               class="mx-4 mt-0 font-lang"
             ></v-text-field> -->
+            <!-- <div class="pr-3 mt-0 pt-3 text-h6 font-weight-bolder">
+              {{ $t('total') }}  <span class="mr-3"> {{paginate.total}} </span>
+            </div> -->
           </div>
 
-          <div class="d-flex pl-3 rows_per_page" v-if="pagination">
-            <label for="" style="font-size: 14px" class="mx-3 mt-2">
-              {{ $t("Rows Per Page") }}
-            </label>
-            <v-select
-              style="width: 100px"
-              v-model="paginate.itemsPerPage"
-              hide-details
-              @change="changeItemPage"
-              :items="[5, 10, 15, 50, 100]"
-              dense
-            ></v-select>
-            <slot name="top-left-actions"></slot>
-          </div>
+          <div class="d-flex pl-3 rows_per_page" >
+              <label for="" style="font-size: 14px" class="font-weight-bold mx-3 mt-2">
+                {{ $t("Rows Per Page") }}
+              </label>
+              <v-select
+              v-if="pagination"
+                style="width: 100px"
+                v-model="paginate.itemsPerPage"
+                hide-details
+                @change="changeItemPage"
+                :items="[5, 10, 15, 50, 100]"
+                dense
+              ></v-select>
 
-          <div class="d-flex pl-3 rows_per_page" v-else>
-            <label for="" style="font-size: 14px" class="mx-3 mt-2">
-              {{ $t("Rows Per Page") }}
-            </label>
-            <v-select
-              style="width: 100px"
-              v-model="noSSRPagesPerRow"
-              hide-details
-              @change="changeNoSSRItemsPerPage"
-              :items="[10, 20, 30, 50, 100]"
-              dense
-            ></v-select>
-            <slot name="top-left-actions"></slot>
+              <v-select
+              v-else
+                style="width: 100px"
+                v-model="noSSRPagesPerRow"
+                hide-details
+                @change="changeNoSSRItemsPerPage"
+                :items="[10, 20, 30, 50, 100]"
+                dense
+              ></v-select>
+              <span  class=" font-weight-bold mx-3 mt-2">
+                {{$t('from')}}
+                <span style="font-size: 17px" class="mr-2">
+                  {{paginate.total}} 
+                </span>
+
+              </span>
+              <slot name="top-left-actions"></slot>
+            </div>
           </div>
-        </div>
+          
       </template>
 
       <template v-slot:item.column="{ item }">
@@ -81,6 +88,10 @@
       <template v-slot:item.created_at="{ item }" :id="item.id">
         {{ item.created_at | formatDate }}
       </template>
+
+      <!-- <template v-slot:item.counter="{  item,index}">
+          {{ index + 1}}
+      </template> -->
 
       <template v-slot:item.avatar="{ item }" :id="item.id">
         <v-list class="py-0">
@@ -110,10 +121,16 @@
       </template>
 
       <template v-slot:item.oldProperties="{ item }" >
-        <div v-for="(value ,key) in item.properties.old">
-          <span v-if="value">
-            {{value}} : {{key}}
-          </span>
+        <div v-for="(value ,key) in item.properties.old" v-if="value">
+          <span>{{value}} : </span> 
+            <span>{{key}}</span>
+        </div>
+      </template>
+
+      <template v-slot:item.oldValue="{ item }" >
+        <div v-for="(value ,key) in item.old_value" v-if="value" class="dir-ltr">
+            <span>{{value}} : </span> 
+            <span>{{key}}</span>
         </div>
       </template>
 
@@ -444,7 +461,7 @@ export default {
   margin: auto;
 }
 
-html:lang(ar) .rows_per_page {
-  font-family: GE-Dinar, Poppins !important;
+.v-application.v-application--is-rtl .rows_per_page {
+  font-family: Tajawal, Poppins !important;
 }
 </style>

@@ -199,7 +199,8 @@ export default {
           formData.append(`ids[${i}][${y}]`, ele.id);
           formData.append(`questions[${i}][${y}]`, ele.question_id);
           formData.append(`answer[${i}][${y}]`, ele.question.value);
-          formData.append(`note[${i}][${y}]`, ele.note.value);
+          var note = (ele.note.value == 'undefined') ?  null  : ele.note.value
+          formData.append(`note[${i}][${y}]`, note);
         }
       }
       formData.append(`assign_camps_id`, this.$route.params.id);
@@ -208,11 +209,16 @@ export default {
       return AssignFormService.answer_questions(formData).then(
         (response) => {
           this.loader = false;
-          var message = { msg: response.data.message, type: "Success" };
-          this.$router.push({
-            path: `/appointments/${this.$route.params.id}/form`,
-            params: message,
-          });
+          // var message = { msg: response.data.message, type: "Success" };
+          this.SET_NOTIFY({
+              msg: response.data.message,
+              type: "Success",
+            });
+
+          let self = this
+          setTimeout(function(){
+              self.$router.push(`/appointments/${self.$route.params.id}/form`)
+            },1200)
         },
         (error) => {
           this.loader = false;

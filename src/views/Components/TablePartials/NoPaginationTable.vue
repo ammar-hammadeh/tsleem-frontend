@@ -369,7 +369,7 @@ export default {
   margin: auto;
 }
 html:lang(ar) .rows_per_page{
-  font-family: GE-Dinar Poppins !important;
+  font-family: Tajawal Poppins !important;
 }
 </style>
 

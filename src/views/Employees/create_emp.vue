@@ -31,7 +31,7 @@ export default {
         },
         {
           col: "6",
-          type: "email",
+          type: "text",
           label: this.$i18n.t("auth.Email Address"),
           placeholder: this.$i18n.t("auth.Email Address"),
           error: null,

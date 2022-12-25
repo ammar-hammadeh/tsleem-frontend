@@ -359,6 +359,12 @@ export default {
         permission: "report",
         items: [
           {
+            title: "System Logs",
+            prefix: "IS",
+            link: "/log-system",
+            permission: "report-system-log",
+          },
+          {
             title: "Logs",
             prefix: "IS",
             link: "/logs",
@@ -448,6 +454,12 @@ export default {
             prefix: "IS",
             link: "/electrical-meters",
             permission: "gis-electrical-meter-index",
+          },
+          {
+            title: "MapPage",
+            prefix: "IS",
+            link: "/map",
+            permission: "gis-map-index",
           },
         ],
       },

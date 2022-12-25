@@ -137,6 +137,12 @@ export const camp = {
 
         },
         update_camp({ rootState }, data) {
+            const is_developed = data.get("is_developed");
+            if (is_developed) {
+                data.append("is_developed", 1);
+            } else {
+                data.append("is_developed", 0);
+            }
             return CampService.edit_camp(rootState.id, data).then(
                 (response) => {
                     console.log(response);

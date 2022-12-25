@@ -131,7 +131,7 @@ export default {
           value: "",
           visible: true,
           error: null,
-          type: "email",
+          type: "text",
           value_text: "email",
           label: this.$i18n.t("auth.Email Address"),
           placeholder: "Example@test.com",

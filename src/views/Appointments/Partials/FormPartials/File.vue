@@ -11,7 +11,10 @@
                 > -->
                 <img :src="attach.path" class="attach-answer"/>
             </a>
-            <button type="button" aria-label="clear icon" @click="removeAttach(attach,data.attach)" tabindex="-1" class="btn-close v-icon notranslate v-icon--link  fas fa-times-circle theme--light"></button>
+            <button type="button" aria-label="clear icon" @click="removeAttach(attach,data.attach)" tabindex="-1" class="btn-close text-white" >{{ $t('Delete') }}</button>
+            <!-- <v-btn :ripple="false" rounded @click="removeAttach(attach,data.attach)" tabindex="-1" class="text-white bg-danger" >{{ $t('Delete') }}</v-btn> -->
+
+            <!-- class="btn-close v-icon notranslate v-icon--link  fas fa-times-circle theme--light" -->
         </div>
     </div>
 </template>
@@ -57,5 +60,6 @@ export default{
 <style scoped>
 .attach-answer{
     max-width: 100%;
+    max-height: 100%;
 }
 </style>

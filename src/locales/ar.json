@@ -264,6 +264,7 @@
     "apply now": "تطبيق",
     "Cancelled Order": "إالغاء الطلب"
   },
+  "edit camp": "تعديل مخيم",
   "general": {
     "edit_location": "تعديل موقع",
     "delete_location": "حذف موقع",
@@ -702,7 +703,7 @@
   "go back": "عودة",
   "review account": "جاري مراجعة طلبك",
   "variable body": "متغيرات محتوى المحضر",
-  "files_counter": "عدد المرفقات المتبقي",
+  "files_counter": "عدد المرفقات",
   "edit location": "تعديل موقع",
   "create location": "انشاء موقع",
   "Location info": "معلومات الموقع",
@@ -825,8 +826,8 @@
   "assign camp": "تسليم المخيمات",
   "Tamplates": "النماذج",
   "Event": "الحدث",
-  "old": "القيم القديمة",
-  "new": "التحديث الجديد",
+  "old": "المحتوى القديم",
+  "new": "المحتوى الجديد",
   "table name": "اسم الجدول",
   "view": "عرض",
   "signetures": "التواقيع",
@@ -834,11 +835,35 @@
   "type_user": "نوع الجهة",
   "name_user": "اسم الجهة",
   "user status": "حالة المستخدمين",
+  "MapPage": "الخريطة التفاعلية",
+  "System Logs": "System Logs",
+  "LogSystem": "System Logs",
+  "value": "المحتوى",
+  "module": "التصنيف",
+  "method": "النوع",
+  "message": "الرسالة",
+  "Are you sure to notify ?": "هل انت متأكد من ارسال الاشعار للجهات المعنية باكتمال الاجابة عن استفسارات المحاضر؟",
   "status_assign": {
     "pending": "انتظار",
     "returned": "تم ارجاعه",
     "appointment": "تم تحديد موعد",
     "answered": "لم يتم توقيعها",
     "deliverd": "تم التسليم"
+  },
+  "status_user": {
+    "pending": "انتظار",
+    "disabled": "معطل",
+    "review": "مراجعة",
+    "rejected": "مرفوض",
+    "active": "مفعل"
+  },
+  "status_camp": {
+    "ready": "جاهز",
+    "notready": "غير جاهز"
+  },
+  "status_appontment": {
+    "pending": "بالانتظار",
+    "approved": "معتمد",
+    "rejected": "مرفوض"
   }
 }

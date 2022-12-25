@@ -280,6 +280,11 @@ export default {
             });
             this.data.users = this.data.users.filter((v) => v.id != id);
             this.data.signature.push(response.data.user_signature);
+            
+            let self = this
+            setTimeout(function(){
+              self.$router.push(`/appointments/${self.$route.params.id}/form`)
+            },1200)
           })
           .catch((error) => {
             console.log(error);

@@ -40,7 +40,9 @@
                           :to="card.add_url"
                       >
                         <!--                      <v-icon dark> mdi-plus</v-icon>-->
-                        <h5>{{ $t('Add new') }}</h5>
+                        <h5>
+                          <v-icon class="ml-1"> mdi-plus</v-icon>
+                          {{ $t('Add new') }}</h5>
                       </v-btn>
                     </slot>
                     </template>

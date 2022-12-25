@@ -122,7 +122,7 @@ export default {
               {
                 value: "",
                 visible: true,
-                type: "email",
+                type: "text",
                 value_text: "email",
                 label: this.$i18n.t("auth.Email Address"),
                 placeholder: this.$i18n.t("auth.Email Address"),

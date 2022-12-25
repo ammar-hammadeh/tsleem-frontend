@@ -47,6 +47,14 @@
                 ></v-autocomplete>
 
                 <v-text-field
+                  v-else-if="filter.type == 'datee'"
+                  type="date"
+                  v-model="filter.value"
+                  :name="filter.value"
+                  hide-details
+                />
+
+                <v-text-field
                   v-else
                   :type="filter.type"
                   v-model="filter.value"

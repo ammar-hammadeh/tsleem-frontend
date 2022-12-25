@@ -1,11 +1,17 @@
 <template>
   <v-card class="card-shadow border-radius-xl z-index-2">
-    <div class="pa-4 pb-0">
-      <h6 class="text-h6 text-typo font-weight-bold">{{ this.title }}</h6>
+    <div class="pa-4 pb-0 d-flex">
+      <h6 class="text-h6 text-typo font-weight-bold">{{ title }}</h6>
+      <slot name="sub-title"></slot>
     </div>
     <div class="card-padding">
-      <div class="chart">
-        <vue-apex-charts :series="this.series" :options="chartOptions" />
+      <div class="chart" style="max-width: 450px" :id="`div-chartPie-${title}`">
+        <vue-apex-charts
+          v-if="chartOptions"
+          :series="dataValues"
+          :id="`chartPie-${title}`"
+          :options="chartOptions"
+        />
       </div>
     </div>
   </v-card>
@@ -18,32 +24,52 @@ export default {
   components: { VueApexCharts },
   props: {
     title: { required: true },
-    type:{type:String},
+    id_chart: { required: true },
+    type: { type: String },
     dataValues: { required: true, type: Array },
     labels: { required: true, type: Array },
+    color: {
+      type: Array,
+      default: function () {
+        return ChartsColors;
+      },
+    },
   },
   data: function () {
     return {
-      doughnutChartId: this.title + "doughnut-chart",
-      series: this.dataValues,
-      chartOptions: {
+      doughnutChartId: this.id_chart + "doughnut-chart",
+      chartOptions: null,
+    };
+  },
+  mounted() {
+    this.chartOptions = this.makeOptions();
+  },
+  methods: {
+    makeOptions() {
+      return {
         chart: {
+          id: this.id_chart + "doughnut-chart",
           events: {
-              dataPointSelection: function(event, chartContext, config) {
-                alert(this.type)
-                console.log(this)
-                if(this.type == 'user_statue'){
-                  let label = config.w.config.labels[config.dataPointIndex]
-                  this.$router.push({path:`/users?status=${label}`})
-                }
-              }.bind(this)
-            },
+            dataPointSelection: function (event, chartContext, config) {
+              if (this.type == "user_statue") {
+                let label = config.w.config.labels[config.dataPointIndex];
+                let val = this.ConvertEn(label);
+                this.$router.push({ path: `/users?status=${val}` });
+              }
+            }.bind(this),
+          },
           type: "donut",
-          height: 300,
+        },
+        dataLabels: {
+          enabled: true,
+          textAnchor: "start",
+          minAngleToShowLabel: 0,
+          offsetX: 10,
+          offsetY: 5,
         },
         labels: this.labels,
-        colors: ChartsColors,
-        legend:{
+        colors: this.color,
+        legend: {
           show: true,
           fontSize: "14px",
         },
@@ -60,15 +86,40 @@ export default {
             },
           },
         ],
+      };
+    },
+    ConvertEn(type) {
+      switch (type) {
+        case "انتظار":
+          return "pending";
+        case "معطل":
+          return "disabled";
+        case "مراجعة":
+          return "review";
+        case "مرفوض":
+          return "rejected";
+        case "مفعل":
+          return "active";
+      }
+    },
+  },
+  watch: {
+    $props: {
+      handler() {
+        this.chartOptions = this.makeOptions();
       },
-    };
+      deep: true,
+    },
   },
 };
 </script>
 <style>
-.apexcharts-legend-series{
+.apexcharts-legend-series {
   display: flex;
   align-items: center;
   column-gap: 3px;
+}
+.apexcharts-legend-text {
+  font-family: Tajawal !important;
 }
 </style>

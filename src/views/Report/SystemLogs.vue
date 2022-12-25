@@ -2,8 +2,8 @@
   <div>
     <Card>
       <template #table-column="{ item2 }">
-        <div v-for="(value ,key) in item2.new_value" v-if="value" class="dir-ltr">
-          <span>{{value}} : </span> 
+        <div v-for="(value ,key) in item2.properties.attributes" v-if="value">
+            <span>{{value}} : </span> 
             <span>{{key}}</span>
         </div>
       </template>
@@ -23,13 +23,12 @@ export default {
   data() {
     return {
       header: [
-        { text: this.$i18n.t("method"), align: "center", value: "method" },
-        { text: this.$i18n.t("module"), align: "center", value: "module_text" },
-        { text: this.$i18n.t("message"), align: "center", value: "message" },
-        { text: this.$i18n.t("old"), align: "center", value: "oldValue" },
+        { text: this.$i18n.t("table name"), align: "center", value: "log_name" },
+        { text: this.$i18n.t("Proccess"), align: "center", value: "event_text" },
+        { text: this.$i18n.t("old"), align: "center", value: "oldProperties" },
         { text: this.$i18n.t("new"), align: "center", value: "column" },
         { text: this.$i18n.t("Created at"), align: "center", value: "created_at" },
-        { text: this.$i18n.t("Account"), value: "name", align: "center" },
+        { text: this.$i18n.t("User"), value: "name", align: "center" },
       ],
       card: {
         title: this.$i18n.t("LogPage"),
@@ -46,7 +45,7 @@ export default {
     set_data() {
       this.$store.commit("SET_CARD", this.card);
       this.$store.commit("SET_COLLECTION", "report");
-      this.$store.commit("SET_URL","general/system_logs");
+      this.$store.commit("SET_URL","general/logs");
       this.$store.commit("table/SET_LOADING", true);
       this.$store.commit("table/SET_HEADERS", this.header);
       this.$store.commit("table/SET_BTNS", this.btns);
@@ -66,7 +65,7 @@ export default {
   mounted() {
     this.set_data();
     this.get_logs();
-    document.title = this.$i18n.t("LogPage");
+    document.title = this.$i18n.t("System Logs");
   },
 };
 </script>

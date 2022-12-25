@@ -1,15 +1,19 @@
 var validator = require("validator");
 
-// const ArabicLettersInOneString = 'آأئيءابتثجحخدذرزسشصضطظعغفقكلمنهوي'
+const ArabicLettersInOneString = "آأئيءةابتثجحخدذرزسشصضطظعغفقكلمنهوي";
 
 export function EmailValidator(str) {
-  return validator.isEmail(str, {
-    // blacklisted_chars:ArabicLettersInOneString,
-  });
+  return validator.isEmail(str);
 }
 
 export function NoArabicValidation(str) {
-  return !/[\u0600-\u06FF]/.test(str);
+  let containsArabic = false;
+  [...ArabicLettersInOneString].forEach((letter) => {
+    if (str.includes(letter)) {
+      containsArabic = true;
+    }
+  });
+  return !containsArabic;
 }
 
 export function EmailWithNoArabicValidator(str) {

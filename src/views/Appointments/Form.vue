@@ -2,9 +2,17 @@
   <div class="form-card">
     <Loading v-if="loading"></Loading>
     <v-container fluid class="px-6 py-6">
-      <h5 class="mb-7 text-h5 text-typo font-weight-bold ms-4">
-        {{ $t("AppointmentForm") }}
-      </h5>
+      <v-row>
+        <v-col sm="6" cols="12">
+          <h5 class="mb-7 text-h5 text-typo font-weight-bold ms-4">
+            {{ $t("AppointmentForm") }}
+          </h5>
+        </v-col>
+        <v-col sm="6" cols="12" class="text-left">
+          <span class="mx-3">{{ assign_camp.last_notified }}</span> 
+          <v-icon @click="notifyAssign" size="25" >ni-bell-55</v-icon>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col
           sm="4"
@@ -138,6 +146,7 @@ export default {
       form: {
         user: "",
       },
+      assign_camp:null,
       loader_signature: false,
       user: {
         value_text: "user_id",
@@ -156,6 +165,58 @@ export default {
   },
   methods: {
     ...mapMutations("form", ["SET_NOTIFY", "SET_FORM_STYLE", "SET_DIALOG"]),
+    notifyAssign(){
+      const data = new FormData()
+      data.append('assign_camps_id', this.$route.params.id)
+      for (let i = 0; i < this.forms.length; i++) {
+        const element = this.forms[i];
+        data.append(`form_ids[${i}]`, element.id)
+      }
+      this.$swal({
+        title: this.$i18n.t("Are you sure to notify ?"),
+        text: this.$i18n.t("You won't be able to revert this!"),
+        type: "warning",
+        showCancelButton: true,
+        customClass: {
+          confirmButton: "btn bg-gradient-success",
+          cancelButton: "btn bg-gradient-danger",
+        },
+        confirmButtonText: this.$i18n.t("Yes"),
+        cancelButtonText: this.$i18n.t("No, cancel!"),
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.value) {
+          return AssignFormService.sendNotify(data).then(
+            (response) => {
+              // console.log(response)
+              this.$swal.fire(
+                this.$i18n.t("Done!"),
+                response.data.message,
+                "success"
+              );
+              this.assign_camp = response.data.assign_camp
+            },
+            (error) => {
+              console.log(error);
+              this.$swal.fire(
+                this.$i18n.t("Error"),
+                this.$i18n.t("There error please try again"),
+                "error"
+              );
+            }
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === this.$swal.DismissReason.cancel
+        ) {
+          this.$swal.fire(
+            this.$i18n.t("Cancelled"),
+            this.$i18n.t("Cancelled Proccess"),
+            "error"
+          );
+        }
+      });
+    }
   },
   mounted() {
     this.loading = true;
@@ -166,6 +227,7 @@ export default {
       (response) => {
         this.forms = response.data.forms;
         this.answered = response.data.answered;
+        this.assign_camp = response.data.assign_camp
         // this.users.items = response.data.users
         this.loading = false;
       },
