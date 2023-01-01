@@ -55,6 +55,10 @@ export default {
                 let label = config.w.config.labels[config.dataPointIndex];
                 let val = this.ConvertEn(label);
                 this.$router.push({ path: `/users?status=${val}` });
+              }else if (this.type == "assign_camp") {
+                let label = config.w.config.labels[config.dataPointIndex];
+                let val = this.ConvertEnAssign(label);
+                this.$router.push({ path: `/appointments?status=${val}` });
               }
             }.bind(this),
           },
@@ -102,6 +106,20 @@ export default {
           return "active";
       }
     },
+    ConvertEnAssign(type){
+      switch (type) {
+        case "انتظار":
+          return "pending";
+        case "تم ارجاعه":
+          return "returned";
+        case "تم تحديد موعد":
+          return "appointment";
+        case "لم يتم توقيعها":
+          return "answered";
+        case "تم التسليم":
+          return "deliverd";
+      }
+    }
   },
   watch: {
     $props: {

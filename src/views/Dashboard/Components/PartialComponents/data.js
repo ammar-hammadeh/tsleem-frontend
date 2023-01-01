@@ -15,5 +15,13 @@ const ChartsUserServiceColors = [
     { type: "disabled", color: "#e0e0e0" },
 ];
 
+const ChartsAssignCampServiceColors = [
+    { type: "pending", color: "#5cbbf6" },
+    { type: "returned", color: "#f5365c" },
+    { type: "answered", color: "#fbcf33" },
+    { type: "appointment", color: "#e0e0e0" },
+    { type: "deliverd", color: "#2dce89" },
+];
 
-export { ChartsUserServiceColors, ChartsColors };
+
+export { ChartsUserServiceColors, ChartsAssignCampServiceColors, ChartsColors };

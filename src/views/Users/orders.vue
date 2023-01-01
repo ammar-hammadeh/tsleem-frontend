@@ -1,6 +1,36 @@
 <template>
   <div>
     <Card>
+      <template #befor_table>
+        <div >
+          <v-row class="py-0 my-0">
+            <v-col cols="12" sm="6">
+              <v-btn
+                :ripple="false"
+                :class="classLangBtn"
+                class="
+                  text-white
+                  bg-gradient-success
+                  font-weight-bolder
+                "
+                small
+                @click="export_excel"
+                :loading="load_excel"
+              >
+                <!-- color="#c7373a" -->
+                <span slot="loader">
+                  <v-progress-circular
+                    style="width: 20px; height: 20px"
+                    indeterminate
+                    color="white"
+                  ></v-progress-circular>
+                </span>
+                {{ $t("excel") }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
       <template #table-column="{ item2 }">
         <v-chip
           
@@ -26,6 +56,7 @@ export default {
   },
   data() {
     return {
+      load_excel:false,
       modal_data: {
         size: "600px",
         title: null,
@@ -135,7 +166,56 @@ export default {
       },
     };
   },
+  computed:{
+    classLangBtn() {
+      return {
+        "mr-6": this.$vuetify.rtl,
+        "ml-6": !this.$vuetify.rtl,
+      };
+    },
+  },
   methods: {
+    export_excel() {
+      this.load_excel = true;
+      const formData = new FormData();
+      // this.filters.filter(function (filter) {
+      //   formData.append(filter.name, filter.value);
+      // });
+      this.$http({
+        url: this.$baseURL + "api/users/exportPendingUsers",
+        responseType: "blob",
+        method: "post",
+        // data: formData,
+      }).then(
+        (response) => {
+          this.load_excel = false;
+          // console.log(response);
+          const url = URL.createObjectURL(
+            new Blob([response.data], {
+              type: "application/vnd.ms-excel",
+            })
+          );
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute(
+            "download",
+            "users_requests_" + new Date().toLocaleString() + ".xlsx"
+          );
+          document.body.appendChild(link);
+          link.click();
+        },
+        (error) => {
+          this.load_excel = false;
+          if (error.response.status != 401) {
+            this.message = {
+              msg: this.$i18n.t("general.there is problem"),
+              type: "Danger",
+            };
+          }
+        }
+      );
+    },
     color_status(val) {
       if (val == "pending") {
         return "#5cbbf6";

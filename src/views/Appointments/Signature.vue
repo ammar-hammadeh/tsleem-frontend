@@ -51,6 +51,9 @@
                           </template>
                         </div>
                       </div>
+                      <div v-else>
+                        -
+                      </div>
                     </div>
                   </v-col>
                 </v-row>

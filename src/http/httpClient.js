@@ -34,20 +34,23 @@ axios.interceptors.request.use(function (config) {
   return config;
 });
 axios.interceptors.response.use(
-    function (response) {
-        return response;
-    },
-    function (error) {
-        if (error.response.status == 401) {
-            const pathName = window.location.pathname;
-            store
-                .dispatch("auth/logout")
-                .then(() => {
-                    saveRedirectionIntoStorage(pathName);
-                    router.push({path: `/login`});
-                })
-                .catch((err) => console.log(err));
-        }
-        return Promise.reject(error);
+  function (response) {
+    return response;
+  },
+  function (error) {
+    console.log(error)
+
+    if (error.response && error.response.status == 401) {
+      console.log(router)
+        ; store
+          .dispatch("auth/logout")
+          .then(() => {
+            const prevPath = router.history._startLocation ?? undefined;
+            saveRedirectionIntoStorage(prevPath);
+            router.push({ path: `/login` });
+          })
+          .catch((err) => console.log(err));
     }
+    return Promise.reject(error);
+  }
 );

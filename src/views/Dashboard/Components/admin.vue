@@ -129,13 +129,30 @@
           :labels="this.appointmentsChartData.lables"
         />
       </v-col>
-      <v-col sm="6" cols="12" class="grid" v-if="statistic">
+      <v-col sm="6" cols="12" class="grid position-relative" v-if="statistic">
+        <Loading v-if="loading_chart_assign_camp"></Loading>
         <CustomDoughnutChart
           :title="$t('assignations status')"
           :id_chart="'assignations_status'"
           :data-values="this.assignationsChartData.dataValues"
           :labels="this.assignationsChartData.lables"
-        />
+          :color="assignationsChartData.color"
+          :type="'assign_camp'"
+        >
+          <template #sub-title>
+            <div class="mr-7">
+              <v-autocomplete
+                v-model="typeUserForAssignCamp"
+                :items="types"
+                :item-text="'name'"
+                class="pt-0 mt-0"
+                :item-value="'id'"
+                :placeholder="$t('general.choose')"
+                @change="filter_type_assign_camp"
+              ></v-autocomplete>
+            </div>
+          </template>
+        </CustomDoughnutChart>
       </v-col>
       <v-col sm="6" cols="12" class="grid" v-if="statistic">
         <CustomDoughnutChart
@@ -151,7 +168,10 @@
 <script>
 import CustomCard from "@/views/Dashboard/Components/PartialComponents/CustomCard";
 import CustomDoughnutChart from "@/views/Dashboard/Components/PartialComponents/CustomDoughnutChart";
-import { ChartsUserServiceColors } from "@/views/Dashboard/Components/PartialComponents/data";
+import {
+  ChartsUserServiceColors,
+  ChartsAssignCampServiceColors,
+} from "@/views/Dashboard/Components/PartialComponents/data";
 import DashboardService from "../../../services/dashboard.service";
 import Loading from "../../Components/Loading";
 export default {
@@ -162,20 +182,31 @@ export default {
   data: function () {
     return {
       typeUser: "",
+      typeUserForAssignCamp: "",
       types: [],
       statistic: null,
       chart_user: null,
+      chart_assign_camp: null,
       statistic_card: null,
       loading_card: true,
       loading_chart: true,
       loading_chart_user: true,
+      loading_chart_assign_camp: true,
     };
   },
   computed: {
     assignationsChartData() {
-      const assignations = this.statistic.assignations_chart;
+      const assignations = this.chart_assign_camp;
       var self = this;
+      var color = [];
+      assignations.lables.map((v) => {
+        for (let i = 0; i < ChartsAssignCampServiceColors.length; i++) {
+          const element = ChartsAssignCampServiceColors[i];
+          if (v === element.type) return color.push(element.color);
+        }
+      });
       return {
+        color: color,
         lables: assignations.lables.map((v) =>
           self.$i18n.t(`status_assign.${v}`)
         ),
@@ -226,6 +257,9 @@ export default {
     filter_type() {
       this.filter_chart_user();
     },
+    filter_type_assign_camp() {
+      this.filter_assign_camp_chart();
+    },
     get_data() {
       axios.get("/general/types").then(
         (res) => {
@@ -234,7 +268,9 @@ export default {
           this.typeUser = result.filter(
             (v) => v.code == "service_provider"
           )[0].id;
+          this.typeUserForAssignCamp = this.typeUser;
           this.filter_chart_user();
+          this.filter_assign_camp_chart();
           this.get_statistic_card();
           this.get_statistic_chart();
         },
@@ -282,6 +318,20 @@ export default {
         (response) => {
           this.chart_user = response.data.data;
           this.loading_chart_user = false;
+        },
+        (error) => {
+          this.errorHandler();
+        }
+      );
+    },
+    filter_assign_camp_chart() {
+      this.loading_chart_assign_camp = true;
+      return DashboardService.filter_assign_camp_chart({
+        type_id: this.typeUserForAssignCamp,
+      }).then(
+        (response) => {
+          this.chart_assign_camp = response.data.data;
+          this.loading_chart_assign_camp = false;
         },
         (error) => {
           this.errorHandler();

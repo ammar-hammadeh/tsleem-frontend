@@ -80,6 +80,21 @@ export default {
         // },
         {
           col: "6",
+          type: "text",
+          label: this.$i18n.t("developed_name"),
+          placeholder: this.$i18n.t("developed_name"),
+          error: null,
+          value_text: "developed_name",
+          value: "",
+          rules: [
+            // (v) => !!v || this.$i18n.t("form.Item is required"),
+          // (v) =>
+          //     (v && v.length <= 25) ||
+          //     this.$i18n.t("auth.maximum 25 characters at least"),
+          ],
+        },
+        {
+          col: "6",
           type: "checkbox",
           label: null,
           value_text: "is_developed",
@@ -89,19 +104,7 @@ export default {
           color: "success",
           rules: [],
         },
-        // {
-        //   col: "6",
-        //   type: "text",
-        //   label: this.$i18n.t("developed_name"),
-        //   error: null,
-        //   value_text: "developed_name",
-        //   value: "",
-        //   rules: [
-        //     // (v) => !!v || this.$i18n.t("form.Item is required"),
-        //   (v) =>
-        //       (v && v.length <= 25) ||
-        //       this.$i18n.t("auth.maximum 25 characters at least"),],
-        // },
+       
       ],
     };
   },

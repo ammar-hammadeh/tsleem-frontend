@@ -45,7 +45,7 @@ export default {
       header: [
         { text: this.$i18n.t("Camp"), align: "center", value: "name" },
         { text: this.$i18n.t("square"), value: "square.name", align: "center" },
-        // { text: this.$i18n.t("developed_name"), value: "developed_name", align: "center" },
+        { text: this.$i18n.t("developed_name"), value: "developed_name", align: "center" },
         // { text: this.$i18n.t("gate"), value: "gate", align: "center" },
         // { text: this.$i18n.t("street"), value: "street", align: "center" },
         { text: this.$i18n.t("is_developed"), value: "is_developed_text", align: "center" },

@@ -218,21 +218,6 @@
 
       <template v-slot:item.btns="{ item }" :id="item.id">
         <div :id="item.id" :class="chack_permission">
-          <!-- <div v-for="(btn, index) in btns" :key="index">
-            <div class="d-inline-block" v-if="btn.permission">
-              <span
-                v-if="str_per.indexOf(btn.permission) > -1"
-                :title="btn.text.replace('_', ' ')"
-                :class="`btn font-weight-bold  mr-4`"
-                @click="action(item, btn.text)"
-              >
-                <v-icon v-if="btn.type == 'icon'">{{ btn.icon }}</v-icon>
-                <div v-else>
-                  {{ $t("general." + btn.text.replace("_", " ")) }}
-                </div>
-              </span>
-            </div>
-          </div> -->
           <v-menu top :close-on-click="closeOnClick">
             <template v-slot:activator="{ on, attrs }">
               <!-- class="bg-gradient-default text-white" -->

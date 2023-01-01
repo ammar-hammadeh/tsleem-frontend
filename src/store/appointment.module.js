@@ -221,6 +221,11 @@ export const appointment = {
             // console.log(data)
             rootState.table.loading = true;
             const formData = new FormData();
+            if (data.hasOwnProperty('custom')) {
+                data.custom.filter(function (filter) {
+                    formData.append(filter.name, filter.value);
+                });
+            }
             if (!data.hasOwnProperty('reset')) {
 
                 rootState.form.filters.filter(function (filter) {

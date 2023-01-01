@@ -119,7 +119,7 @@ export default {
                   type_file:'multiple',
                   uploadPercentage:0,
                   isHidden:true,
-                  accept: [".jpg",".png"],
+                  accept: [".jpg",".png",".jpeg"],
                   attachements
               },
               id: id,
@@ -132,8 +132,8 @@ export default {
             this.categories.forEach((v) => {
               var newarray = [];
               // console.log(v);
-              id = null;
-              value = null,attachements=[]
+              // id = null;
+              // value = null,attachements=[]
               v.get_category.get_question.forEach((s) => {
                 if (s.answer != null) {
                   id = s.answer.id;
@@ -142,8 +142,11 @@ export default {
                   else value = s.answer.answer;
                   note =  s.answer.note;
                   attachements = s.answer.attachements
+                }else{
+                  id = null;
+                  value = null;
+                  attachements=[];
                 }
-                // console.log(s)
                 newarray.push({
                   question:{
                     label: s.title,
@@ -161,7 +164,7 @@ export default {
                     value: null,
                     type_file:'multiple',
                     uploadPercentage:0,
-                    accept: [".jpg",".png"],
+                    accept: [".jpg",".png",".jpeg"],
                     isHidden:true,
                     attachements
                 },
@@ -169,6 +172,7 @@ export default {
                   question_id: s.id,
                 });
               });
+                // console.log(s)
               this.categories_form.push(newarray);
             });
           }

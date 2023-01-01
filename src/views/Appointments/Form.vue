@@ -9,7 +9,7 @@
           </h5>
         </v-col>
         <v-col sm="6" cols="12" class="text-left">
-          <span class="mx-3">{{ assign_camp.last_notified }}</span> 
+          <span class="mx-3" v-if="assign_camp && assign_camp.last_notified">{{ assign_camp.last_notified }}</span> 
           <v-icon @click="notifyAssign" size="25" >ni-bell-55</v-icon>
         </v-col>
       </v-row>

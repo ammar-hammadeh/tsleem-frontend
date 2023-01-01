@@ -756,7 +756,7 @@ ul.attributes-list-container li.price-row {
 .btn-close {
     position: absolute !important;
     top: 0px;
-    left: 0px;
+    right: 0px;
     padding: 3px;
     background-color: #f5365c;
 }

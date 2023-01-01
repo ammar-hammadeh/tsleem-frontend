@@ -14,6 +14,8 @@
               <v-col
                 lg="4"
                 md="4"
+                sm="6"
+                cols="12"
                 v-for="(filter, i) in filters"
                 :key="i"
                 v-if="filter.type != 'date'"

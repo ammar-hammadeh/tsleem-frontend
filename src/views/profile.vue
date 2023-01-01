@@ -436,6 +436,7 @@ import Input from "./Components/Input.vue";
 import CardProfile from "./Components/CardProfile.vue";
 import Loading from "./Components/Loading.vue";
 import { mapMutations, mapState } from "vuex";
+import {EmailWithNoArabicValidator} from "@/util/helpers/Validators/EmailValidator";
 export default {
   name: "UpdateUser",
   components: { Input , CardProfile ,Loading},
@@ -463,12 +464,9 @@ export default {
           rules: [
             (v) => !!v || this.$i18n.t("form.Item is required"),
             (v) =>
-              (v &&
-              /^(([a-zA-Z\-0-9]+(\.[a-zA-Z\-0-9]+[^<>()\\.,;:@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,24}))$/.test(
-                  v
-                )) ||
+                (v && EmailWithNoArabicValidator(v)) ||
               this.$i18n.t("auth.E-mail must be valid"),
-        ],
+          ],
           label: this.$i18n.t("auth.Email Address"),
           items: [],
         },

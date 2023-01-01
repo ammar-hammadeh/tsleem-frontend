@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex">
-        <div class="position-relative  mx-3" v-for="(attach, i) in data.attach.attachements" :key="i">
+    <div class="d-flex flex-wrap">
+        <div class="position-relative mb-2 mx-3" v-for="(attach, i) in data.attach.attachements" :key="i">
             <a
                 :href="attach.path"
                 target="_blank"

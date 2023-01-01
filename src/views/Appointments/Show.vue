@@ -180,8 +180,16 @@ export default {
     edit_appoint(item) {
       this.edit_appointment(item);
     },
-    get_types() {
+    get_data() {
+      if (this.$route.query.status) {
+      this.getData(
+      { 
+        custom : [{name :'status' , value: this.$route.query.status}] ,
+        reset: true
+      });
+    }else{
       this.getData({ reset: true });
+    }
     },
   },
   created() {
@@ -192,7 +200,7 @@ export default {
   },
   mounted() {
     this.set_data();
-    this.get_types();
+    this.get_data();
     document.title = this.$i18n.t("AppointmentPage");
   },
 };

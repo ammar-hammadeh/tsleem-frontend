@@ -41,6 +41,7 @@
         :disabled="item.disabled"
         :chips="item.chips"
         @change="$emit('change',$event)"
+        @click:clear="$emit('clear',$event)"
         @input="updateChangeFiles($event)"
       ></v-file-input>
 
@@ -244,6 +245,9 @@ export default {
     updateChangeFiles: function (value) {
       this.$emit("input", value);
     },
+    // clear(){
+      
+    // }
   },
 };
 </script>
